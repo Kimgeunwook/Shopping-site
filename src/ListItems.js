@@ -174,8 +174,45 @@ export default function ListItems() {
         {/* //////////////////// */}
 
 
+        {/* //////////통계////////// */}
+        <div className={classes.root} >
+            <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography className={classes.heading}>통계</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography className={classes.AccordionDetail}>
+              <ListItem button 
+              onClick = {() => history.push('/App/Reports')}>
+                <ListItemIcon>
+                  <DashboardIcon />
+                </ListItemIcon>
+                통계1
+              </ListItem>
+
+              <ListItem button
+              onClick = {() => history.push('/App/Integrations')}>
+                <ListItemIcon>
+                  <ShoppingCartIcon />
+                </ListItemIcon>
+                통계2
+              </ListItem>
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        </div>
 
 
+        {/* //////////////////// */}
+        <ListItem button
+        onClick = {() => history.push('/App/Integrations')}
+        >
+            게시판
+        </ListItem>
   </div>
   );
 }
