@@ -1,11 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import Main from './Main';
-import SingUp from './SignUp';
 import * as serviceWorker from './serviceWorker';
-import SignInSide from './SignInSide';
 import {BrowserRouter} from 'react-router-dom'
 ReactDOM.render(
   <BrowserRouter>

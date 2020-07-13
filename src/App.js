@@ -124,7 +124,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function App({match}) {
-  // URL에서 APP다음 오는애가 누군지 알아내는 붑누 
+  // URL에서 APP다음 오는애가 누군지 알아내는 부분
   const {categoryname} = match.params
   
   const classes = useStyles();
@@ -192,12 +192,14 @@ export default function App({match}) {
       </Drawer>
 
       {/* 실제로 컨텐츠 부분 */}
-      <main className={classes.content}>
+      <main className={classes.content} >
 
         {/* appbarspacer == 툴바 자리 남겨두고 내용 보여주게 하는거  */}
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
+        <Container maxWidth="lg" className={classes.container} >
+          <Grid container spacing={3} 
+          
+          >
             {/* <Grid item xs={12} md={6} lg={9}>
               <Paper className={fixedHeightPaper}>
                  <Chart/> 
@@ -212,7 +214,7 @@ export default function App({match}) {
             {/* Recent Orders */}
             <Grid item xs={12}  >
               <Paper className={classes.paper} >
-                {/* {categoryname === "HOME"  && <HOME /> } */}
+                {/* {categoryname === "HOME"  && <Home /> } */}
                 {categoryname === "Orders"  && <Orders />}
                 {categoryname === "Customers"  && <Customers />}
                 {categoryname === "Reports"  && <Paper className={fixedHeightPaper}><Chart/></Paper>}
