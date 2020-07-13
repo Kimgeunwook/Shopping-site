@@ -54,6 +54,9 @@ const styles = theme => ({
     marginRight: theme.spacing(1),
     width: 200,
   },
+  calendarentity : {
+    marginTop : theme.spacing(3),
+  }
 });
 
 function DatePickers(props) {
@@ -69,7 +72,7 @@ function DatePickers(props) {
     console.log(e.currentTarget.value)
   };
   return (
-    <div>
+    <div className={classes.calendarentity}>
       <TextField
         id="dateFrom"
         label="주문일(부터)"

@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 import Typography from '@material-ui/core/Typography';
 import Calendar from './Calendar.js';
+import RowList from './RowList.js';
 // Generate Order Data
 function createData(check, id, type, date , num, product, seller, orderer,price, status) {
   return { check, id, type, date , num, product, seller, orderer, price, status };
@@ -32,19 +33,19 @@ const useStyles = makeStyles((theme) => ({
   },
   tablehead : {
     background : 'lightgray',
-  }
+  },
 }));
 
 export default function Orders() {
   const classes = useStyles();
   return (
     <React.Fragment>
+      <Title >주문 현황</Title>
 
       <Calendar/>
+      <RowList />
+
       
-
-
-      <Title>주문 현황</Title>
       <Table size="small">
         <TableHead className={classes.tablehead}>
           <TableRow>
