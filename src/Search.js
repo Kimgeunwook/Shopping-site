@@ -44,7 +44,7 @@ export default function CenteredGrid() {
     <div className={classes.root}>
       <Grid container spacing={0} justify = 'center' >
         <Grid item xs={5}  className={classes.leftcomp}>
-        <Calendar />
+             <Calendar />
         </Grid>
         
         <Grid item xs={2} className={classes.rightcomp} >

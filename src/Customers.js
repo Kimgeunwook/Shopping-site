@@ -1,238 +1,277 @@
-import React from 'react'
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import SelectKeyword from './SelectKeyword';
+import Button from '@material-ui/core/Button';
+import Calendar from './Calendar';
+import Checkboxs from './Checkboxs';
+import Divider from '@material-ui/core/Divider';
+import PageControl from './PageControl';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import Drawer from '@material-ui/core/Drawer';
+import TableRow from '@material-ui/core/TableRow';
+function createData(check, id, type, date , num, product, seller, orderer,price, status) {
+  return { check, id, type, date , num, product, seller, orderer, price, status };
+}
+const rows = [
+  createData('true', 0, '교환', '2020-07-13', '201511178', 'zara 티셔츠', 'ZARA', '근욱(yuk888)', '30,000원', '배송중'),
+  createData('true', 1, '교환', '2020-07-13', '201511178', 'zara 티셔츠', 'ZARA', '근욱(yuk888)', '30,000원', '배송중'),
+  createData('true', 2, '교환', '2020-07-13', '201511178', 'zara 티셔츠', 'ZARA', '근욱(yuk888)', '30,000원', '배송중'),
+  createData('true', 3, '교환', '2020-07-13', '201511178', 'zara 티셔츠', 'ZARA', '근욱(yuk888)', '30,000원', '배송중'),
+  createData('true', 4, '교환', '2020-07-13', '201511178', 'zara 티셔츠', 'ZARA', '근욱(yuk888)', '30,000원', '배송중'),
+];
+
 const useStyles = makeStyles((theme) => ({
-    formControl: {
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+  searchbtn : {
+    marginTop : theme.spacing(1)
+  },
+  leftcomp : {
+    marginLeft : theme.spacing(5)
+  },
+  buytext :{
+    display : 'flex',
+    textAlign : 'center',
+    alignItems : 'center',
+    fontSize : 15,
+    marginTop : theme.spacing(2),
+    marginLeft : theme.spacing(1),
+    margin : '0 auto'
+  },
+  pricetext : {
+    '& > *': {
       margin: theme.spacing(1),
-      minWidth: 120,
+      width: '25ch',
     },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  }));
-  
-function Customers(){
-    const classes = useStyles();
-  const [age, setAge] = React.useState('');
+    marginTop : theme.spacing(1)
+  },
+  buytext2 : {
+    display : 'flex',
+    textAlign : 'center',
+    alignItems : 'center',
+    marginTop : theme.spacing(2),
+    margin : '0 auto'
+  },
+  buytext3 : {
+    display : 'flex',
+    textAlign : 'center',
+    alignItems : 'center',
+    marginLeft : theme.spacing(5)
+  },
+  btn : {
+    display: 'flex',
+    marginTop : theme.spacing(3),
+    justifyContent: 'center',
+  },
+  result: {
+    display: 'flex',
+    marginTop : theme.spacing(3),
+    justifyContent: 'flex-end',
+  }, 
+  page : {
+    display: 'flex',
+    marginTop : theme.spacing(3),
+    justifyContent: 'center',
+  },
+  tablehead : {
+    background : 'lightgray',
+  },
+}));
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
+export default function CenteredGrid() {
+  const classes = useStyles();
   return (
-    <div>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
-          value={age}
-          onChange={handleChange}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-        <FormHelperText>Some important helper text</FormHelperText>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <Select
-          value={age}
-          onChange={handleChange}
-          displayEmpty
-          className={classes.selectEmpty}
-          inputProps={{ 'aria-label': 'Without label' }}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-        <FormHelperText>Without label</FormHelperText>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-          Age
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-placeholder-label-label"
-          id="demo-simple-select-placeholder-label"
-          value={age}
-          onChange={handleChange}
-          displayEmpty
-          className={classes.selectEmpty}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-        <FormHelperText>Label + placeholder</FormHelperText>
-      </FormControl>
-      <FormControl className={classes.formControl} disabled>
-        <InputLabel id="demo-simple-select-disabled-label">Name</InputLabel>
-        <Select
-          labelId="demo-simple-select-disabled-label"
-          id="demo-simple-select-disabled"
-          value={age}
-          onChange={handleChange}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-        <FormHelperText>Disabled</FormHelperText>
-      </FormControl>
-      <FormControl className={classes.formControl} error>
-        <InputLabel id="demo-simple-select-error-label">Name</InputLabel>
-        <Select
-          labelId="demo-simple-select-error-label"
-          id="demo-simple-select-error"
-          value={age}
-          onChange={handleChange}
-          renderValue={(value) => `⚠️  - ${value}`}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-        <FormHelperText>Error</FormHelperText>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-readonly-label">Name</InputLabel>
-        <Select
-          labelId="demo-simple-select-readonly-label"
-          id="demo-simple-select-readonly"
-          value={age}
-          onChange={handleChange}
-          inputProps={{ readOnly: true }}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-        <FormHelperText>Read only</FormHelperText>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-autowidth-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-autowidth-label"
-          id="demo-simple-select-autowidth"
-          value={age}
-          onChange={handleChange}
-          autoWidth
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-        <FormHelperText>Auto width</FormHelperText>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <Select
-          value={age}
-          onChange={handleChange}
-          displayEmpty
-          className={classes.selectEmpty}
-          inputProps={{ 'aria-label': 'Without label' }}
-        >
-          <MenuItem value="" disabled>
-            Placeholder
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-        <FormHelperText>Placeholder</FormHelperText>
-      </FormControl>
-      <FormControl required className={classes.formControl}>
-        <InputLabel id="demo-simple-select-required-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-required-label"
-          id="demo-simple-select-required"
-          value={age}
-          onChange={handleChange}
-          className={classes.selectEmpty}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-        <FormHelperText>Required</FormHelperText>
-      </FormControl>
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={age}
-          onChange={handleChange}
-          label="Age"
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl variant="filled" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-filled-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-filled-label"
-          id="demo-simple-select-filled"
-          value={age}
-          onChange={handleChange}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
+    <div className={classes.root}>
+      <Grid container spacing={1}>
+
+     
+        {/* //////////////////////// */}
+     
+      <Grid item xs={2}>
+
+      </Grid>
+
+      <Grid item xs={3} justifyContent="flex-end" >
+          <SelectKeyword />
+      </Grid>
+
+      <Grid item xs={3}>
+          <form  noValidate autoComplete="off">
+              <TextField id="outline-search" label="search" variant="outlined" />
+          </form>
+      </Grid>
+
+      <Grid item xs={3}>
+        <Button variant="contained" color="primary" className={classes.searchbtn} >
+          검색
+        </Button>
+      </Grid>
+
+   
+        
+      
+      
+      <Grid item xs={1}>
+      </Grid>
+        {/* //////////////////////// */}
+
+        <Grid item xs={12}></Grid>
+        <Grid item xs={12}></Grid>
+
+
+        {/* //////////////////////// */}
+        <Grid item xs={5} className={classes.leftcomp}>
+           <Calendar />
+        </Grid>
+        <Grid item xs={1} className={classes.buytext}>
+           구매금액 : 
+        </Grid>
+        <Grid item xs={2}>
+        <form className={classes.pricetext} noValidate autoComplete="off">
+          <TextField id="standard-basic" label="최소금액" />
+        </form>
+        </Grid>
+        <Grid item xs={1} className={classes.buytext}>
+          <div className={classes.buytext2}>
+             ~
+          </div>
+        </Grid>
+        <Grid item xs={2}>
+        <form className={classes.pricetext} noValidate autoComplete="off">
+          <TextField id="standard-basic" label="최대금액" />
+        </form>
+        </Grid>
+        {/* //////////////////////// */}
+
+
+        <Grid item xs={12}></Grid>
+        <Grid item xs={12}></Grid>
+        <Grid item xs={12}></Grid>
+        <Grid item xs={12}></Grid>
+
+
+
+        {/* //////////////////////// */}
+        <Grid item xs={1}  className={classes.buytext3}>
+          회원등급 : 
+        </Grid>
+        <Grid item xs={2}>
+          <SelectKeyword />  
+        </Grid>
+        <Grid item xs={1}>
+          
+        </Grid>
+        <Grid item xs={1} className={classes.buytext3}>
+           적립금 : 
+        </Grid>
+        <Grid item xs={2}>
+        <form className={classes.pricetext} noValidate autoComplete="off">
+          <TextField id="standard-basic" label="최소금액" />
+        </form>
+        </Grid>
+        <Grid item xs={1} className={classes.buytext3}>
+          <div className={classes.buytext2}>
+             ~
+          </div>
+        </Grid>
+        <Grid item xs={2}>
+        <form className={classes.pricetext} noValidate autoComplete="off">
+          <TextField id="standard-basic" label="최대금액" />
+        </form>
+        </Grid>
+         {/* //////////////////////// */}
+        <Grid item xs={12}></Grid>
+        <Grid item xs={12}></Grid>
+        <Grid item xs={12}></Grid>
+
+
+        {/* //////////////////////// */}
+        <Grid item xs={1} className={classes.buytext3}>
+            메일 수신 : 
+        </Grid>
+        <Grid item xs={4}>
+          <Checkboxs />
+        </Grid>
+        <Grid item xs={6}>
+        </Grid>
+        {/* //////////////////////// */}
+
+
+
+        {/* //////////////////////// */}
+        <Grid item xs={12}>
+          <div className={classes.btn}>
+            <Button variant="contained" color="primary"  >
+              상세검색
+            </Button>
+          </div>
+          
+          </Grid>
+        {/* //////////////////////// */}
+
+        <Grid item xs={12}>
+          <div className={classes.result}>
+             000건의 검색 결과가 있습니다.
+          </div>
+        </Grid>
+        
+
+        <Table size="small">
+        <TableHead className={classes.tablehead}>
+          <TableRow>
+            <TableCell>선택</TableCell>
+            <TableCell>번호</TableCell>
+            <TableCell>유형</TableCell>
+            <TableCell>주문 일시</TableCell>
+            <TableCell>주문 번호</TableCell>
+            <TableCell>주문 상품</TableCell>
+            <TableCell>판매자</TableCell>
+            <TableCell>주문자(아이디)</TableCell>
+            <TableCell>결제 금액</TableCell>
+            <TableCell>결제 상태</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow key={row.id}>
+              <TableCell>{row.check}</TableCell>
+              <TableCell>{row.id}</TableCell>
+              <TableCell>{row.type}</TableCell>
+              <TableCell>{row.date}</TableCell>
+              <TableCell>{row.num}</TableCell>
+              <TableCell>{row.product}</TableCell>
+              <TableCell>{row.seller}</TableCell>
+              <TableCell>{row.orderer}</TableCell>
+              <TableCell>{row.price}</TableCell>
+              <TableCell>{row.status}</TableCell>
+              
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+
+
+
+        <Grid item xs={12}>
+        </Grid>
+        <Grid item xs={12}>
+          <div className={classes.page}>
+            <PageControl />
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 }
-export default Customers;

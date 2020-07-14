@@ -16,6 +16,7 @@
 
 # issue
 1. main.js 에서 App부분 라우트 할때 app/ 은 어케 따로 지정하는지
+2. ex) 페이지 번호 넘기는건 페이지 컴포넌트에서 하는데 그 변수값을 import하는 컴포넌트에서 어떻게 관리할 것인지  
 
 # solution
 1. component 사용시 component함수이름과 파일이름일치

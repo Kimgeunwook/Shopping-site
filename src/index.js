@@ -4,7 +4,7 @@ import './index.css';
 import Main from './Main';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from 'react-router-dom';
-import SelectKeyword from './SelectKeyword';
+import Checkboxs from './Checkboxs';
 ReactDOM.render(
   <BrowserRouter>
     <Main />

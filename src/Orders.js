@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   page : {
     display: 'flex',
+    marginTop : theme.spacing(3),
     justifyContent: 'center',
   }
 }));
