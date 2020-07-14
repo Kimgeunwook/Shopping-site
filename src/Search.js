@@ -42,12 +42,12 @@ export default function CenteredGrid() {
   return (
     // justify="flex-end"
     <div className={classes.root}>
-      <Grid container spacing={0} >
+      <Grid container spacing={0} justify = 'center' >
         <Grid item xs={5}  className={classes.leftcomp}>
         <Calendar />
         </Grid>
         
-        <Grid item xs={2} className={classes.rightcomp}>
+        <Grid item xs={2} className={classes.rightcomp} >
         <SelectKeyword />  
         </Grid>
 

@@ -6,12 +6,10 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Button from '@material-ui/core/Button';
 import Title from './Title';
-import Typography from '@material-ui/core/Typography';
-import Calendar from './Calendar.js';
 import RowList from './RowList.js';
 import Search from './Search';
+import PageControl from './PageControl';
 // Generate Order Data
 function createData(check, id, type, date , num, product, seller, orderer,price, status) {
   return { check, id, type, date , num, product, seller, orderer, price, status };
@@ -36,16 +34,20 @@ const useStyles = makeStyles((theme) => ({
   tablehead : {
     background : 'lightgray',
   },
+  page : {
+    display: 'flex',
+    justifyContent: 'center',
+  }
 }));
 
 export default function Orders() {
   const classes = useStyles();
   return (
-    <React.Fragment>
+    <React.Fragment className={classes.entire}>
       <Title >주문 현황</Title>
       <Search />
       
-      <RowList />
+      <RowList/>
 
       
       <Table size="small">
@@ -81,6 +83,10 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
+      <div className={classes.page}>
+        <PageControl />
+      </div>
+      
       <div className={classes.seeMore}>
         <Link color="primary" href="#" onClick={preventDefault}>
           See more orders
