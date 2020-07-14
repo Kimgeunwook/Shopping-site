@@ -6,10 +6,12 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
 import Title from './Title';
 import Typography from '@material-ui/core/Typography';
 import Calendar from './Calendar.js';
 import RowList from './RowList.js';
+import Search from './Search';
 // Generate Order Data
 function createData(check, id, type, date , num, product, seller, orderer,price, status) {
   return { check, id, type, date , num, product, seller, orderer, price, status };
@@ -41,8 +43,8 @@ export default function Orders() {
   return (
     <React.Fragment>
       <Title >주문 현황</Title>
-
-      <Calendar/>
+      <Search />
+      
       <RowList />
 
       

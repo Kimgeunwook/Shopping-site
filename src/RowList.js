@@ -13,15 +13,20 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     marginTop : theme.spacing(5),
     marginBottom : theme.spacing(5),
+    marginLeft : theme.spacing(5),
+    border : 1,
+    
   },
   paper: {
     marginRight: theme.spacing(5),
+    border : 1,
   },
   buttonList : {
     marginRight : theme.spacing(5),
+    border : 1,
+    width : '7rem'
   }
 }));
-
 export default function MenuListComposition() {
   const classes = useStyles();
 
@@ -29,7 +34,7 @@ export default function MenuListComposition() {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <MenuList>
-          <Button className={classes.buttonList}>주문 확인 전</Button>
+          <Button className={classes.buttonList} >주문 확인 전</Button>
           <Button className={classes.buttonList}>주문 확인</Button>
           <Button className={classes.buttonList}>배송 준비 중</Button>
           <Button className={classes.buttonList}>배송 중</Button>

@@ -160,7 +160,7 @@ export default function App({match}) {
           </IconButton>
           {/* 제목부분 */}
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            HOME
+            {categoryname}
           </Typography>
           <IconButton color="inherit">
             {/* badge == 알림개수 , notificationsicon == 종모양 */}
