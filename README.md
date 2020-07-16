@@ -1,13 +1,9 @@
 # Shopping website
 
 # prepare
-1. npm install @material-ui/core --save
-2. npm install --save material-ui-icons
-3. npm install --save recharts
-4. npm install @material-ui/icons 
-5. npm add react-router-dom   or npm install --save react-router
-6. npm add cross-env --dev  or npm install react-router-dom --save
-
+```
+npm install 
+```
 
 # router
 1. 기본 router기능 main.js참고
@@ -25,3 +21,28 @@
 3. mongdb --- express 연동 : https://velopert.com/594
 4. react --- nodejs 연동 : https://hello-bryan.tistory.com/122
 
+# mongdb  사용법
+1. mongod로 서버구동(만들어질 폴더 path는 자신이 지정할 수 있음)
+2. mongo로 서버 (환경변수설정 필요)
+3. use {내가원하는 db이름}   (여기까지만 하면 show dbs했을때 안보임)
+4. db.{3에서 만든 db이름}.insert({"name" : "김근욱"});
+5. 제거를 원하면 db.dropDatabase();
+6. collection생성 원할시 db.createCollection("{내가 원하는 컬렉션 이름}")
+7. 컬렉션에 데이터 넣기
+```
+> db.createCollection("articles", {
+... capped: true,
+... autoIndex: true,
+... size: 6142800,
+... max: 10000
+... })
+{ "ok" : 1 }
+```
+또는
+```
+db.people.insert({"name": "velopert"})
+```
+8. collection 리스트 확인 : show collections
+9. 컬렉션 제거 : db.{지우고 싶은 collection이름}.drop()
+10. 컬렉션 안의 내용 확인 : db.{컬렉션이름}.find().pretty()
+11. 컬렉션의 다큐먼트 삭제: db.{컬렉션이름}.remove({"name": "Book1"})
