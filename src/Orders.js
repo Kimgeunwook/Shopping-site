@@ -47,7 +47,6 @@ export default function Orders() {
     <React.Fragment className={classes.entire}>
       <Title >주문 현황</Title>
       <Search />
-      
       <RowList/>
 
       
