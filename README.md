@@ -1,5 +1,12 @@
 # Shopping website
-
+# Stack
+- React
+- Material Ui
+- React Router
+- Node js
+- Express
+- Mongo DB
+- Mongoose
 # prepare
 ```
 npm install 

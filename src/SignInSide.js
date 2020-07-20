@@ -74,7 +74,7 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate >
             <TextField
               variant="outlined"
               margin="normal"
@@ -111,6 +111,7 @@ export default function SignInSide() {
             >
               Sign In
             </Button>
+            </form>
             <Grid container>
               <Grid item xs>
                 <Link2 to ="/SignUp" variant="body2">
@@ -126,7 +127,7 @@ export default function SignInSide() {
             <Box mt={5}>
               <Copyright />
             </Box>
-          </form>
+          
         </div>
       </Grid>
     </Grid>

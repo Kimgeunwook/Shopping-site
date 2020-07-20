@@ -27,16 +27,16 @@ export default Main;
 //             username:null
 //         };
 //     }
-//     componentDidMount() {
-//       fetch('/api/books')
-//           .then(res=>res.json())
-//           .then(data => {
-//             console.log(data[0]['product'])
-//             console.log(data) 
-//           })
+  //   componentDidMount() {
+  //     fetch('/api/books')
+  //         .then(res=>res.json())
+  //         .then(data => {
+  //           console.log(data[0]['product'])
+  //           console.log(data) 
+  //         })
           
-//           // .then(data=>this.setState({username:data.username}));
-//   }
+  //         // .then(data=>this.setState({username:data.username}));
+  // }
 
 //   render() {
 //     const {username} = this.state;
