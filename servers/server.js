@@ -1,23 +1,3 @@
-// const express = require('express');
-// const app = express();
-// // const cors = require('cors');
-// const bodyParser = require('body-parser');
-// const port =process.env.PORT || 3001;
-// const route = require('./routes/index');
-
-// // app.use(cors());
-
-// app.use(bodyParser.json());
-// app.use('/api', route); // app.use('/api', (req, res)=> res.json({username:'bryan'}));
-
-// app.listen(port, ()=>{
-//     console.log(`express is running on ${port}`);
-// })
-
-
-
-// serverjs
-
 // [LOAD PACKAGES]
 var express     = require('express');
 var app         = express();
@@ -50,6 +30,9 @@ var port = process.env.PORT || 3001;
 // [CONFIGURE ROUTER]
 // var router = 
 require('./routes')(app, Book);
+
+var userRouter = require('./routes/user.js');
+app.use('/login', userRouter);
 
 // [RUN SERVER]
 // var server = 

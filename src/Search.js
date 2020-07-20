@@ -39,15 +39,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 function btnClick(){
-    // const fetchUsers = async () => {
-    //   try{
-    //      const response = await Axios.get('/api/books');
-    //      console.log(response.data)
-    //   }catch (e){
-    //       console.log(e)
-    //   }
-    // }
-    // fetchUsers();
+    const fetchUsers = async () => {
+      try{
+         const response = await Axios.get('/api/books');
+         console.log(response.data)
+      }catch (e){
+          console.log(e)
+      }
+    }
+    fetchUsers();
   
 }
 

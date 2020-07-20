@@ -1,0 +1,71 @@
+[33mcommit 38291de3f85a30070a7c95efbb67d8d13101302f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: geunwook <wook961206@naver.com>
+Date:   Mon Jul 20 16:52:05 2020 +0900
+
+    user 안가져와 지는 버전
+
+[33mcommit 6958cd2165dceb2e7d6559b75b628bc900a15440[m
+Author: geunwook <wook961206@naver.com>
+Date:   Mon Jul 20 13:13:25 2020 +0900
+
+    회원가입 업데이트 전
+
+[33mcommit ae6b986dfa225897a5cfef259ab12988f9d22228[m
+Author: geunwook <wook961206@naver.com>
+Date:   Thu Jul 16 15:23:07 2020 +0900
+
+    readme수정
+
+[33mcommit 93ef7eddfb30991eba16dd228c56dba2c601680b[m
+Author: geunwook <wook961206@naver.com>
+Date:   Thu Jul 16 10:20:19 2020 +0900
+
+    mongodb연결 + 리액트-nodejs 연결
+
+[33mcommit 01b6555a282105d95ae3f1de418200292c08d925[m
+Author: geunwook <wook961206@naver.com>
+Date:   Tue Jul 14 17:33:02 2020 +0900
+
+    리드미 이슈추가
+
+[33mcommit b9da177b85f11a0ee50062ae9d625407e2ef7b49[m
+Author: geunwook <wook961206@naver.com>
+Date:   Tue Jul 14 16:29:01 2020 +0900
+
+    회원리스트 ui구성
+
+[33mcommit b3eb822d042f5a4232e5ee9120c0e48660cf976e[m
+Author: geunwook <wook961206@naver.com>
+Date:   Tue Jul 14 13:12:20 2020 +0900
+
+     주문현황 페이지 페이지번호 추가
+
+[33mcommit dd29e395b89bdc3aa576939f09740987f9239ca5[m
+Author: geunwook <wook961206@naver.com>
+Date:   Tue Jul 14 11:11:40 2020 +0900
+
+     주문현황 페이지번호 제외 ui완료
+
+[33mcommit e4e35ccae7ec47d47be2e2d9e0a24a2197422a2a[m
+Author: geunwook <wook961206@naver.com>
+Date:   Mon Jul 13 18:22:59 2020 +0900
+
+     주문현황 페이지 버튼구현
+
+[33mcommit 24a3e4c2147e230ebdf9ae0858be1769ef548e69[m
+Author: geunwook <wook961206@naver.com>
+Date:   Mon Jul 13 17:28:14 2020 +0900
+
+    캘린더 추가
+
+[33mcommit 518d83d516a1d94ca050458f9420cc4791e848a9[m
+Author: geunwook <wook961206@naver.com>
+Date:   Mon Jul 13 14:50:15 2020 +0900
+
+    아코디언바 구현
+
+[33mcommit b23bb9703cd57cda2e1b9d0aba30a6cfc53bdaee[m
+Author: geunwook <wook961206@naver.com>
+Date:   Mon Jul 13 10:32:03 2020 +0900
+
+    init
