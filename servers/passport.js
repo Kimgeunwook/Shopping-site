@@ -11,7 +11,7 @@ module.exports = () => {
     done(null, user); // 여기의 user가 req.user가 됨
   });
 
-  passport.use(new LocalStrategy({ // local 전략을 세움
+  passport.use('local-login',new LocalStrategy({ // local 전략을 세움
     usernameField: 'id',
     passwordField: 'password',
     session: true, // 세션에 저장 여부
