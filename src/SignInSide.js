@@ -74,7 +74,7 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate action = "/login" method = "post">
+          <form className={classes.form} noValidate action = "/api/login" method = "post">
             <TextField
               variant="outlined"
               margin="normal"

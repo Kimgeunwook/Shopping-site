@@ -27,6 +27,7 @@ npm install
 2. 컴포넌트 첫글자는 대문자
 3. mongdb --- express 연동 : https://velopert.com/594
 4. react --- nodejs 연동 : https://hello-bryan.tistory.com/122
+5. 클라 - 서버 통신 안됐던 이유 : setuproxy에서 지정한 루트로 접근해야함
 
 # mongdb  사용법
 1. mongod로 서버구동(만들어질 폴더 path는 자신이 지정할 수 있음)

@@ -24,15 +24,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // [CONFIGURE SERVER PORT]
-
 var port = process.env.PORT || 3001;
 
 // [CONFIGURE ROUTER]
 // var router = 
-require('./routes')(app, Book);
+//require('./routes')(app, Book);
 
-var userRouter = require('./routes/user.js');
-app.use('/login', userRouter);
+var userRouter = require('./routes/user.js')(app);
+app.use('/api/login', userRouter);
 
 // [RUN SERVER]
 // var server = 
