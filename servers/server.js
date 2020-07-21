@@ -4,6 +4,25 @@ var app         = express();
 var bodyParser  = require('body-parser');
 var mongoose    = require('mongoose');
 
+
+/////////////pass
+const session = require('express-session'); // 세션 설정
+const passport = require('passport'); 
+const passportConfig = require('./passport'); 
+app.use(session({
+    secret:"#JDKLF439jsdlfsjl",
+    resave:false,
+    saveUninitialized:true,
+    
+  }))
+  
+, LocalStrategy = require('passport-local').Strategy;
+app.use(passport.initialize()); // passport 구동
+app.use(passport.session()); // 세션 연결
+passportConfig(); // passport.js호출
+  /////////////pass
+
+
 // [ CONFIGURE mongoose ]
 
 // CONNECT TO MONGODB SERVER
@@ -18,7 +37,7 @@ mongoose.connect('mongodb://localhost/mongodb_tutorial');
 
 // DEFINE MODEL
 var Book = require('./models/book');
-
+var User = require('./models/user')
 // [CONFIGURE APP TO USE bodyParser]
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -30,7 +49,7 @@ var port = process.env.PORT || 3001;
 // var router = 
 //require('./routes')(app, Book);
 
-var userRouter = require('./routes/user.js')(app);
+var userRouter = require('./routes/user.js')(app, User);
 app.use('/api/login', userRouter);
 
 // [RUN SERVER]

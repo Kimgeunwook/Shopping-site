@@ -82,7 +82,7 @@ export default function SignInSide() {
               fullWidth
               id="email"
               label="Email Address"
-              name="email"
+              name="id"
               autoComplete="email"
               autoFocus
             />
