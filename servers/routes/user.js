@@ -1,12 +1,8 @@
 module.exports = function(app, User){//함수로 만들어 객체 app을 전달받음
 	var express = require('express');
 	var router = express.Router();
-	// router.post('/', function(req, res){
-    //     console.log('제발')
-	// 	res.send('성공해라!');		
-	// });
+	var bcrypt = require('bcryptjs')
 	const passport = require('passport');
-
 	//로그인
 	router.post('/', passport.authenticate('local-login', {
 		successRedirect: '/App/Orders',
@@ -19,7 +15,8 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
         const {
             body: { firstName, lastName, email, password },
         } = req;
-        console.log(email,password);
+		console.log(email,password);
+		//비번 없으면
         if (!password) {
             res.status(400);
             res.redirect('/SignUp')
@@ -28,10 +25,17 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
                 const user = await User({
                     id: email,
                     password,
-                });
-                console.log(user);
-                await User.register(user, password);
-                res.redirect('/')
+				});
+				bcrypt.genSalt(10, (err,salt) => {
+					bcrypt.hash(user.password, salt, async (err,hash) =>{
+						if(err) throw err;
+						user.password = hash;
+						await User.register(user, password);
+						res.redirect('/')
+					})
+				})
+				// await User.register(user, password);
+                // res.redirect('/')
             } catch (error) {
                 console.log(error);
                 res.redirect('/SignUp');

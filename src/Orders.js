@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Orders() {
   const classes = useStyles();
   return (
-    <React.Fragment className={classes.entire}>
+    <React.Fragment >
       <Title >주문 현황</Title>
       <Search />
       <RowList/>
