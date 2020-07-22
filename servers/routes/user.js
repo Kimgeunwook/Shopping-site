@@ -15,7 +15,6 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
         const {
             body: { firstName, lastName, email, password },
         } = req;
-		console.log(email,password);
 		//비번 없으면
         if (!password) {
             res.status(400);
@@ -48,6 +47,7 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
 	router.get('/logout', function (req, res) {
         req.logout();
         res.redirect('/');
-    })
+	})
+	
 return router;	//라우터를 리턴
 };
