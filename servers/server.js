@@ -26,8 +26,6 @@ passportConfig(); // passport.js호출
   /////////////pass
 
 
-// [ CONFIGURE mongoose ]
-
 // CONNECT TO MONGODB SERVER
 var db = mongoose.connection;
 db.on('error', console.error);
@@ -40,7 +38,8 @@ mongoose.connect('mongodb://localhost/mongodb_tutorial');
 
 // DEFINE MODEL
 var Book = require('./models/book');
-var User = require('./models/user')
+var User = require('./models/user');
+var Order = require('./models/order');
 // [CONFIGURE APP TO USE bodyParser]
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -49,14 +48,15 @@ app.use(bodyParser.json());
 var port = process.env.PORT || 3001;
 
 // [CONFIGURE ROUTER]
-// var router = 
-//require('./routes')(app, Book);
+// var router = require('./routes')(app, Book);
 
 var userRouter = require('./routes/user.js')(app, User);
+var orderRouter = require('./routes/order.js')(app, Order);
+
 app.use('/api/login', userRouter);
+app.use('/api/order',orderRouter);
 
 // [RUN SERVER]
-// var server = 
 app.listen(port, function(){
  console.log("Express server has started on port " + port)
 });
