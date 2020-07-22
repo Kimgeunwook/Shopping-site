@@ -3,6 +3,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const Users = require('./models/user');
 
 module.exports = () => {
+
+  passport.use(new LocalStrategy(Users.authenticate()));
   passport.serializeUser((user, done) => { // Strategy 성공 시 호출됨
     done(null, user); // 여기의 user가 deserializeUser의 첫 번째 매개변수로 이동
   });

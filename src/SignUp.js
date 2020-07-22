@@ -59,7 +59,9 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        
+
+        <form className={classes.form} action="/api/login/join" method="post" noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -76,8 +78,8 @@ export default function SignUp() {
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
+                required
                 id="lastName"
                 label="Last Name"
                 name="lastName"
@@ -114,13 +116,14 @@ export default function SignUp() {
               />
             </Grid>
           </Grid>
+          
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick = {() => history.push('./')}
+            // onClick = {() => history.push('./')}
           >
             Sign Up
           </Button>

@@ -3,17 +3,20 @@ var express     = require('express');
 var app         = express();
 var bodyParser  = require('body-parser');
 var mongoose    = require('mongoose');
-
+var MongoStore = require('connect-mongo')
 
 /////////////pass
 const session = require('express-session'); // 세션 설정
 const passport = require('passport'); 
+const CookieStore = MongoStore(session);
 const passportConfig = require('./passport'); 
 app.use(session({
     secret:"#JDKLF439jsdlfsjl",
     resave:false,
     saveUninitialized:true,
-    
+    store: new CookieStore({
+      mongooseConnection: mongoose.connection
+    })
   }))
   
 , LocalStrategy = require('passport-local').Strategy;
