@@ -130,19 +130,24 @@ const useStyles = makeStyles((theme) => ({
 export default function Orders() {
   const classes = useStyles();
   const [Products, setProducts] = useState([])
+  const [filt, setfilt] = useState('주문 모두 보기')
   useEffect(() => {
     axios.get('/api/order')
     .then(response => {
       setProducts(response.data)
     })
   },[])
+  
+  useEffect(() => { //filt값 조정
+    console.log(filt)
+  },[filt])
   return (
     
     <React.Fragment >
       
     <Title >주문 현황</Title>
       <Search />
-      <RowList/>
+      <RowList func = {setfilt}/>
 
       <Table size="small">
         <TableHead className={classes.tablehead}>
@@ -162,7 +167,7 @@ export default function Orders() {
         <TableBody>
           
           {Products.map((product) => (
-            <TableRow key={product.id}>
+            <TableRow key={product.num}>
               <TableCell>{product.check}</TableCell>
               <TableCell>{product.num}</TableCell>
               <TableCell>{product.type}</TableCell>

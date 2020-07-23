@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState } from 'react';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -27,19 +27,21 @@ const useStyles = makeStyles((theme) => ({
     width : '7rem'
   }
 }));
-export default function MenuListComposition() {
+export default function MenuListComposition(props) {
   const classes = useStyles();
-
+  const setFilt = (e) => {
+    props.func(e.currentTarget.value)
+  };
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <MenuList>
-          <Button className={classes.buttonList} >주문 확인 전</Button>
-          <Button className={classes.buttonList}>주문 확인</Button>
-          <Button className={classes.buttonList}>배송 준비 중</Button>
-          <Button className={classes.buttonList}>배송 중</Button>
-          <Button className={classes.buttonList}>배송 완료</Button>
-          <Button className={classes.buttonList}>주문 모두 보기</Button>
+          <Button className={classes.buttonList} value = {"주문 확인 전"} onClick = {setFilt}>주문 확인 전</Button>
+          <Button className={classes.buttonList} value = {"주문 확인"} onClick = {setFilt}>주문 확인</Button>
+          <Button className={classes.buttonList} value = {"배송 준비 중"} onClick = {setFilt}>배송 준비 중</Button>
+          <Button className={classes.buttonList} value = {"배송중"} onClick = {setFilt}>배송중</Button>
+          <Button className={classes.buttonList} value = {"배송 완료"} onClick = {setFilt}>배송 완료</Button>
+          <Button className={classes.buttonList} value = {"주문 모두 보기"} onClick = {setFilt}>주문 모두 보기</Button>
         </MenuList>
       </Paper>
       
