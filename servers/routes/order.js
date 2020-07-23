@@ -4,7 +4,7 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
     var router = express.Router();
     router.get('/', function (req, res) {
         console.log('여기들어옴')
-        Order.find({name : '카라티'})
+        Order.find()
         .then(ord =>{
             res.send(ord)
         })
