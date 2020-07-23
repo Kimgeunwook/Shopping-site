@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -38,22 +38,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function btnClick(){
-    const fetchUsers = async () => {
-      try{
-         const response = await Axios.get('/api/books');
-         console.log(response.data)
-      }catch (e){
-          console.log(e)
-      }
-    }
-    fetchUsers();
+// function btnClick(){
+//     // const fetchUsers = async () => {
+//     //   try{
+//     //      const response = await Axios.get('/api/books');
+//     //      console.log(response.data)
+//     //   }catch (e){
+//     //       console.log(e)
+//     //   }
+//     // }
+//     // fetchUsers();
   
-}
+// }
 
-export default function CenteredGrid() {
+export default function CenteredGrid(props) {
   const classes = useStyles();
-  
+  const [searchKeyword, setsearchKeyword] = useState('')
+  const [searchText, setsearchText] = useState('')
+  useEffect(() => { 
+    props.func(searchKeyword)
+  },[searchKeyword])
+  const textChange = (event) => {
+    props.func2(event.target.value)
+  };
+  const btnClick = (event) => {
+    props.btnfunc()
+  }
   return (
     // justify="flex-end"
     <div className={classes.root}>
@@ -63,12 +73,12 @@ export default function CenteredGrid() {
         </Grid>
         
         <Grid item xs={2} className={classes.rightcomp} >
-        <SelectKeyword />  
+        <SelectKeyword func = {setsearchKeyword}/>  
         </Grid>
 
         <Grid item xs={2} className={classes.rightcomp}>
             <form className={classes.textroot} noValidate autoComplete="off">
-                <TextField id="outline-search" label="search" variant="outlined" />
+                <TextField id="outline-search" label="search" variant="outlined" onChange = {textChange} />
             </form>
         </Grid>
         <Grid item xs={2} className={classes.buttoncomp}>

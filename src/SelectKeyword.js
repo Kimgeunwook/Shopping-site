@@ -16,13 +16,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SelectKeyword() {
+export default function SelectKeyword(props) {
   const classes = useStyles();
   const [age, setAge] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
   const handleChange = (event) => {
     setAge(event.target.value);
+    props.func(event.target.value)
   };
 
   const handleClose = () => {
@@ -46,10 +47,10 @@ export default function SelectKeyword() {
           value={age}
           onChange={handleChange}
         >
-          <MenuItem value={10}>주문 번호</MenuItem>
-          <MenuItem value={10}>주문 상품</MenuItem>
-          <MenuItem value={20}>판매자</MenuItem>
-          <MenuItem value={30}>주문자</MenuItem>
+          <MenuItem value={"orderNum"}>주문 번호</MenuItem>
+          <MenuItem value={"name"}>주문 상품</MenuItem>
+          <MenuItem value={"seller"}>판매자</MenuItem>
+          <MenuItem value={"buyer"}>주문자</MenuItem>
         </Select>
       </FormControl>
     </div>

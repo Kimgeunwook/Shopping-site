@@ -132,6 +132,8 @@ export default function Orders() {
   const [Products, setProducts] = useState([])
   const [filt, setfilt] = useState('주문 모두 보기')
   const [page, setPage] = useState(1)
+  const [keyword, setkeyword] = useState('')
+  const [keyText, setkeyText] = useState('')
   useEffect(() => {
     axios.get(`/api/order/table?filt=${filt}&page=${page}`)
     .then(response => {
@@ -145,20 +147,24 @@ export default function Orders() {
       setProducts(response.data)
     })
   },[filt])
-  useEffect(() => { //filt값 조정
+  useEffect(() => { //page값 조정
     axios.get(`/api/order/table?filt=${filt}&page=${page}`)
     .then(response => {
       setProducts(response.data)
     })
   },[page])
+  const btnClick = (event) => {
+     console.log(keyword + keyText)
+    axios.get(`/api/order/table?filt=${filt}&page=${page}&keyword=${keyword}&keyText=${keyText}`)
+    .then(response => {
+      setProducts(response.data)
+    })
+  };
   return (
-    
-    <React.Fragment >
-      
+    <React.Fragment >      
     <Title >주문 현황</Title>
-      <Search />
+      <Search func= {setkeyword} func2 = {setkeyText} btnfunc = {btnClick}/>
       <RowList func = {setfilt}/>
-
       <Table size="small">
         <TableHead className={classes.tablehead}>
           <TableRow>
