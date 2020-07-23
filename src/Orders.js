@@ -132,14 +132,17 @@ export default function Orders() {
   const [Products, setProducts] = useState([])
   const [filt, setfilt] = useState('주문 모두 보기')
   useEffect(() => {
-    axios.get('/api/order')
+    axios.get(`/api/order/table?filt=${filt}`)
     .then(response => {
       setProducts(response.data)
     })
   },[])
   
   useEffect(() => { //filt값 조정
-    console.log(filt)
+    axios.get(`/api/order/table?filt=${filt}`)
+    .then(response => {
+      setProducts(response.data)
+    })
   },[filt])
   return (
     
