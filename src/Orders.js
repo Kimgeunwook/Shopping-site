@@ -131,19 +131,26 @@ export default function Orders() {
   const classes = useStyles();
   const [Products, setProducts] = useState([])
   const [filt, setfilt] = useState('주문 모두 보기')
+  const [page, setPage] = useState(1)
   useEffect(() => {
-    axios.get(`/api/order/table?filt=${filt}`)
+    axios.get(`/api/order/table?filt=${filt}&page=${page}`)
     .then(response => {
       setProducts(response.data)
     })
   },[])
   
   useEffect(() => { //filt값 조정
-    axios.get(`/api/order/table?filt=${filt}`)
+    axios.get(`/api/order/table?filt=${filt}&page=${page}`)
     .then(response => {
       setProducts(response.data)
     })
   },[filt])
+  useEffect(() => { //filt값 조정
+    axios.get(`/api/order/table?filt=${filt}&page=${page}`)
+    .then(response => {
+      setProducts(response.data)
+    })
+  },[page])
   return (
     
     <React.Fragment >
@@ -186,7 +193,7 @@ export default function Orders() {
         </TableBody>
       </Table>
       <div className={classes.page}>
-        <PageControl />
+        <PageControl func = {setPage}/>
       </div>
       
       

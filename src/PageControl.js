@@ -12,13 +12,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PageControl() {
+export default function PageControl(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(1);
-  const handleChange = (event, value) => {
-    setPage(value);
+  const handleChange = (event, value)  => {
+    setPage(value)
+    props.func(value)
   };
-
   return (
     <div className={classes.root}>
       <Pagination count={10} page={page} onChange={handleChange} />
