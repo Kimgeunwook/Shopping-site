@@ -7,10 +7,16 @@
 - Express
 - Mongo DB
 - Mongoose
+
 # prepare
 ```
 npm install 
 ```
+# running
+1. C:\data\db 폴더생성
+2. cmd에 mongod (디비 서버 실행)
+3. 다른 cmd에 mongo치고 적절한 디비 넣어주기
+4. 또 다른 cmd에 프로젝트 폴더가서 npm install 후 npm start
 
 # router
 1. 기본 router기능 main.js참고

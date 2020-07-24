@@ -184,7 +184,7 @@ export default function Orders() {
           
           {Products.map((product) => (
             <TableRow key={product.num}>
-              <TableCell>{product.check}</TableCell>
+              <TableCell>{product._id}</TableCell>
               <TableCell>{product.num}</TableCell>
               <TableCell>{product.type}</TableCell>
               <TableCell>{product.orderDate}</TableCell>

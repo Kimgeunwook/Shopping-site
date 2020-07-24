@@ -24,8 +24,9 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
         }
         }
         else{  // 검색사용 o
-            // Order.find({"${keyword}" : keyText} ).sort({"num" : 1}).skip((req.query.page - 1) * 10).limit(10)
+            // Order.find({`${keyword}` : keyText} ).sort({"num" : 1}).skip((req.query.page - 1) * 10).limit(10)
             //     .then(ord =>{
+            //         console.log(ord)
             //         res.send(ord)
             //     })
             if(keyword === 'buyer')
