@@ -15,10 +15,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import Drawer from '@material-ui/core/Drawer';
 import TableRow from '@material-ui/core/TableRow';
-function createData(check, id, type, date , num, product, seller, orderer,price, status) {
-  return { check, id, type, date , num, product, seller, orderer, price, status };
-}
-
+import axios from 'axios';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -87,10 +84,10 @@ export default function CenteredGrid() {
   const classes = useStyles();
   const [rows, setrows] = useState([])
   useEffect(() => {
-    // axios.get(`/api/order/table?filt=${filt}&page=${page}`)
-    // .then(response => {
-    //   setProducts(response.data)
-    // })
+    axios.get(`/api/user/table`)
+    .then(response => {
+      setrows(response.data)
+    })
   },[])
   return (
     <div className={classes.root}>
@@ -245,16 +242,16 @@ export default function CenteredGrid() {
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.id}>
-              <TableCell>{row.check}</TableCell>
-              <TableCell>{row.id}</TableCell>
+              <TableCell>{row.HP}</TableCell>
+              <TableCell>{row.susbscriptionDate}</TableCell>
               <TableCell>{row.type}</TableCell>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.num}</TableCell>
-              <TableCell>{row.product}</TableCell>
-              <TableCell>{row.seller}</TableCell>
-              <TableCell>{row.orderer}</TableCell>
-              <TableCell>{row.price}</TableCell>
-              <TableCell>{row.status}</TableCell>
+              <TableCell>{row.Name}</TableCell>
+              <TableCell>{row.id}</TableCell>
+              <TableCell>{row.grade}</TableCell>
+              <TableCell>{row.visit}</TableCell>
+              <TableCell>{row.totalPurchaseAmount}</TableCell>
+              <TableCell>{row.totalReserve}</TableCell>
+              {/* <TableCell>{row.mailReceive}</TableCell> */}
               
             </TableRow>
           ))}

@@ -51,9 +51,11 @@ var port = process.env.PORT || 3001;
 
 var loginRouter = require('./routes/login.js')(app, User);
 var OrderstateRouter = require('./routes/Orderstate.js')(app, Orderstate);
+var userstateRouter = require('./routes/user.js')(app, User);
 
 app.use('/api/login', loginRouter);
 app.use('/api/order',OrderstateRouter);
+app.use('/api/user',userstateRouter);
 
 // [RUN SERVER]
 app.listen(port, function(){
