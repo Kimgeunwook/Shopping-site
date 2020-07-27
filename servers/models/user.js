@@ -1,4 +1,5 @@
 // const mongoose = require('mongoose');
+// const passportLocalMongoose = require('passport-local-mongoose');
 
 // const userSchema = new mongoose.Schema({
 //   id: String,
@@ -13,15 +14,17 @@
 //   }
 // };
 
-// module.exports = mongoose.model('users', userSchema);
+// userSchema.plugin(passportLocalMongoose,{usernameField:"id"});
 
+// module.exports = mongoose.model('users', userSchema);
 
 const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new mongoose.Schema({
   id: String,
-  password: String
+  password: String,
+  Name : String
 });
 
 userSchema.methods.comparePassword = function(inputPassword, cb) {

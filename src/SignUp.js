@@ -66,7 +66,32 @@ export default function SignUp() {
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
+                name="Name"
+                variant="outlined"
+                required
+                fullWidth
+                id="Name"
+                label="Name"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                required
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="lname"
+              />
+            </Grid>
+
+            
+            {/* <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="fname"
+                name="Name"
                 variant="outlined"
                 required
                 fullWidth
@@ -85,7 +110,9 @@ export default function SignUp() {
                 name="lastName"
                 autoComplete="lname"
               />
-            </Grid>
+            </Grid> */}
+            
+
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -109,12 +136,7 @@ export default function SignUp() {
                 autoComplete="current-password"
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
+           
           </Grid>
           
           <Button

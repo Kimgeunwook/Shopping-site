@@ -13,7 +13,7 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
 	//회원가입
 	router.post('/join', async function (req, res) {
         const {
-            body: { firstName, lastName, email, password },
+            body: { Name, lastName, email, password },
         } = req;
 		//비번 없으면
         if (!password) {
@@ -22,6 +22,7 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
         } else {
             try {
                 const user = await User({
+					Name : Name,
                     id: email,
                     password,
 				});
