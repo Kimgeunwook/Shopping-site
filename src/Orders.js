@@ -138,6 +138,7 @@ export default function Orders() {
     axios.get(`/api/order/table?filt=${filt}&page=${page}`)
     .then(response => {
       setProducts(response.data)
+      console.log(response.data[0].orderProduct.name)
     })
   },[])
   
@@ -168,7 +169,6 @@ export default function Orders() {
       <Table size="small">
         <TableHead className={classes.tablehead}>
           <TableRow>
-            <TableCell>선택</TableCell>
             <TableCell>번호</TableCell>
             <TableCell>유형</TableCell>
             <TableCell>주문 일시</TableCell>
@@ -181,8 +181,20 @@ export default function Orders() {
           </TableRow>
         </TableHead>
         <TableBody>
-          
-          {Products.map((product) => (
+        {Products.map((product) => (
+            <TableRow key={product._id}>
+              <TableCell>-</TableCell>
+              <TableCell>{product.type}</TableCell>
+              <TableCell>{product.orderDate}</TableCell>
+              <TableCell>{product.orderNum}</TableCell>
+              <TableCell>{product.orderProduct.name}</TableCell>
+              <TableCell>{product.orderProduct.seller.Name}</TableCell>
+              <TableCell>{product.buyer.Name}</TableCell> 
+              <TableCell>{product.orderProduct.price[product.orderOption]}</TableCell>
+              <TableCell>{product.orderStatus}</TableCell>             
+            </TableRow>
+          ))}
+          {/* {Products.map((product) => (
             <TableRow key={product.num}>
               <TableCell>{product._id}</TableCell>
               <TableCell>{product.num}</TableCell>
@@ -195,7 +207,7 @@ export default function Orders() {
               <TableCell>{product.price}</TableCell>
               <TableCell>{product.status}</TableCell>              
             </TableRow>
-          ))}
+          ))} */}
         </TableBody>
       </Table>
       <div className={classes.page}>

@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
   Name : String,
   id: String,
   password: String,
-  HP : Number,
+  HP : String,
   address : String,
   statusFlag : {type:Boolean, default:true},
   grade : {type:Number, default:1},
