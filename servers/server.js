@@ -49,10 +49,10 @@ var port = process.env.PORT || 3001;
 
 // [CONFIGURE ROUTER]
 
-var userRouter = require('./routes/user.js')(app, User);
+var loginRouter = require('./routes/login.js')(app, User);
 var OrderstateRouter = require('./routes/Orderstate.js')(app, Orderstate);
 
-app.use('/api/login', userRouter);
+app.use('/api/login', loginRouter);
 app.use('/api/order',OrderstateRouter);
 
 // [RUN SERVER]
