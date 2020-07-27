@@ -80,24 +80,22 @@ export default function SignUp() {
                 variant="outlined"
                 fullWidth
                 required
-                id="lastName"
-                label="Last Name"
-                name="lastName"
+                id="HP"
+                label="HP"
+                name="HP"
                 autoComplete="lname"
               />
             </Grid>
 
             
-            {/* <Grid item xs={12} sm={6}>
+             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete="fname"
-                name="Name"
+                name="address"
                 variant="outlined"
                 required
                 fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
+                id="address"
+                label="address"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -105,12 +103,11 @@ export default function SignUp() {
                 variant="outlined"
                 fullWidth
                 required
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
+                id="site"
+                label="site"
+                name="site"
               />
-            </Grid> */}
+            </Grid> 
             
 
             <Grid item xs={12}>

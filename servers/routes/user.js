@@ -13,7 +13,12 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
 	//회원가입
 	router.post('/join', async function (req, res) {
         const {
-            body: { Name, lastName, email, password },
+			body: { Name, 
+					email, 
+					password, 
+					HP, 
+					address, 
+					site},
         } = req;
 		//비번 없으면
         if (!password) {
@@ -22,9 +27,12 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
         } else {
             try {
                 const user = await User({
-					Name : Name,
+					Name,
                     id: email,
-                    password,
+					password,
+					HP, 
+					address, 
+					site
 				});
 				bcrypt.genSalt(10, (err,salt) => {
 					bcrypt.hash(user.password, salt, async (err,hash) =>{
