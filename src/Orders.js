@@ -138,7 +138,6 @@ export default function Orders() {
     axios.get(`/api/order/table?filt=${filt}&page=${page}`)
     .then(response => {
       setProducts(response.data)
-      console.log(response.data[0].orderProduct.name)
     })
   },[])
   
@@ -155,7 +154,6 @@ export default function Orders() {
     })
   },[page])
   const btnClick = (event) => {
-     console.log(keyword + keyText)
     axios.get(`/api/order/table?filt=${filt}&page=${page}&keyword=${keyword}&keyText=${keyText}`)
     .then(response => {
       setProducts(response.data)

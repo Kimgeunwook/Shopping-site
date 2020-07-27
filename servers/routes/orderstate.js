@@ -37,41 +37,41 @@ module.exports = function(app, Orderstate){//함수로 만들어 객체 app을 �
             if(keyword === 'buyer')
             {
                 // {Name : keyText}
-                Orderstate.find().populate('buyer').find({Name : keyText}).skip((req.query.page - 1) * 10).limit(10)
+                Orderstate.find().populate({path : 'buyer', match : {Name:keyText} }).populate({path : 'orderProduct',
+                populate: {path : 'seller'}}).skip((req.query.page - 1) * 10).limit(10)
+                .then(ord =>{
+                    ord = ord.filter(idx => idx.buyer != null);
+                    res.send(ord)
+                })
+            }
+            else if(keyword === 'seller')
+            {
+                Orderstate.find( ).populate('buyer').populate({path : 'orderProduct',
+                populate: {path : 'seller', match : {Name : keyText}}}).skip((req.query.page - 1) * 10).limit(10)
+                .then(ord =>{
+                    ord = ord.filter(idx => idx.orderProduct.seller != null);
+                    res.send(ord)
+                })
+            }
+            else if(keyword === 'name')
+            {
+                Orderstate.find().populate('buyer').populate({path : 'orderProduct',match : {name : keyText},
+                populate: {path : 'seller'}}).skip((req.query.page - 1) * 10).limit(10)
+                .then(ord =>{
+                    ord = ord.filter(idx => idx.orderProduct != null);
+                    res.send(ord)
+                })
+            }
+            else if(keyword === 'orderNum')
+            {
+                console.log('여기들어옴')
+                Orderstate.find({orderNum : keyText} ).populate('buyer').populate({path : 'orderProduct',
+                populate: {path : 'seller'}}).skip((req.query.page - 1) * 10).limit(10)
                 .then(ord =>{
                     res.send(ord)
                 })
             }
-            // else if(keyword === 'seller')
-            // {
-            //     Orderstate.find({seller : keyText} ).populate('buyer').populate({path : 'orderProduct',
-            //     populate: {path : 'seller'}}).skip((req.query.page - 1) * 10).limit(10)
-            //     .then(ord =>{
-            //         res.send(ord)
-            //     })
-            // }
-            // else if(keyword === 'name')
-            // {
-            //     Orderstate.find({name : keyText} ).populate('buyer').populate({path : 'orderProduct',
-            //     populate: {path : 'seller'}}).skip((req.query.page - 1) * 10).limit(10)
-            //     .then(ord =>{
-            //         res.send(ord)
-            //     })
-            // }
-            // else if(keyword === 'orderNum')
-            // {
-            //     Orderstate.find({orderNum : keyText} ).populate('buyer').populate({path : 'orderProduct',
-            //     populate: {path : 'seller'}}).skip((req.query.page - 1) * 10).limit(10)
-            //     .then(ord =>{
-            //         res.send(ord)
-            //     })
-            // }
         }
-
-
-
-
-
 	})
     return router;	//라우터를 리턴
 };
