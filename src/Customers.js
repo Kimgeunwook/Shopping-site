@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -18,13 +18,6 @@ import TableRow from '@material-ui/core/TableRow';
 function createData(check, id, type, date , num, product, seller, orderer,price, status) {
   return { check, id, type, date , num, product, seller, orderer, price, status };
 }
-const rows = [
-  createData('true', 0, '교환', '2020-07-13', '201511178', 'zara 티셔츠', 'ZARA', '근욱(yuk888)', '30,000원', '배송중'),
-  createData('true', 1, '교환', '2020-07-13', '201511178', 'zara 티셔츠', 'ZARA', '근욱(yuk888)', '30,000원', '배송중'),
-  createData('true', 2, '교환', '2020-07-13', '201511178', 'zara 티셔츠', 'ZARA', '근욱(yuk888)', '30,000원', '배송중'),
-  createData('true', 3, '교환', '2020-07-13', '201511178', 'zara 티셔츠', 'ZARA', '근욱(yuk888)', '30,000원', '배송중'),
-  createData('true', 4, '교환', '2020-07-13', '201511178', 'zara 티셔츠', 'ZARA', '근욱(yuk888)', '30,000원', '배송중'),
-];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,6 +85,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CenteredGrid() {
   const classes = useStyles();
+  const [rows, setrows] = useState([])
+  useEffect(() => {
+    // axios.get(`/api/order/table?filt=${filt}&page=${page}`)
+    // .then(response => {
+    //   setProducts(response.data)
+    // })
+  },[])
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
@@ -231,16 +231,15 @@ export default function CenteredGrid() {
         <Table size="small">
         <TableHead className={classes.tablehead}>
           <TableRow>
-            <TableCell>선택</TableCell>
             <TableCell>번호</TableCell>
-            <TableCell>유형</TableCell>
-            <TableCell>주문 일시</TableCell>
-            <TableCell>주문 번호</TableCell>
-            <TableCell>주문 상품</TableCell>
-            <TableCell>판매자</TableCell>
-            <TableCell>주문자(아이디)</TableCell>
-            <TableCell>결제 금액</TableCell>
-            <TableCell>결제 상태</TableCell>
+            <TableCell>가입일</TableCell>
+            <TableCell>이름</TableCell>
+            <TableCell>아이디</TableCell>
+            <TableCell>회원 등급</TableCell>
+            <TableCell>방문수</TableCell>
+            <TableCell>구매 금액</TableCell>
+            <TableCell>적립금</TableCell>
+            <TableCell>메일 수신 여부</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

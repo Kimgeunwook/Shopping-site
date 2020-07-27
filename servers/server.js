@@ -37,9 +37,7 @@ db.once('open', function(){
 mongoose.connect('mongodb://localhost/mongodb_tutorial');
 
 // DEFINE MODEL
-var Book = require('./models/book');
 var User = require('./models/user');
-var Order = require('./models/order');
 var Product = require('./models/product');
 var Orderstate = require('./models/orderstate');
 // [CONFIGURE APP TO USE bodyParser]
@@ -50,14 +48,11 @@ app.use(bodyParser.json());
 var port = process.env.PORT || 3001;
 
 // [CONFIGURE ROUTER]
-// var router = require('./routes')(app, Book);
 
 var userRouter = require('./routes/user.js')(app, User);
-//var orderRouter = require('./routes/order.js')(app, Order);
 var OrderstateRouter = require('./routes/Orderstate.js')(app, Orderstate);
 
 app.use('/api/login', userRouter);
-//app.use('/api/order',orderRouter);
 app.use('/api/order',OrderstateRouter);
 
 // [RUN SERVER]
