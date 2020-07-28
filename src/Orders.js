@@ -37,6 +37,7 @@ export default function Orders() {
   const [page, setPage] = useState(1)
   const [keyword, setkeyword] = useState('')
   const [keyText, setkeyText] = useState('')
+  const keywordArr = [['orderNum','주문 번호'],['name', '주문 상품'],['seller', '판매자'],['buyer', '주문자']]
   useEffect(() => {
     axios.get(`/api/order/table?filt=${filt}&page=${page}`)
     .then(response => {
@@ -62,10 +63,11 @@ export default function Orders() {
       setProducts(response.data)
     })
   };
+  
   return (
     <React.Fragment >      
     <Title >주문 현황</Title>
-      <Search func= {setkeyword} func2 = {setkeyText} btnfunc = {btnClick}/>
+      <Search func= {setkeyword} func2 = {setkeyText} btnfunc = {btnClick} arr = {keywordArr}/>
       <RowList func = {setfilt}/>
       <Table size="small">
         <TableHead className={classes.tablehead}>

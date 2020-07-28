@@ -81,7 +81,7 @@ export default function ListItems() {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography className={classes.heading}>주문관리</Typography>
+              <Typography className={classes.heading}>회원관리</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography className={classes.AccordionDetail}>
@@ -90,7 +90,7 @@ export default function ListItems() {
                 <ListItemIcon>
                   <DashboardIcon />
                 </ListItemIcon>
-                주문관리1
+                회원관리1
               </ListItem>
 
               <ListItem button
@@ -98,7 +98,7 @@ export default function ListItems() {
                 <ListItemIcon>
                   <ShoppingCartIcon />
                 </ListItemIcon>
-                주문관리2
+                회원관리2
               </ListItem>
               </Typography>
             </AccordionDetails>
@@ -114,7 +114,7 @@ export default function ListItems() {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography className={classes.heading}>회원관리</Typography>
+              <Typography className={classes.heading}>주문관리</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography className={classes.AccordionDetail}>
@@ -123,7 +123,7 @@ export default function ListItems() {
                 <ListItemIcon>
                   <DashboardIcon />
                 </ListItemIcon>
-                회원관리1
+                주문관리1
               </ListItem>
 
               <ListItem button
@@ -131,7 +131,7 @@ export default function ListItems() {
                 <ListItemIcon>
                   <ShoppingCartIcon />
                 </ListItemIcon>
-                회원관리2
+                주문관리2
               </ListItem>
               </Typography>
             </AccordionDetails>

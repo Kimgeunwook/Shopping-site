@@ -73,7 +73,7 @@ export default function CenteredGrid(props) {
         </Grid>
         
         <Grid item xs={2} className={classes.rightcomp} >
-        <SelectKeyword func = {setsearchKeyword}/>  
+        <SelectKeyword func = {setsearchKeyword} arr = {props.arr}/>  
         </Grid>
 
         <Grid item xs={2} className={classes.rightcomp}>

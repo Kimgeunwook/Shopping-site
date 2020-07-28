@@ -83,12 +83,26 @@ const useStyles = makeStyles((theme) => ({
 export default function CenteredGrid() {
   const classes = useStyles();
   const [rows, setrows] = useState([])
+  const [keyword, setkeyword] = useState('')
+  const [keyText, setkeyText] = useState('')
+  const [page, setPage] = useState(1)
+  const keywordArr = [['name', '이름'], ['id','아이디'], ['hp','번호']]
+  const gradeArr = [['one','1'],['two','2'],['three','3'],['four','4'],['five','5']]
   useEffect(() => {
-    axios.get(`/api/user/table`)
+    axios.get(`/api/user/table?&page=${page}`)
     .then(response => {
       setrows(response.data)
     })
   },[])
+  const textChange = (event) => {
+    setkeyText(event.target.value)
+  };
+  const btnClick = (event) => {
+    axios.get(`/api/user/table?page=${page}&keyword=${keyword}&keyText=${keyText}`)
+    .then(response => {
+      setrows(response.data)
+    })
+  }
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
@@ -101,17 +115,17 @@ export default function CenteredGrid() {
       </Grid>
 
       <Grid item xs={3} justifyContent="flex-end" >
-          <SelectKeyword />
+          <SelectKeyword func= {setkeyword} arr= {keywordArr} />
       </Grid>
 
       <Grid item xs={3}>
           <form  noValidate autoComplete="off">
-              <TextField id="outline-search" label="search" variant="outlined" />
+              <TextField id="outline-search" label="search" variant="outlined" onChange = {textChange} />
           </form>
       </Grid>
 
       <Grid item xs={3}>
-        <Button variant="contained" color="primary" className={classes.searchbtn} >
+        <Button variant="contained" color="primary" className={classes.searchbtn}  onClick={btnClick}>
           검색
         </Button>
       </Grid>
@@ -165,7 +179,7 @@ export default function CenteredGrid() {
           회원등급 : 
         </Grid>
         <Grid item xs={2}>
-          <SelectKeyword />  
+          <SelectKeyword arr = {gradeArr}/>  
         </Grid>
         <Grid item xs={1}>
           
@@ -244,14 +258,13 @@ export default function CenteredGrid() {
             <TableRow key={row.id}>
               <TableCell>{row.HP}</TableCell>
               <TableCell>{row.susbscriptionDate}</TableCell>
-              <TableCell>{row.type}</TableCell>
               <TableCell>{row.Name}</TableCell>
               <TableCell>{row.id}</TableCell>
               <TableCell>{row.grade}</TableCell>
               <TableCell>{row.visit}</TableCell>
               <TableCell>{row.totalPurchaseAmount}</TableCell>
               <TableCell>{row.totalReserve}</TableCell>
-              {/* <TableCell>{row.mailReceive}</TableCell> */}
+              <TableCell>{row.mailReceive ? 'YES' : 'NO'}</TableCell>
               
             </TableRow>
           ))}
@@ -264,7 +277,7 @@ export default function CenteredGrid() {
         </Grid>
         <Grid item xs={12}>
           <div className={classes.page}>
-            <PageControl />
+          <PageControl func = {setPage}/>
           </div>
         </Grid>
       </Grid>
