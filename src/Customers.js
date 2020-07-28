@@ -86,19 +86,47 @@ export default function CenteredGrid() {
   const [keyword, setkeyword] = useState('')
   const [keyText, setkeyText] = useState('')
   const [page, setPage] = useState(1)
+  const [grade, setgrade] = useState('all')
   const keywordArr = [['name', '이름'], ['id','아이디'], ['hp','번호']]
-  const gradeArr = [['one','1'],['two','2'],['three','3'],['four','4'],['five','5']]
+  const gradeArr = [['one','1'],['two','2'],['three','3'],['four','4'],['five','5'],['all','모두']]
+  const [mailstate, setcheckState] = useState({
+    checkedReceive: true,
+    checkedNotReceive: false,
+    
+  });
+  const [lowerAmount, setlowerAmount] = useState(0)
+  const [upperAmount, setupperAmount] = useState(Infinity)
+  const [lowerReserve, setlowerReserve] = useState(0)
+  const [upperReserve, setupperReserve] = useState(Infinity)
   useEffect(() => {
     axios.get(`/api/user/table?&page=${page}`)
     .then(response => {
       setrows(response.data)
     })
   },[])
-  const textChange = (event) => {
+  const textChange = (event) => { //메인 검색 text
     setkeyText(event.target.value)
   };
-  const btnClick = (event) => {
+  const lowerAmountChange = (event) => { 
+    setlowerAmount(event.target.value)
+  };
+  const upperAmountChange = (event) => { 
+    setupperAmount(event.target.value)
+  };
+  const lowerReserveChange = (event) => { 
+    setlowerReserve(event.target.value)
+  };
+  const upperReserveChange = (event) => { 
+    setupperReserve(event.target.value)
+  };
+  const btnClick = (event) => { //메인 검색 btn클릭시
     axios.get(`/api/user/table?page=${page}&keyword=${keyword}&keyText=${keyText}`)
+    .then(response => {
+      setrows(response.data)
+    })
+  }
+  const detailbtnClick = (event) => { //메인 검색 btn클릭시
+    axios.get(`/api/user/detail?page=${page}&grade=${grade}&lowerAmount=${lowerAmount}&upperAmount=${upperAmount}&lowerReserve=${lowerReserve}&upperReserve=${upperReserve}&mailstate=${mailstate}`)
     .then(response => {
       setrows(response.data)
     })
@@ -114,7 +142,7 @@ export default function CenteredGrid() {
 
       </Grid>
 
-      <Grid item xs={3} justifyContent="flex-end" >
+      <Grid item xs={3}  >
           <SelectKeyword func= {setkeyword} arr= {keywordArr} />
       </Grid>
 
@@ -151,7 +179,7 @@ export default function CenteredGrid() {
         </Grid>
         <Grid item xs={2}>
         <form className={classes.pricetext} noValidate autoComplete="off">
-          <TextField id="standard-basic" label="최소금액" />
+          <TextField id="standard-basic" label="최소금액" onChange = {lowerAmountChange} />
         </form>
         </Grid>
         <Grid item xs={1} className={classes.buytext}>
@@ -161,7 +189,7 @@ export default function CenteredGrid() {
         </Grid>
         <Grid item xs={2}>
         <form className={classes.pricetext} noValidate autoComplete="off">
-          <TextField id="standard-basic" label="최대금액" />
+          <TextField id="standard-basic" label="최대금액" onChange = {upperAmountChange} />
         </form>
         </Grid>
         {/* //////////////////////// */}
@@ -179,7 +207,7 @@ export default function CenteredGrid() {
           회원등급 : 
         </Grid>
         <Grid item xs={2}>
-          <SelectKeyword arr = {gradeArr}/>  
+          <SelectKeyword func= {setgrade} arr = {gradeArr}/>  
         </Grid>
         <Grid item xs={1}>
           
@@ -189,7 +217,7 @@ export default function CenteredGrid() {
         </Grid>
         <Grid item xs={2}>
         <form className={classes.pricetext} noValidate autoComplete="off">
-          <TextField id="standard-basic" label="최소금액" />
+          <TextField id="standard-basic" label="최소금액" onChange = {lowerReserveChange} />
         </form>
         </Grid>
         <Grid item xs={1} className={classes.buytext3}>
@@ -199,7 +227,7 @@ export default function CenteredGrid() {
         </Grid>
         <Grid item xs={2}>
         <form className={classes.pricetext} noValidate autoComplete="off">
-          <TextField id="standard-basic" label="최대금액" />
+          <TextField id="standard-basic" label="최대금액" onChange = {upperReserveChange} />
         </form>
         </Grid>
          {/* //////////////////////// */}
@@ -213,7 +241,7 @@ export default function CenteredGrid() {
             메일 수신 : 
         </Grid>
         <Grid item xs={4}>
-          <Checkboxs />
+          <Checkboxs func= {setcheckState}/>
         </Grid>
         <Grid item xs={6}>
         </Grid>
@@ -224,7 +252,7 @@ export default function CenteredGrid() {
         {/* //////////////////////// */}
         <Grid item xs={12}>
           <div className={classes.btn}>
-            <Button variant="contained" color="primary"  >
+            <Button variant="contained" color="primary" onClick= {detailbtnClick} >
               상세검색
             </Button>
           </div>
@@ -234,7 +262,7 @@ export default function CenteredGrid() {
 
         <Grid item xs={12}>
           <div className={classes.result}>
-             000건의 검색 결과가 있습니다.
+             {rows.length}건의 검색 결과가 있습니다.
           </div>
         </Grid>
         

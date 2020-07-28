@@ -11,14 +11,15 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 
 
-export default function CheckboxLabels() {
+export default function CheckboxLabels(props) {
   const [state, setState] = React.useState({
-    checkedA: false,
-    checkedB: false,
+    checkedReceive: true,
+    checkedNotReceive: true,
   });
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
+    props.func({ ...state, [event.target.name]: event.target.checked })
   };
 
   return (
@@ -26,9 +27,9 @@ export default function CheckboxLabels() {
         <FormControlLabel
         control={
           <Checkbox
-            checked={state.checkedA}
+            checked={state.checkedReceive}
             onChange={handleChange}
-            name="checkedA"
+            name="checkedReceive"
             color="primary"
           />
         }
@@ -36,9 +37,9 @@ export default function CheckboxLabels() {
       />
       <FormControlLabel
         control={<Checkbox 
-            checked={state.checkedB} 
+            checked={state.checkedNotReceive} 
             onChange={handleChange} 
-            name="checkedB" />}
+            name="checkedNotReceive" />}
         label="수신 거부"
       />
       

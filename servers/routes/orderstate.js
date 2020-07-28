@@ -46,9 +46,12 @@ module.exports = function(app, Orderstate){//함수로 만들어 객체 app을 �
             }
             else if(keyword === 'seller')
             {
-                Orderstate.find( ).populate('buyer').populate({path : 'orderProduct',
-                populate: {path : 'seller', match : {Name : keyText}}}).skip((req.query.page - 1) * 10).limit(10)
+                // .find({ orderProduct: { $ne: null } }).skip((req.query.page - 1) * 10).limit(10)
+                Orderstate.find({}).populate('buyer').populate({path : 'orderProduct',
+                populate: {path : 'seller', match : {Name : keyText}}}).find({})
                 .then(ord =>{
+                    console.log(ord)
+                    console.log(ord.length)
                     ord = ord.filter(idx => idx.orderProduct.seller != null);
                     res.send(ord)
                 })

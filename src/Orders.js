@@ -27,7 +27,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     marginTop : theme.spacing(3),
     justifyContent: 'center',
-  }
+  },
+  result: {
+    display: 'flex',
+    marginTop : theme.spacing(3),
+    justifyContent: 'flex-end',
+  }, 
 }));
 
 export default function Orders() {
@@ -69,6 +74,12 @@ export default function Orders() {
     <Title >주문 현황</Title>
       <Search func= {setkeyword} func2 = {setkeyText} btnfunc = {btnClick} arr = {keywordArr}/>
       <RowList func = {setfilt}/>
+
+     
+          <div className={classes.result}>
+             {Products.length}건의 검색 결과가 있습니다.
+          </div>
+      
       <Table size="small">
         <TableHead className={classes.tablehead}>
           <TableRow>
