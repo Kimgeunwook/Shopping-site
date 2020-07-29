@@ -50,7 +50,6 @@ module.exports = function(app, Orderstate){//함수로 만들어 객체 app을 �
                 Orderstate.find().populate('buyer').populate({path : 'orderProduct',
                 populate: {path : 'seller', match : {Name : keyText}}})
                 .then(ord =>{
-                    console.log(ord[0].orderDate)
                     ord = ord.filter(idx => idx.orderProduct.seller != null);
                     res.send(ord.slice( (req.query.page - 1) * 10, req.query.page * 10  ))
                 })
@@ -66,7 +65,6 @@ module.exports = function(app, Orderstate){//함수로 만들어 객체 app을 �
             }
             else if(keyword === 'orderNum')
             {
-                console.log('여기들어옴')
                 Orderstate.find({orderNum : keyText} ).populate('buyer').populate({path : 'orderProduct',
                 populate: {path : 'seller'}}).skip((req.query.page - 1) * 10).limit(10)
                 .then(ord =>{

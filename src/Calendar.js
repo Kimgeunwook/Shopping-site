@@ -65,9 +65,11 @@ function DatePickers(props) {
   const [date2, setDate2] = React.useState('');
   const onChangeDate = (e) => {
     setDate(e.currentTarget.value);
+    props.fromfunc(e.currentTarget.value);
   };
   const onChangeDate2 = (e) => {
     setDate2(e.currentTarget.value);
+    props.tofunc(e.currentTarget.value);
   };
   return (
     <div className={classes.calendarentity}>

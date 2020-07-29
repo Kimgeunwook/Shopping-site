@@ -91,13 +91,14 @@ export default function CenteredGrid() {
   const gradeArr = [['one','1'],['two','2'],['three','3'],['four','4'],['five','5'],['all','모두']]
   const [mailstate, setcheckState] = useState({
     checkedReceive: true,
-    checkedNotReceive: false,
-    
+    checkedNotReceive: false,    
   });
   const [lowerAmount, setlowerAmount] = useState(0)
   const [upperAmount, setupperAmount] = useState(Infinity)
   const [lowerReserve, setlowerReserve] = useState(0)
   const [upperReserve, setupperReserve] = useState(Infinity)
+  const [fromDate, setFromDate] = useState('0000-01-01')
+  const [toDate, setToDate] = useState('9999-12-30')
   useEffect(() => {
     axios.get(`/api/user/table?&page=${page}`)
     .then(response => {
@@ -125,8 +126,8 @@ export default function CenteredGrid() {
       setrows(response.data)
     })
   }
-  const detailbtnClick = (event) => { //메인 검색 btn클릭시
-    axios.get(`/api/user/detail?page=${page}&grade=${grade}&lowerAmount=${lowerAmount}&upperAmount=${upperAmount}&lowerReserve=${lowerReserve}&upperReserve=${upperReserve}&mailstate=${mailstate}`)
+  const detailbtnClick = (event) => { //상세 검색 btn클릭시
+    axios.get(`/api/user/detail?page=${page}&grade=${grade}&lowerAmount=${lowerAmount}&upperAmount=${upperAmount}&lowerReserve=${lowerReserve}&upperReserve=${upperReserve}&mailstate=${mailstate}&fromDate=${fromDate}&toDate=${toDate}`)
     .then(response => {
       setrows(response.data)
     })
@@ -172,7 +173,7 @@ export default function CenteredGrid() {
 
         {/* //////////////////////// */}
         <Grid item xs={5} className={classes.leftcomp}>
-           <Calendar />
+           <Calendar fromfunc = {setFromDate} tofunc = {setToDate}/>
         </Grid>
         <Grid item xs={1} className={classes.buytext}>
            구매금액 : 
