@@ -38,31 +38,30 @@ module.exports = function(app, Orderstate){//함수로 만들어 객체 app을 �
             {
                 // {Name : keyText}
                 Orderstate.find().populate({path : 'buyer', match : {Name:keyText} }).populate({path : 'orderProduct',
-                populate: {path : 'seller'}}).skip((req.query.page - 1) * 10).limit(10)
+                populate: {path : 'seller'}})
                 .then(ord =>{
                     ord = ord.filter(idx => idx.buyer != null);
-                    res.send(ord)
+                    res.send(ord.slice( (req.query.page - 1) * 10, req.query.page * 10  ))
                 })
             }
             else if(keyword === 'seller')
-            {
+            {               
                 // .find({ orderProduct: { $ne: null } }).skip((req.query.page - 1) * 10).limit(10)
-                Orderstate.find({}).populate('buyer').populate({path : 'orderProduct',
-                populate: {path : 'seller', match : {Name : keyText}}}).find({})
+                Orderstate.find().populate('buyer').populate({path : 'orderProduct',
+                populate: {path : 'seller', match : {Name : keyText}}})
                 .then(ord =>{
-                    console.log(ord)
-                    console.log(ord.length)
                     ord = ord.filter(idx => idx.orderProduct.seller != null);
-                    res.send(ord)
+                    res.send(ord.slice( (req.query.page - 1) * 10, req.query.page * 10  ))
                 })
+                
             }
             else if(keyword === 'name')
             {
                 Orderstate.find().populate('buyer').populate({path : 'orderProduct',match : {name : keyText},
-                populate: {path : 'seller'}}).skip((req.query.page - 1) * 10).limit(10)
+                populate: {path : 'seller'}})
                 .then(ord =>{
                     ord = ord.filter(idx => idx.orderProduct != null);
-                    res.send(ord)
+                    res.send(ord.slice( (req.query.page - 1) * 10, req.query.page * 10  ))
                 })
             }
             else if(keyword === 'orderNum')
