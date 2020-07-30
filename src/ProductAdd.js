@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
   },
   optionpaper : {
     padding: theme.spacing(2),
-    
     color: theme.palette.text.secondary,
     
   },
@@ -43,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
   button : {
       marginTop : theme.spacing(6),
       textAlign : 'center',
-  }
+  },
+  
 }));
 
 export default function AutoGrid() {
@@ -220,26 +220,20 @@ export default function AutoGrid() {
               
           {inputList.map((x, i) => {
          return (
-            <div className="box">
-              <input
-                name="firstName"
-     placeholder="Enter First Name"
-                value={x.firstName}
-                onChange={e => handleInputChange(e, i)}
-              />
-              <input
-                className="ml10"
-                name="lastName"
-     placeholder="Enter Last Name"
-                value={x.lastName}
-                onChange={e => handleInputChange(e, i)}
-              />
-              <span className="btn-box">
-                {inputList.length !== 1 && <button
-                  className="mr10"
-                  onClick={() => handleRemoveClick(i)}>Remove</button>}
-                {inputList.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
-              </span>
+            <div className={classes.optioninfo}>
+                <TextField name="firstName" size = "small" value = {x.firstName} onChange={e => handleInputChange(e, i)} label="상품 정보 항목" variant="outlined"/>
+                <TextField name="lastName" size = "small" value = {x.lastName} onChange={e => handleInputChange(e, i)} label="설명" variant="outlined"/>
+                <span className="btn-box">
+                    {inputList.length - 1 === i && 
+                        <Button variant="contained" color="primary" className={classes.searchbtn}   onClick={handleAddClick}>
+                            Add
+                        </Button>}
+                    {inputList.length !== 1 && 
+                        <Button variant="contained" color="primary" className={classes.searchbtn}  onClick={() => handleRemoveClick(i)}>
+                            Remove
+                        </Button>}
+                    
+                </span>
             </div>
           );
       })}
