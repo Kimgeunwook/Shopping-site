@@ -11,7 +11,6 @@ import RowList from './RowList.js';
 import Search from './Search';
 import PageControl from './PageControl';
 import axios from 'axios';
-
 function preventDefault(event) {
   event.preventDefault();
 }

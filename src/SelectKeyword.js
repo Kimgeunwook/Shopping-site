@@ -37,7 +37,7 @@ export default function SelectKeyword(props) {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">키워드 검색</InputLabel>
+        <InputLabel id="demo-controlled-open-select-label">Category</InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
