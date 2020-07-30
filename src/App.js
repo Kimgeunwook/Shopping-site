@@ -19,13 +19,16 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 // import { mainListItems, secondaryListItems } from './listItems';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ListItems from './ListItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
+import ProductAdd from './ProductAdd';
 import Orders from './Orders';
-import {Route} from 'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
 import SignInSide from './SignInSide';
 import Customers from './Customers';
+import axios from 'axios';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -135,6 +138,7 @@ export default function App({match}) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   
   return (
@@ -167,7 +171,10 @@ export default function App({match}) {
             <Badge badgeContent={3} color="secondary">
               <NotificationsIcon />
             </Badge>
+          
           </IconButton>
+          
+          
         </Toolbar>
       </AppBar>
       
@@ -197,27 +204,13 @@ export default function App({match}) {
         {/* appbarspacer == 툴바 자리 남겨두고 내용 보여주게 하는거  */}
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container} >
-          <Grid container spacing={3} 
-          
-          >
-            {/* <Grid item xs={12} md={6} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                 <Chart/> 
-              </Paper>
-            </Grid> */}
-            {/* Recent Deposits */}
-            {/* <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid> */}
-            {/* Recent Orders */}
+          <Grid container spacing={3} >
             <Grid item xs={12}  >
               <Paper className={classes.paper} >
                 {/* {categoryname === "HOME"  && <Home /> } */}
                 {categoryname === "Orders"  && <Orders />}
                 {categoryname === "Customers"  && <Customers />}
-                {categoryname === "Reports"  && <Paper className={fixedHeightPaper}><Chart/></Paper>}
+                {categoryname === "ProductAdd"  && <ProductAdd/>}
                 {categoryname === "Integrations"  && <Deposits />}
               </Paper>
             </Grid>

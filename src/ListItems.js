@@ -148,16 +148,16 @@ export default function ListItems() {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography className={classes.heading}>통계</Typography>
+              <Typography className={classes.heading}>상품</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography className={classes.AccordionDetail}>
               <ListItem button 
-              onClick = {() => history.push('/App/Reports')}>
+              onClick = {() => history.push('/App/ProductAdd')}>
                 <ListItemIcon>
                   <DashboardIcon />
                 </ListItemIcon>
-                통계1
+                상품 등록
               </ListItem>
 
               <ListItem button
@@ -165,7 +165,7 @@ export default function ListItems() {
                 <ListItemIcon>
                   <ShoppingCartIcon />
                 </ListItemIcon>
-                통계2
+                상품 수정
               </ListItem>
               </Typography>
             </AccordionDetails>

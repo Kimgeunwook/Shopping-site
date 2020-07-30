@@ -55,7 +55,7 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
 	//로그아웃
 	router.get('/logout', function (req, res) {
         req.logout();
-        res.redirect('/');
+		res.redirect('/');
 	})
 	
 return router;	//라우터를 리턴
