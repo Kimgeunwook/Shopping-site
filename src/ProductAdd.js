@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight :theme.spacing(2),
     marginBottom : theme.spacing(3),
     backgroundColor : 'white',
+    width : '20%', 
   },
   infoOptionbtn:{
     marginRight :theme.spacing(2),
@@ -70,14 +71,15 @@ export default function AutoGrid() {
   const [keyword, setkeyword] = useState('')
   const keywordArr = [['top', '상의'], ['bottom','하의'], ['shoes','신발']]
   const [inputList, setInputList] = useState([{ firstName: "", lastName: "" }]);
-  const [inputListOption, setInputListOption] = useState([{ firstName: "", lastName: "" }]);
+  const [inputListOption, setInputListOption] = useState([{ optionName: "", optionDetail: [{ description : "", price :""}] }]);
+
+
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
   };
-   
   // handle click event of the Remove button
   const handleRemoveClick = index => {
     const list = [...inputList];
@@ -88,36 +90,56 @@ export default function AutoGrid() {
     setInputList([...inputList, { firstName: "", lastName: "" }]);
   };
 
-  ///////////////////옵션관련
-  const addOption = () => {
-    setInputListOption([...inputListOption, { firstName: "", lastName: "" }]);
+
+
+
+   ///////////////////옵션관련
+   const addOption = () => {
+    setInputListOption([...inputListOption, { optionName: "",  optionDetail: [{ description : "", price :""}]}]);
   }
-  const deleteOption = () => {
+  const deleteOption = (index) => {
     const list = [...inputListOption];
     console.log(list.length)
     if(list.length != 1) 
     {
-      list.splice(list.length -1, 1);
+      list.splice(index, 1);
     }
     setInputListOption(list);
   }
-  const handleInputChangeOption = (e, index) => {
+  const handleInputChangeOption = (e, index, j) => {
     const { name, value } = e.target;
-    const list = [...inputListOption];
-    list[index][name] = value;
-    setInputListOption(list);
+    if(name == 'optionName')
+    {
+      const list = [...inputListOption];
+      list[index][name] = value;
+      setInputListOption(list);
+    }
+    else if( name == 'lastNameone')
+    {
+      const list = [...inputListOption];
+      list[index]['optionDetail'][j]['description'] = value;
+      setInputListOption(list);
+    }
+    else{
+      const list = [...inputListOption];
+      list[index]['optionDetail'][j]['price'] = value;
+      setInputListOption(list);
+    }
   };
-   
   // handle click event of the Remove button
-  const handleRemoveClickOption = index => {
+  const handleAddClickOption = (i, j) => {
     const list = [...inputListOption];
-    list.splice(index, 1);
+    list[i]['optionDetail'].push({ description : "", price :""})
     setInputListOption(list);
-  };
-  const handleAddClickOption = () => {
-    setInputListOption([...inputListOption, { firstName: "", lastName: "" }]);
   };
   ///////////////////
+  const removeOptionItem = (i, j) => {
+    const list = [...inputListOption];
+    list[i]['optionDetail'].splice(j, 1);
+    setInputListOption(list);
+  }
+
+
   return (
     <div className={classes.root}>
         <h1>상품 등록</h1>
@@ -311,22 +333,46 @@ export default function AutoGrid() {
           {inputListOption.map((x, i) => {
             return (
                   <div >
-                    <Button variant="contained" color="primary" className={classes.infoOptionbtn}  onClick={() => handleRemoveClickOption(i)}>
+                    
+                      {inputListOption[i]['optionDetail'].map((y, j)=> {
+                        return (
+                          <>
+                          <div>
+                          {j == 0 &&
+                                  <> 
+                                  <Button variant="contained"  color="primary" className={classes.infoOptionbtn}  onClick={() => deleteOption(i)}>
                                   옵션 삭제
-                              </Button>
-                      <TextField name="firstName" size = "small" className={classes.infoOption} value = {x.firstName} onChange={e => handleInputChangeOption(e, i)} label="설명" variant="outlined"/>
-                      <TextField name="lastName" size = "small" className={classes.infoOption} value = {x.lastName} onChange={e => handleInputChangeOption(e, i)} label="가격" variant="outlined"/>
-                      <span >
-                          {inputListOption.length - 1 === i && 
-                              <Button variant="contained" color="primary" className={classes.infoOptionbtn}   onClick={handleAddClickOption}>
+                                  </Button>
+                                  <TextField name="optionName" size = "small" className={classes.infoOption} value = {x.optionName} onChange={e => handleInputChangeOption(e, i)} label="옵션명" variant="outlined"/>
+                                  </>}
+
+                          {j != 0 &&
+                                  <> 
+                                  <Button variant="contained" style = {{visibility : 'hidden'}}  color="primary" className={classes.infoOptionbtn}  onClick={() => deleteOption(i)}>
+                                  옵션 삭제
+                                  </Button>
+                                  <TextField name="optionName" size = "small"  style = {{visibility : 'hidden'}} className={classes.infoOption} value = {x.optionName} onChange={e => handleInputChangeOption(e, i)} label="옵션명" variant="outlined"/>
+                                  </>}
+                          
+                         
+                          <TextField name="lastNameone" size = "small" className={classes.infoOption} value = {y.description} onChange={e => handleInputChangeOption(e, i, j)} label="가격" variant="outlined"/>
+                          <TextField name="lastNametwo" size = "small" className={classes.infoOption} value = {y.price} onChange={e => handleInputChangeOption(e, i, j)} label="가격" variant="outlined"/>
+                          <span >
+                          {inputListOption[i]['optionDetail'].length - 1 === j && 
+                              <Button variant="contained" color="primary" className={classes.infoOptionbtn}   onClick={() => handleAddClickOption(i, j)}>
                                   Add
                               </Button>}
-                          {inputListOption.length !== 1 && 
-                              <Button variant="contained" color="primary" className={classes.infoOptionbtn}  onClick={() => handleRemoveClickOption(i)}>
+                          {inputListOption[i]['optionDetail'].length !== 1 && 
+                              <Button variant="contained" color="primary" className={classes.infoOptionbtn}  onClick={() => removeOptionItem(i,j)}>
                                   Remove
                               </Button>}
-                          
-                      </span>
+                            </span>
+                          </div>
+                         
+                      </>
+                        )
+                      } )}
+                      
                   </div>
                 );
             })}
