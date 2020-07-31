@@ -18,19 +18,26 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
+    backgroundColor : '#f5f5f5',
     color: theme.palette.text.secondary,
     height : '7vh',
   },
   optionpaper : {
     padding: theme.spacing(2),
     color: theme.palette.text.secondary,
+    backgroundColor : '#f5f5f5',
     
   },
   categoryText : {
       width : '100%',
+      backgroundColor : 'white'
   },
-  priceText:{
-      width : '60%',
+  priceText  :{
+      width : '60%',      
+      backgroundColor : 'white'
+  },
+  pointText :{
+    backgroundColor : 'white'
   },
   radio : {
       marginLeft :  theme.spacing(10),
@@ -43,7 +50,15 @@ const useStyles = makeStyles((theme) => ({
       marginTop : theme.spacing(6),
       textAlign : 'center',
   },
-  
+  infoOption  :{
+    marginRight :theme.spacing(2),
+    marginBottom : theme.spacing(3),
+    backgroundColor : 'white',
+  },
+  infoOptionbtn:{
+    marginRight :theme.spacing(2),
+    marginBottom : theme.spacing(3),
+  },
 }));
 
 export default function AutoGrid() {
@@ -51,6 +66,7 @@ export default function AutoGrid() {
   const [keyword, setkeyword] = useState('')
   const keywordArr = [['top', '상의'], ['bottom','하의'], ['shoes','신발']]
   const [inputList, setInputList] = useState([{ firstName: "", lastName: "" }]);
+  const [inputListOption, setInputListOption] = useState([{ firstName: "", lastName: "" }]);
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...inputList];
@@ -65,9 +81,27 @@ export default function AutoGrid() {
     setInputList(list);
   };
   const handleAddClick = () => {
-    console.log('이것만')
     setInputList([...inputList, { firstName: "", lastName: "" }]);
   };
+
+  ///////////////////
+  const handleInputChangeOption = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...inputListOption];
+    list[index][name] = value;
+    setInputListOption(list);
+  };
+   
+  // handle click event of the Remove button
+  const handleRemoveClickOption = index => {
+    const list = [...inputListOption];
+    list.splice(index, 1);
+    setInputListOption(list);
+  };
+  const handleAddClickOption = () => {
+    setInputListOption([...inputListOption, { firstName: "", lastName: "" }]);
+  };
+  ///////////////////
   return (
     <div className={classes.root}>
         <h1>상품 등록</h1>
@@ -76,7 +110,7 @@ export default function AutoGrid() {
       <Grid container spacing={2}>
         <Grid item xs = {3}>
           <Paper className={classes.paper} >
-             <SelectKeyword func= {setkeyword} arr= {keywordArr}  />       
+             <SelectKeyword func= {setkeyword} arr= {keywordArr} />       
           </Paper>
         </Grid>
 
@@ -219,29 +253,31 @@ export default function AutoGrid() {
           <Paper className={classes.optionpaper}>
               
           {inputList.map((x, i) => {
-         return (
-            <div className={classes.optioninfo}>
-                <TextField name="firstName" size = "small" value = {x.firstName} onChange={e => handleInputChange(e, i)} label="상품 정보 항목" variant="outlined"/>
-                <TextField name="lastName" size = "small" value = {x.lastName} onChange={e => handleInputChange(e, i)} label="설명" variant="outlined"/>
-                <span className="btn-box">
-                    {inputList.length - 1 === i && 
-                        <Button variant="contained" color="primary" className={classes.searchbtn}   onClick={handleAddClick}>
-                            Add
-                        </Button>}
-                    {inputList.length !== 1 && 
-                        <Button variant="contained" color="primary" className={classes.searchbtn}  onClick={() => handleRemoveClick(i)}>
-                            Remove
-                        </Button>}
-                    
-                </span>
-            </div>
-          );
-      })}
+            return (
+                <div >
+                    <TextField name="firstName" size = "small" className={classes.infoOption} value = {x.firstName} onChange={e => handleInputChange(e, i)} label="상품 정보 항목" variant="outlined"/>
+                    <TextField name="lastName" size = "small" className={classes.infoOption} value = {x.lastName} onChange={e => handleInputChange(e, i)} label="설명" variant="outlined"/>
+                    <span >
+                        {inputList.length - 1 === i && 
+                            <Button variant="contained" color="primary" className={classes.infoOptionbtn}   onClick={handleAddClick}>
+                                Add
+                            </Button>}
+                        {inputList.length !== 1 && 
+                            <Button variant="contained" color="primary" className={classes.infoOptionbtn}  onClick={() => handleRemoveClick(i)}>
+                                Remove
+                            </Button>}
+                        
+                    </span>
+                </div>
+              );
+          })}
        <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
           </Paper>
         </Grid>
       </Grid>
 
+
+      {/* 옵션 */}
       <Grid container spacing={2}>
         <Grid item xs={2}>
         <Paper className={classes.paper}>
@@ -249,7 +285,29 @@ export default function AutoGrid() {
           </Paper>
         </Grid>
         <Grid item xs>
-          <Paper className={classes.optionpaper}>xs</Paper>
+          <Paper className={classes.optionpaper}>
+          {inputListOption.map((x, i) => {
+            return (
+                  <div >
+                      <TextField name="firstName" size = "small" className={classes.infoOption} value = {x.firstName} onChange={e => handleInputChangeOption(e, i)} label="상품 정보 항목" variant="outlined"/>
+                      <TextField name="lastName" size = "small" className={classes.infoOption} value = {x.lastName} onChange={e => handleInputChangeOption(e, i)} label="설명" variant="outlined"/>
+                      <span >
+                          {inputListOption.length - 1 === i && 
+                              <Button variant="contained" color="primary" className={classes.infoOptionbtn}   onClick={handleAddClickOption}>
+                                  Add
+                              </Button>}
+                          {inputListOption.length !== 1 && 
+                              <Button variant="contained" color="primary" className={classes.infoOptionbtn}  onClick={() => handleRemoveClickOption(i)}>
+                                  Remove
+                              </Button>}
+                          
+                      </span>
+                  </div>
+                );
+            })}
+            <div style={{ marginTop: 20 }}>{JSON.stringify(inputListOption)}</div>
+          </Paper>
+          
         </Grid>
       </Grid>
      <div className={classes.button}>

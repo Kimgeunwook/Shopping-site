@@ -105,6 +105,12 @@ export default function CenteredGrid() {
       setrows(response.data)
     })
   },[])
+  useEffect(() => {
+    axios.get(`/api/user/table?&page=${page}`)
+    .then(response => {
+      setrows(response.data)
+    })
+  },[page])
   const textChange = (event) => { //메인 검색 text
     setkeyText(event.target.value)
   };
