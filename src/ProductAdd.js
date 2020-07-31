@@ -72,8 +72,18 @@ export default function AutoGrid() {
   const keywordArr = [['top', '상의'], ['bottom','하의'], ['shoes','신발']]
   const [inputList, setInputList] = useState([{ firstName: "", lastName: "" }]);
   const [inputListOption, setInputListOption] = useState([{ optionName: "", optionDetail: [{ description : "", price :""}] }]);
-
-
+  const [ReservePoint, setReservePoint] = useState('basic')
+  const [shippingFee, setshippingFee] = useState('basic')
+  const [productFeature, setproductFeature] = useState('basic')
+  const handleproductFeature = (e) => {
+    setproductFeature(e.target.value)
+  }
+  const handleReservePoint = (e) => {
+    setReservePoint(e.target.value)
+  }
+  const handleFee = (e) => {
+    setshippingFee(e.target.value)
+  }
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...inputList];
@@ -148,13 +158,13 @@ export default function AutoGrid() {
       <Grid container spacing={2}>
         <Grid item xs = {3}>
           <Paper className={classes.paper} >
-             <SelectKeyword func= {setkeyword} arr= {keywordArr} />       
+             <SelectKeyword name = 'category' value = {'keyword'} func= {setkeyword} arr= {keywordArr} />       
           </Paper>
         </Grid>
 
         <Grid item xs>
           <Paper className={classes.paper}>
-          <TextField className={classes.categoryText}  size = "small"id="outline-search" label="상품명" variant="outlined"/>
+          <TextField className={classes.categoryText} name = "productName" size = "small"id="outline-search" label="상품명" variant="outlined"/>
           </Paper>
         </Grid>
       </Grid>
@@ -166,7 +176,7 @@ export default function AutoGrid() {
           <Paper className={classes.paper}  >
               <div style={{display : 'flex',  position: 'relative', top: '50%', transform: 'translate(0%, -50%)'}}>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>판매 가격&nbsp;:&nbsp;</span>
-                  <TextField className={classes.priceText} size = "small" id="outline-search" label="판매 가격" variant="outlined"/>
+                  <TextField className={classes.priceText} name = 'productSalePrice' size = "small" id="outline-search" label="판매 가격" variant="outlined"/>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;원</span>
             </div> 
           </Paper>
@@ -176,7 +186,7 @@ export default function AutoGrid() {
           <Paper className={classes.paper}  >
               <div style={{display : 'flex',  position: 'relative', top: '50%', transform: 'translate(0%, -50%)'}}>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>정상 가격&nbsp;:&nbsp;</span>
-                  <TextField className={classes.priceText} size = "small" id="outline-search" label="정상 가격" variant="outlined"/>
+                  <TextField className={classes.priceText} name = 'productBasicPrice' size = "small" id="outline-search" label="정상 가격" variant="outlined"/>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;원</span>
             </div> 
           </Paper>
@@ -186,7 +196,7 @@ export default function AutoGrid() {
           <Paper className={classes.paper}  >
               <div style={{display : 'flex',  position: 'relative', top: '50%', transform: 'translate(0%, -50%)'}}>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>최대 구매 개수&nbsp;:&nbsp;</span>
-                  <TextField className={classes.priceText} size = "small" id="outline-search" label="최대 구매 개수" variant="outlined"/>
+                  <TextField className={classes.priceText} name = 'maxNumPurchase' size = "small" id="outline-search" label="최대 구매 개수" variant="outlined"/>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;개</span>
             </div> 
           </Paper>
@@ -202,7 +212,7 @@ export default function AutoGrid() {
         </Grid>
         <Grid item xs={10}>
           <Paper className={classes.paper}>    
-            <RadioGroup row aria-label="position" name="position" defaultValue="basic" >
+            <RadioGroup row aria-label="position" name="reservePoint" value = {ReservePoint} onChange = {handleReservePoint} >
                 <FormControlLabel className={classes.radio} value="basic" control={<Radio color="primary" />} label="기본 포인트" />
                 <FormControlLabel className={classes.radio} value="seperate" control={<Radio color="primary" />} label="별도 포인트" />
                 <TextField className={classes.pointText} size = "small" id="outline-search" label="판매 가격의" variant="outlined"/>
@@ -222,12 +232,12 @@ export default function AutoGrid() {
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>
-          <TextField className={classes.categoryText}  size = "small"id="outline-search" label="상품 이미지 url" variant="outlined"/>
+          <TextField className={classes.categoryText} name = 'productImage' size = "small"id="outline-search" label="상품 이미지 url" variant="outlined"/>
           </Paper>
         </Grid>
       </Grid>
       
-      {/* 상품 이미지 */}
+      {/* 상품 사이트 */}
       <Grid container spacing={2}>
         <Grid item xs={2}>
           <Paper className={classes.paper}>
@@ -236,7 +246,7 @@ export default function AutoGrid() {
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>
-          <TextField className={classes.categoryText}  size = "small"id="outline-search" label="상품 사이트 url" variant="outlined"/>
+          <TextField className={classes.categoryText} name = 'productSite' size = "small"id="outline-search" label="상품 사이트 url" variant="outlined"/>
           </Paper>
         </Grid>
       </Grid>
@@ -250,7 +260,7 @@ export default function AutoGrid() {
         </Grid>
         <Grid item xs={10}>
           <Paper className={classes.paper}>    
-            <RadioGroup row aria-label="position" name="position" defaultValue="basic" >
+            <RadioGroup row aria-label="position" name="shippingFee" value = {shippingFee} onChange = {handleFee} >
                 <FormControlLabel className={classes.radio} value="basic" control={<Radio color="primary" />} label="기본 배송비" />
                 <FormControlLabel className={classes.radio} value="seperate" control={<Radio color="primary" />} label="별도 배송비" />
                 <TextField className={classes.pointText} size = "small" id="outline-search" label="별도 배송비" variant="outlined"/>
@@ -271,10 +281,10 @@ export default function AutoGrid() {
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>
-          <FormGroup aria-label="position" row>
-                <FormControlLabel value="newProduct"control={<Checkbox color="primary" />} label="New" />
-                <FormControlLabel value="bestProduct"control={<Checkbox color="primary" />} label="Best" />
-                <FormControlLabel value="saleProduct"control={<Checkbox color="primary" />} label="할인" />
+          <FormGroup aria-label="position" row name="123132" value = {shippingFee}  onChange = {handleproductFeature}>
+                <FormControlLabel value="newProduct"  control={<Checkbox color="primary" />} label="New" />
+                <FormControlLabel value="bestProduct"  control={<Checkbox color="primary" />} label="Best" />
+                <FormControlLabel value="saleProduct"  control={<Checkbox color="primary" />} label="할인" />
           </FormGroup>
           </Paper>
         </Grid>
@@ -355,7 +365,7 @@ export default function AutoGrid() {
                                   </>}
                           
                          
-                          <TextField name="lastNameone" size = "small" className={classes.infoOption} value = {y.description} onChange={e => handleInputChangeOption(e, i, j)} label="가격" variant="outlined"/>
+                          <TextField name="lastNameone" size = "small" className={classes.infoOption} value = {y.description} onChange={e => handleInputChangeOption(e, i, j)} label="항목" variant="outlined"/>
                           <TextField name="lastNametwo" size = "small" className={classes.infoOption} value = {y.price} onChange={e => handleInputChangeOption(e, i, j)} label="가격" variant="outlined"/>
                           <span >
                           {inputListOption[i]['optionDetail'].length - 1 === j && 
