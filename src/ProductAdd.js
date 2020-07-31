@@ -59,6 +59,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight :theme.spacing(2),
     marginBottom : theme.spacing(3),
   },
+  infoOptionbtn:{
+    marginRight :theme.spacing(2),
+    marginBottom : theme.spacing(3),
+  },
 }));
 
 export default function AutoGrid() {
@@ -84,7 +88,19 @@ export default function AutoGrid() {
     setInputList([...inputList, { firstName: "", lastName: "" }]);
   };
 
-  ///////////////////
+  ///////////////////옵션관련
+  const addOption = () => {
+    setInputListOption([...inputListOption, { firstName: "", lastName: "" }]);
+  }
+  const deleteOption = () => {
+    const list = [...inputListOption];
+    console.log(list.length)
+    if(list.length != 1) 
+    {
+      list.splice(list.length -1, 1);
+    }
+    setInputListOption(list);
+  }
   const handleInputChangeOption = (e, index) => {
     const { name, value } = e.target;
     const list = [...inputListOption];
@@ -286,11 +302,20 @@ export default function AutoGrid() {
         </Grid>
         <Grid item xs>
           <Paper className={classes.optionpaper}>
+            <div>
+              <Button type="submit" variant="outlined" className={classes.infoOptionbtn}  color="primary" type = 'button'onClick = {addOption}>
+                      추가 
+              </Button>
+              
+            </div>
           {inputListOption.map((x, i) => {
             return (
                   <div >
-                      <TextField name="firstName" size = "small" className={classes.infoOption} value = {x.firstName} onChange={e => handleInputChangeOption(e, i)} label="상품 정보 항목" variant="outlined"/>
-                      <TextField name="lastName" size = "small" className={classes.infoOption} value = {x.lastName} onChange={e => handleInputChangeOption(e, i)} label="설명" variant="outlined"/>
+                    <Button variant="contained" color="primary" className={classes.infoOptionbtn}  onClick={() => handleRemoveClickOption(i)}>
+                                  옵션 삭제
+                              </Button>
+                      <TextField name="firstName" size = "small" className={classes.infoOption} value = {x.firstName} onChange={e => handleInputChangeOption(e, i)} label="설명" variant="outlined"/>
+                      <TextField name="lastName" size = "small" className={classes.infoOption} value = {x.lastName} onChange={e => handleInputChangeOption(e, i)} label="가격" variant="outlined"/>
                       <span >
                           {inputListOption.length - 1 === i && 
                               <Button variant="contained" color="primary" className={classes.infoOptionbtn}   onClick={handleAddClickOption}>
