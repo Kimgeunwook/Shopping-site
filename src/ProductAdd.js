@@ -152,9 +152,10 @@ export default function AutoGrid() {
      <form className={classes.form} noValidate action = "/api/product/add" method = "post">
      {/* 상품 카테고리 부분 */}
       <Grid container spacing={2}>
-        <Grid item xs = {3}>
+        <Grid item xs = {2}>
           <Paper className={classes.paper} >
-             <SelectKeyword name = 'category' value = {'keyword'} func= {setkeyword} arr= {keywordArr} />       
+             <SelectKeyword  value = {keyword} func= {setkeyword} arr= {keywordArr} />       
+             <TextField style ={{display : 'none'}} name = 'category'  value = {keyword}/>
           </Paper>
         </Grid>
 
@@ -168,7 +169,7 @@ export default function AutoGrid() {
 
       {/* 가격부분 */}
       <Grid container spacing={2} justify = "space-between">
-        <Grid item xs ={ 3}>
+        <Grid item xs ={ 6}>
           <Paper className={classes.paper}  >
               <div style={{display : 'flex',  position: 'relative', top: '50%', transform: 'translate(0%, -50%)'}}>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>판매 가격&nbsp;:&nbsp;</span>
@@ -178,7 +179,7 @@ export default function AutoGrid() {
           </Paper>
         </Grid>
 
-        <Grid item  xs ={ 3}>
+        <Grid item  xs ={ 6}>
           <Paper className={classes.paper}  >
               <div style={{display : 'flex',  position: 'relative', top: '50%', transform: 'translate(0%, -50%)'}}>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>정상 가격&nbsp;:&nbsp;</span>
@@ -188,7 +189,7 @@ export default function AutoGrid() {
           </Paper>
         </Grid>
     
-        <Grid item  xs ={ 5}>
+        {/* <Grid item  xs ={ 5}>
           <Paper className={classes.paper}  >
               <div style={{display : 'flex',  position: 'relative', top: '50%', transform: 'translate(0%, -50%)'}}>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>최대 구매 개수&nbsp;:&nbsp;</span>
@@ -196,7 +197,7 @@ export default function AutoGrid() {
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;개</span>
             </div> 
           </Paper>
-        </Grid>
+        </Grid> */}
       </Grid>
 
         {/* 적립 포인트 */}
@@ -347,7 +348,7 @@ export default function AutoGrid() {
                           {j == 0 &&
                                   <> 
                                   <Button variant="contained"  color="primary" className={classes.infoOptionbtn}  onClick={() => deleteOption(i)}>
-                                  옵션 삭제
+                                      옵션 삭제
                                   </Button>
                                   <TextField name="optionName" size = "small" className={classes.infoOption} value = {x.optionName} onChange={e => handleInputChangeOption(e, i)} label="옵션명" variant="outlined"/>
                                   </>}
@@ -355,14 +356,14 @@ export default function AutoGrid() {
                           {j != 0 &&
                                   <> 
                                   <Button variant="contained" style = {{visibility : 'hidden'}}  color="primary" className={classes.infoOptionbtn}  onClick={() => deleteOption(i)}>
-                                  옵션 삭제
+                                      옵션 삭제
                                   </Button>
                                   <TextField name="optionName" size = "small"  style = {{visibility : 'hidden'}} className={classes.infoOption} value = {x.optionName} onChange={e => handleInputChangeOption(e, i)} label="옵션명" variant="outlined"/>
                                   </>}
                           
                          
-                          <TextField name="lastNameone" size = "small" className={classes.infoOption} value = {y.description} onChange={e => handleInputChangeOption(e, i, j)} label="항목" variant="outlined"/>
-                          <TextField name="lastNametwo" size = "small" className={classes.infoOption} value = {y.price} onChange={e => handleInputChangeOption(e, i, j)} label="가격" variant="outlined"/>
+                          <TextField name="lastNameone"  size = "small" className={classes.infoOption} value = {y.description} onChange={e => handleInputChangeOption(e, i, j)} label="추가가격" variant="outlined"/>
+                          <TextField name="lastNametwo"  size = "small" className={classes.infoOption} value = {y.price} onChange={e => handleInputChangeOption(e, i, j)} label="재고" variant="outlined"/>
                           <span >
                           {inputListOption[i]['optionDetail'].length - 1 === j && 
                               <Button variant="contained" color="primary" className={classes.infoOptionbtn}   onClick={() => handleAddClickOption(i, j)}>

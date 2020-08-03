@@ -7,12 +7,22 @@ const productSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref : "users",
     },
-    price: [Number],
-    stock : [Number],
-    option : [String],
+    price: Number,
     image : String,
+    site : String,
+    shippingMethod : String,
+    shippingFee : Number,
     category : String,
-    feature : String,
+    option : [{
+        name : String,
+        price : Number,
+        stock : Number,
+    }],
+    information: [{
+        info: String,
+        description: String
+      }],
+    feature : [String],
 });
 
 

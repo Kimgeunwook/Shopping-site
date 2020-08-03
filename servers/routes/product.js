@@ -1,28 +1,46 @@
 module.exports = function(app, Product){//함수로 만들어 객체 app을 전달받음
 	var express = require('express');
     var router = express.Router();
+    
+    //상품 등록
     router.post('/add' , function (req, res) {
-        // console.log(req.body)    
-
+        
         var product = new Product();
         product.name = req.body.productName ;
         product.seller = req.user._id;
-        product.price = [req.body.productSalePrice];
-        product.stock = [req.body.maxNumPurchase];
-        product.option = [req.body.optionName];
+        product.price = req.body.productSalePrice;
         product.image = req.body.productImage;
-        product.category = '카테고리';
-        product.feature = '특징';
-
+        product.category = req.body.category;
+        product.site = req.body.productSite;
+        product.shippingMethod = req.body.shippingFee;
+        product.shippingFee = req.body.seperateRatio;
+        for(var i = 0 ; i < req.body.optionName.length; i++)
+        {
+            var list = {
+                name : req.body.optionName[i],
+                price : req.body.lastNameone[i],
+                stock : req.body.lastNametwo[i]
+            };
+            product.option.push(list);
+        }
+        for(var i = 0 ; i < req.body.firstName.length; i++)
+        {
+            var list = {
+                info: req.body.firstName[i],
+                description: req.body.lastName[i]
+            };
+            product.information.push(list);
+        }
+        if(req.body.newProduct != undefined) product.feature.push("newProduct")
+        if(req.body.bestProduct != undefined) product.feature.push("bestProduct")
+        if(req.body.saleProduct != undefined) product.feature.push("saleProduct")
         product.save(function(err){
             if(err){
-                console.log('오류@@@@@@@@@@')
+                console.log(err)
                 res.json({result : 0});
                 return
             }
-            console.log('오류아님@@@@@@@@@@')
             res.redirect('/App/ProductAdd')
-            // res.json({result : 1});
         })
        
     })

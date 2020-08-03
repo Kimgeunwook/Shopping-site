@@ -108,6 +108,7 @@ export default function Orders() {
               <TableCell>{product.orderProduct.seller.Name}</TableCell>
               <TableCell>{product.buyer.Name}</TableCell> 
               <TableCell>{product.orderProduct.price[product.orderOption]}</TableCell>
+              {/* 아마 가격 띄우는 부분 스키마에 맞게 고쳐야할거임 */}
               <TableCell>{product.orderStatus}</TableCell>             
             </TableRow>
           ))}
