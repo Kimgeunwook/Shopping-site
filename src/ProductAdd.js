@@ -74,10 +74,6 @@ export default function AutoGrid() {
   const [inputListOption, setInputListOption] = useState([{ optionName: "", optionDetail: [{ description : "", price :""}] }]);
   const [ReservePoint, setReservePoint] = useState('basic')
   const [shippingFee, setshippingFee] = useState('basic')
-  const [productFeature, setproductFeature] = useState('basic')
-  const handleproductFeature = (e) => {
-    setproductFeature(e.target.value)
-  }
   const handleReservePoint = (e) => {
     setReservePoint(e.target.value)
   }
@@ -263,8 +259,8 @@ export default function AutoGrid() {
             <RadioGroup row aria-label="position" name="shippingFee" value = {shippingFee} onChange = {handleFee} >
                 <FormControlLabel className={classes.radio} value="basic" control={<Radio color="primary" />} label="기본 배송비" />
                 <FormControlLabel className={classes.radio} value="seperate" control={<Radio color="primary" />} label="별도 배송비" />
-                <TextField className={classes.pointText} size = "small" id="outline-search" label="별도 배송비" variant="outlined"/>
-                <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;원</span>
+                <TextField className={classes.pointText} name ="seperateRatio" size = "small" id="outline-search" label="별도 배송비" variant="outlined"/>
+                 <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;원</span>
                 <FormControlLabel className={classes.radio} value="notuse" control={<Radio color="primary" />} label="배송비 무료" />
             </RadioGroup>
           </Paper>
@@ -281,10 +277,10 @@ export default function AutoGrid() {
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>
-          <FormGroup aria-label="position" row name="123132" value = {shippingFee}  onChange = {handleproductFeature}>
-                <FormControlLabel value="newProduct"  control={<Checkbox color="primary" />} label="New" />
-                <FormControlLabel value="bestProduct"  control={<Checkbox color="primary" />} label="Best" />
-                <FormControlLabel value="saleProduct"  control={<Checkbox color="primary" />} label="할인" />
+          <FormGroup aria-label="position" row >
+                <FormControlLabel name = "newProduct" value = "checked" control={<Checkbox color="primary" />} label="New" />
+                <FormControlLabel name = "bestProduct" value = "checked" control={<Checkbox color="primary" />} label="Best" />
+                <FormControlLabel name = "saleProduct"value = "checked" control={<Checkbox color="primary" />} label="할인" />
           </FormGroup>
           </Paper>
         </Grid>

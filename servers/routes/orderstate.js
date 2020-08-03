@@ -12,7 +12,6 @@ module.exports = function(app, Orderstate){//함수로 만들어 객체 app을 �
     //     exec(function(err,result){
     //         res.send(result);
     //     })
-        console.log(req.user._id)
         const keyword = req.query.keyword 
         const keyText = req.query.keyText 
         if(typeof keyword == "undefined") // 검색사용 x
