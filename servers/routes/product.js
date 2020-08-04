@@ -71,6 +71,39 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
        
     })
     
-    
+    router.get('/check' , function (req, res) {
+
+        const keyword = req.query.keyword 
+        const keyText = req.query.keyText 
+        if(typeof keyword == "undefined") // 검색사용 x
+        {
+            Product.find().populate('seller').skip((req.query.page - 1) * 10).limit(10)
+            .then(ord =>{
+                res.send(ord)
+            })
+        }
+        else 
+        {
+            if(keyword === 'seller')
+            {               
+                Product.find().populate({path : 'seller', match : {Name:keyText} })
+                .then(ord =>{
+                    ord = ord.filter(idx => idx.seller != null);
+                    res.send(ord.slice( (req.query.page - 1) * 10, req.query.page * 10  ))
+                })
+            }
+            else if(keyword === 'orderNum')
+            {
+                Product.find({name : keyText}).populate('seller')
+                .then(ord =>{
+                    ord = ord.filter(idx => idx.seller != null);
+                    res.send(ord.slice( (req.query.page - 1) * 10, req.query.page * 10  ))
+                })
+            }
+        }
+
+        
+
+    })
     return router;	//라우터를 리턴
 };

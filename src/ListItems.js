@@ -161,11 +161,11 @@ export default function ListItems() {
               </ListItem>
 
               <ListItem button
-              onClick = {() => history.push('/App/Integrations')}>
+              onClick = {() => history.push('/App/ProductCheck')}>
                 <ListItemIcon>
                   <ShoppingCartIcon />
                 </ListItemIcon>
-                상품 수정
+                상품 조회
               </ListItem>
               </Typography>
             </AccordionDetails>

@@ -28,6 +28,7 @@ import Orders from './Orders';
 import {Route, Redirect} from 'react-router-dom';
 import SignInSide from './SignInSide';
 import Customers from './Customers';
+import ProductCheck from './ProductCheck';
 import axios from 'axios';
 function Copyright() {
   return (
@@ -212,6 +213,7 @@ export default function App({match}) {
                 {categoryname === "Customers"  && <Customers />}
                 {categoryname === "ProductAdd"  && <ProductAdd/>}
                 {categoryname === "Integrations"  && <Deposits />}
+                {categoryname === "ProductCheck"  && <ProductCheck />}
               </Paper>
             </Grid>
           </Grid>
