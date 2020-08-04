@@ -45,6 +45,7 @@ export default function Orders() {
   useEffect(() => {
     axios.get(`/api/order/table?filt=${filt}&page=${page}`)
     .then(response => {
+      console.log(response.data)
       setProducts(response.data)
     })
   },[])
@@ -107,8 +108,7 @@ export default function Orders() {
               <TableCell>{product.orderProduct.name}</TableCell>
               <TableCell>{product.orderProduct.seller.Name}</TableCell>
               <TableCell>{product.buyer.Name}</TableCell> 
-              <TableCell>이부분 수정해야함</TableCell> 
-              {/* <TableCell>{product.orderProduct.price[product.orderOption]}</TableCell> */}
+              <TableCell>{product.orderProduct.price}  </TableCell>
               {/* 아마 가격 띄우는 부분 스키마에 맞게 고쳐야할거임 */}
               <TableCell>{product.orderStatus}</TableCell>             
             </TableRow>

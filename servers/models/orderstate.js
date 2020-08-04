@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const orderstateSchema = mongoose.Schema({ 
     type : String,
     orderDate:{type:Date, default:Date.now},
-    orderNum : Number,
+    orderNum : [Number],
     orderStatus : String,
     orderQuantity : Number,
     orderOption: Number,

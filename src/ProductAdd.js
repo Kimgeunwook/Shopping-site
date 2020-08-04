@@ -50,11 +50,17 @@ const useStyles = makeStyles((theme) => ({
       marginTop : theme.spacing(6),
       textAlign : 'center',
   },
+  info : {
+    marginRight :theme.spacing(2),
+    marginBottom : theme.spacing(3),
+    backgroundColor : 'white',
+    width : '35%', 
+  },
   infoOption  :{
     marginRight :theme.spacing(2),
     marginBottom : theme.spacing(3),
     backgroundColor : 'white',
-    width : '20%', 
+    width : '15%', 
   },
   infoOptionbtn:{
     marginRight :theme.spacing(2),
@@ -71,7 +77,7 @@ export default function AutoGrid() {
   const [keyword, setkeyword] = useState('')
   const keywordArr = [['top', '상의'], ['bottom','하의'], ['shoes','신발']]
   const [inputList, setInputList] = useState([{ firstName: "", lastName: "" }]);
-  const [inputListOption, setInputListOption] = useState([{ optionName: "", optionDetail: [{ description : "", price :""}] }]);
+  const [inputListOption, setInputListOption] = useState([{ optionName: "", optionDetail: [{detail:"", stock : "", price :""}] }]);
   const [ReservePoint, setReservePoint] = useState('basic')
   const [shippingFee, setshippingFee] = useState('basic')
   const handleReservePoint = (e) => {
@@ -101,7 +107,7 @@ export default function AutoGrid() {
 
    ///////////////////옵션관련
    const addOption = () => {
-    setInputListOption([...inputListOption, { optionName: "",  optionDetail: [{ description : "", price :""}]}]);
+    setInputListOption([...inputListOption, { optionName: "",  optionDetail: [{detail:"", stock : "", price :""}]}]);
   }
   const deleteOption = (index) => {
     const list = [...inputListOption];
@@ -120,10 +126,16 @@ export default function AutoGrid() {
       list[index][name] = value;
       setInputListOption(list);
     }
+    else if( name == 'detailName')
+    {
+      const list = [...inputListOption];
+      list[index]['optionDetail'][j]['detail'] = value;
+      setInputListOption(list);
+    }
     else if( name == 'lastNameone')
     {
       const list = [...inputListOption];
-      list[index]['optionDetail'][j]['description'] = value;
+      list[index]['optionDetail'][j]['stock'] = value;
       setInputListOption(list);
     }
     else{
@@ -135,7 +147,7 @@ export default function AutoGrid() {
   // handle click event of the Remove button
   const handleAddClickOption = (i, j) => {
     const list = [...inputListOption];
-    list[i]['optionDetail'].push({ description : "", price :""})
+    list[i]['optionDetail'].push({detail: "", stock : "", price :""})
     setInputListOption(list);
   };
   ///////////////////
@@ -300,8 +312,8 @@ export default function AutoGrid() {
           {inputList.map((x, i) => {
             return (
                 <div >
-                    <TextField name="firstName" size = "small" className={classes.infoOption} value = {x.firstName} onChange={e => handleInputChange(e, i)} label="상품 정보 항목" variant="outlined"/>
-                    <TextField name="lastName" size = "small" className={classes.infoOption} value = {x.lastName} onChange={e => handleInputChange(e, i)} label="설명" variant="outlined"/>
+                    <TextField name="firstName" size = "small" className={classes.info} value = {x.firstName} onChange={e => handleInputChange(e, i)} label="상품 정보 항목" variant="outlined"/>
+                    <TextField name="lastName" size = "small" className={classes.info} value = {x.lastName} onChange={e => handleInputChange(e, i)} label="설명" variant="outlined"/>
                     <span >
                         {inputList.length - 1 === i && 
                             <Button variant="contained" color="primary" className={classes.infoOptionbtn}   onClick={handleAddClick}>
@@ -361,7 +373,7 @@ export default function AutoGrid() {
                                   <TextField name="optionName" size = "small"  style = {{visibility : 'hidden'}} className={classes.infoOption} value = {x.optionName} onChange={e => handleInputChangeOption(e, i)} label="옵션명" variant="outlined"/>
                                   </>}
                           
-                         
+                          <TextField name="detailName"  size = "small" className={classes.infoOption} value = {y.description} onChange={e => handleInputChangeOption(e, i, j)} label="디테일 옵션" variant="outlined"/>
                           <TextField name="lastNameone"  size = "small" className={classes.infoOption} value = {y.description} onChange={e => handleInputChangeOption(e, i, j)} label="추가가격" variant="outlined"/>
                           <TextField name="lastNametwo"  size = "small" className={classes.infoOption} value = {y.price} onChange={e => handleInputChangeOption(e, i, j)} label="재고" variant="outlined"/>
                           <span >

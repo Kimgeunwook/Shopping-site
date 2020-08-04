@@ -14,23 +14,49 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
         product.site = req.body.productSite;
         product.shippingMethod = req.body.shippingFee;
         product.shippingFee = req.body.seperateRatio;
-        for(var i = 0 ; i < req.body.optionName.length; i++)
+        if(typeof(req.body.optionName) == 'string')
         {
             var list = {
-                name : req.body.optionName[i],
-                price : req.body.lastNameone[i],
-                stock : req.body.lastNametwo[i]
+                name : req.body.optionName,
+                detail : req.body.detailName,
+                stock : req.body.lastNameone,
+                price : req.body.lastNametwo
             };
             product.option.push(list);
         }
-        for(var i = 0 ; i < req.body.firstName.length; i++)
+        else
+        {
+            for(var i = 0 ; i < req.body.optionName.length; i++)
+            {
+                var list = {
+                    name : req.body.optionName[i],
+                    detail : req.body.detailName[i],
+                    stock : req.body.lastNameone[i],
+                    price : req.body.lastNametwo[i]
+                };
+                product.option.push(list);
+            }
+        }
+        
+        if(typeof(req.body.firstName) == 'string')
         {
             var list = {
-                info: req.body.firstName[i],
-                description: req.body.lastName[i]
+                info: req.body.firstName,
+                description: req.body.lastName
             };
             product.information.push(list);
         }
+        else{
+            for(var i = 0 ; i < req.body.firstName.length; i++)
+            {
+                var list = {
+                    info: req.body.firstName[i],
+                    description: req.body.lastName[i]
+                };
+                product.information.push(list);
+            }
+        }
+        
         if(req.body.newProduct != undefined) product.feature.push("newProduct")
         if(req.body.bestProduct != undefined) product.feature.push("bestProduct")
         if(req.body.saleProduct != undefined) product.feature.push("saleProduct")
