@@ -200,16 +200,6 @@ export default function AutoGrid() {
             </div> 
           </Paper>
         </Grid>
-    
-        {/* <Grid item  xs ={ 5}>
-          <Paper className={classes.paper}  >
-              <div style={{display : 'flex',  position: 'relative', top: '50%', transform: 'translate(0%, -50%)'}}>
-                  <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>최대 구매 개수&nbsp;:&nbsp;</span>
-                  <TextField className={classes.priceText} name = 'maxNumPurchase' size = "small" id="outline-search" label="최대 구매 개수" variant="outlined"/>
-                  <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;개</span>
-            </div> 
-          </Paper>
-        </Grid> */}
       </Grid>
 
         {/* 적립 포인트 */}

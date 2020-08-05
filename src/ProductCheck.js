@@ -11,7 +11,7 @@ import Search from './Search';
 import PageControl from './PageControl';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
-
+import ProductAdd from './ProductAdd';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -60,24 +60,25 @@ export default function Orders() {
   const [keyText, setkeyText] = useState('')
   const keywordArr = [['orderNum','상품 이름'],['seller', '판매자']]
   const [open, setOpen] = React.useState(false);
-  const [maxWidth, setMaxWidth] = React.useState('md');
+  const [maxWidth, setMaxWidth] = React.useState('lg');
   const [productId, setproductID] = useState('init')
   const [selectedProduct, setselectedProduct] = useState('init')
 
   
-  useEffect(  () => {
-    async function foo()
+  useEffect( () => {
+    async function get()
     {
         await axios.get(`/api/product/selected?id=${productId}`)
         .then(response => {
           setselectedProduct(response.data)
         })    
+
         if(productId != 'init')
         {
           setOpen(true);
         }
     }
-    foo();
+    get();
     
   },[productId])
   const handleClose = () => {
@@ -155,7 +156,7 @@ export default function Orders() {
         onClose={handleClose}
         aria-labelledby="max-width-dialog-title"
       >
-        <DialogTitle id="max-width-dialog-title">상품 정보</DialogTitle>
+        <DialogTitle>상품 정보</DialogTitle>
         <DialogContent>
           <DialogContentText style ={{justify : 'center', textAlign: 'center',}}>
              <>
