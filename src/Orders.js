@@ -44,7 +44,6 @@ export default function Orders() {
   useEffect(() => {
     axios.get(`/api/order/table?filt=${filt}&page=${page}`)
     .then(response => {
-      console.log(response.data)
       setProducts(response.data)
     })
   },[])

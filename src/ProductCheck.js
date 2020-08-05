@@ -46,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     minWidth: 120,
   },
+  productdetail:{
+    padding : theme.spacing(5),
+    marginTop: theme.spacing(2),
+  }
 }));
 
 export default function Orders() {
@@ -133,7 +137,6 @@ export default function Orders() {
               <TableCell>{product.price}</TableCell>
               <TableCell>{product.site}</TableCell>
               <TableCell>{product.category}</TableCell>    
-              {/* <TableCell><Button variant="contained" value ={product._id} color="primary" onClick={handleClickOpen}>상세보기</Button></TableCell> */}
               <TableCell><Button variant="contained" value ={product._id} color="primary" onClick={() => setproductID(product._id)}>상세보기</Button></TableCell>
             </TableRow>
           ))}
@@ -143,34 +146,19 @@ export default function Orders() {
         <PageControl func = {setPage}/>
       </div>
       
-      {/* /////////////////////// */}
       <Dialog
         fullWidth={true}
         maxWidth={'lg'}
         open={open}
         onClose={handleClose}
-        aria-labelledby="max-width-dialog-title"
-      >
-        <DialogTitle>상품 정보</DialogTitle>
-        <DialogContent>
-          <DialogContentText style ={{justify : 'center', textAlign: 'center',}}>
-             <>
-              <>{selectedProduct[0].name}</>
-            </>
-          </DialogContentText>
-          <form className={classes.form} noValidate>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="max-width">maxWidth</InputLabel>
-            </FormControl>
-          </form>
-        </DialogContent>
+        aria-labelledby="max-width-dialog-title">
+          <div className={classes.productdetail}><ProductAdd/></div>
+        
+
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Close
-          </Button>
+          <Button onClick={handleClose} color="primary"> Close </Button>
         </DialogActions>
       </Dialog>
-      {/* /////////////////////////////// */}
     </React.Fragment>
   );
 }

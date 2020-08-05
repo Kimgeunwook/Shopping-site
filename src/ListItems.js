@@ -45,7 +45,7 @@ export default function ListItems() {
               
             </AccordionSummary>
             <AccordionDetails>
-              <Typography className={classes.AccordionDetail}>
+              <div className={classes.AccordionDetail}>
               <ListItem button 
               onClick = {() => history.push('/App/HOME')}>
                  <ListItemIcon>
@@ -61,7 +61,7 @@ export default function ListItems() {
                 </ListItemIcon>
                 HOME2
               </ListItem>
-              </Typography>
+              </div>
             </AccordionDetails>
           </Accordion>
         </div>
@@ -78,7 +78,7 @@ export default function ListItems() {
               <Typography className={classes.heading}>회원관리</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography className={classes.AccordionDetail}>
+              <div className={classes.AccordionDetail}>
               <ListItem button 
               onClick = {() => history.push('/App/HOME')}>
                 <ListItemIcon>
@@ -94,7 +94,7 @@ export default function ListItems() {
                 </ListItemIcon>
                 회원관리2
               </ListItem>
-              </Typography>
+              </div>
             </AccordionDetails>
           </Accordion>
         </div>
@@ -111,7 +111,7 @@ export default function ListItems() {
               <Typography className={classes.heading}>주문관리</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography className={classes.AccordionDetail}>
+              <div className={classes.AccordionDetail}>
               <ListItem button 
               onClick = {() => history.push('/App/HOME')}>
                 <ListItemIcon>
@@ -127,7 +127,7 @@ export default function ListItems() {
                 </ListItemIcon>
                 주문관리2
               </ListItem>
-              </Typography>
+              </div>
             </AccordionDetails>
           </Accordion>
         </div>
@@ -145,7 +145,7 @@ export default function ListItems() {
               <Typography className={classes.heading}>상품</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography className={classes.AccordionDetail}>
+              <div className={classes.AccordionDetail}>
               <ListItem button 
               onClick = {() => history.push('/App/ProductAdd')}>
                 <ListItemIcon>
@@ -161,7 +161,7 @@ export default function ListItems() {
                 </ListItemIcon>
                 상품 조회
               </ListItem>
-              </Typography>
+              </div>
             </AccordionDetails>
           </Accordion>
         </div>
