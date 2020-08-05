@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Orders() {
+export default function ProdcutCheck() {
   const classes = useStyles();
   const [Products, setProducts] = useState([])
   const [page, setPage] = useState(1)
@@ -61,7 +61,7 @@ export default function Orders() {
   const keywordArr = [['orderNum','상품 이름'],['seller', '판매자']]
   const [open, setOpen] = React.useState(false);
   const [productId, setproductID] = useState('init')
-  const [selectedProduct, setselectedProduct] = useState('init')
+  const [selectedProduct, setselectedProduct] = useState()
 
   
   useEffect( () => {
@@ -152,9 +152,9 @@ export default function Orders() {
         open={open}
         onClose={handleClose}
         aria-labelledby="max-width-dialog-title">
-          <div className={classes.productdetail}><ProductAdd/></div>
-        
 
+        <div className={classes.productdetail}><ProductAdd object= {selectedProduct}/></div>
+        
         <DialogActions>
           <Button onClick={handleClose} color="primary"> Close </Button>
         </DialogActions>

@@ -46,6 +46,7 @@ export default function SelectKeyword(props) {
           onOpen={handleOpen}
           value={age}
           onChange={handleChange}
+          disabled = {props.disable}
         >
          
             {Arr.map((list) => (

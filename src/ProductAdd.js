@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AutoGrid() {
+export default function ProductAdd(props) {
   const classes = useStyles();
   const [keyword, setkeyword] = useState('')
   const keywordArr = [['top', '상의'], ['bottom','하의'], ['shoes','신발']]
@@ -166,14 +166,14 @@ export default function AutoGrid() {
       <Grid container spacing={2}>
         <Grid item xs = {2}>
           <Paper className={classes.paper} >
-             <SelectKeyword  value = {keyword} func= {setkeyword} arr= {keywordArr} />       
+             <SelectKeyword  value = {keyword} func= {setkeyword} arr= {keywordArr} disable = {props.object != undefined ? true : false} />       
              <TextField style ={{display : 'none'}} name = 'category'  value = {keyword}/>
           </Paper>
         </Grid>
 
         <Grid item xs>
           <Paper className={classes.paper}>
-          <TextField className={classes.categoryText} name = "productName" size = "small"id="outline-search" label="상품명" variant="outlined"/>
+          <TextField className={classes.categoryText} disabled = {props.object != undefined ? true : false} defaultValue = {props.object != undefined ? props.object[0].name : null} name = "productName" size = "small"id="outline-search" label="상품명" variant="outlined"/>
           </Paper>
         </Grid>
       </Grid>
@@ -185,7 +185,7 @@ export default function AutoGrid() {
           <Paper className={classes.paper}  >
               <div style={{display : 'flex',  position: 'relative', top: '50%', transform: 'translate(0%, -50%)'}}>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>판매 가격&nbsp;:&nbsp;</span>
-                  <TextField className={classes.priceText} name = 'productSalePrice' size = "small" id="outline-search" label="판매 가격" variant="outlined"/>
+                  <TextField className={classes.priceText} disabled = {props.object != undefined ? true : false} defaultValue = {props.object != undefined ? props.object[0].price : ''} name = 'productSalePrice' size = "small" id="outline-search" label="판매 가격" variant="outlined"/>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;원</span>
             </div> 
           </Paper>
@@ -195,7 +195,7 @@ export default function AutoGrid() {
           <Paper className={classes.paper}  >
               <div style={{display : 'flex',  position: 'relative', top: '50%', transform: 'translate(0%, -50%)'}}>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>정상 가격&nbsp;:&nbsp;</span>
-                  <TextField className={classes.priceText} name = 'productBasicPrice' size = "small" id="outline-search" label="정상 가격" variant="outlined"/>
+                  <TextField className={classes.priceText} disabled = {props.object != undefined ? true : false} defaultValue = {props.object != undefined ? props.object[0].price : ''} name = 'productBasicPrice' size = "small" id="outline-search" label="정상 가격" variant="outlined"/>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;원</span>
             </div> 
           </Paper>
@@ -231,7 +231,7 @@ export default function AutoGrid() {
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>
-          <TextField className={classes.categoryText} name = 'productImage' size = "small"id="outline-search" label="상품 이미지 url" variant="outlined"/>
+          <TextField className={classes.categoryText} disabled = {props.object != undefined ? true : false} defaultValue = {props.object != undefined ? props.object[0].image : ''} name = 'productImage' size = "small"id="outline-search" label="상품 이미지 url" variant="outlined"/>
           </Paper>
         </Grid>
       </Grid>
@@ -245,7 +245,7 @@ export default function AutoGrid() {
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>
-          <TextField className={classes.categoryText} name = 'productSite' size = "small"id="outline-search" label="상품 사이트 url" variant="outlined"/>
+          <TextField className={classes.categoryText} disabled = {props.object != undefined ? true : false} defaultValue = {props.object != undefined ? props.object[0].price : ''} name = 'productSite' size = "small"id="outline-search" label="상품 사이트 url" variant="outlined"/>
           </Paper>
         </Grid>
       </Grid>
@@ -262,7 +262,7 @@ export default function AutoGrid() {
             <RadioGroup row aria-label="position" name="shippingFee" value = {shippingFee} onChange = {handleFee} >
                 <FormControlLabel className={classes.radio} value="basic" control={<Radio color="primary" />} label="기본 배송비" />
                 <FormControlLabel className={classes.radio} value="seperate" control={<Radio color="primary" />} label="별도 배송비" />
-                <TextField className={classes.pointText} name ="seperateRatio" size = "small" id="outline-search" label="별도 배송비" variant="outlined"/>
+                <TextField className={classes.pointText} name ="seperateRatio"  size = "small" id="outline-search" label="별도 배송비" variant="outlined"/>
                  <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;원</span>
                 <FormControlLabel className={classes.radio} value="notuse" control={<Radio color="primary" />} label="배송비 무료" />
             </RadioGroup>
