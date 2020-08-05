@@ -1,5 +1,4 @@
 import React, {useState , useEffect} from 'react';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -19,9 +18,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -60,7 +56,6 @@ export default function Orders() {
   const [keyText, setkeyText] = useState('')
   const keywordArr = [['orderNum','상품 이름'],['seller', '판매자']]
   const [open, setOpen] = React.useState(false);
-  const [maxWidth, setMaxWidth] = React.useState('lg');
   const [productId, setproductID] = useState('init')
   const [selectedProduct, setselectedProduct] = useState('init')
 
@@ -151,7 +146,7 @@ export default function Orders() {
       {/* /////////////////////// */}
       <Dialog
         fullWidth={true}
-        maxWidth={maxWidth}
+        maxWidth={'lg'}
         open={open}
         onClose={handleClose}
         aria-labelledby="max-width-dialog-title"

@@ -18,18 +18,14 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-// import { mainListItems, secondaryListItems } from './listItems';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ListItems from './ListItems';
-import Chart from './Chart';
 import Deposits from './Deposits';
 import ProductAdd from './ProductAdd';
 import Orders from './Orders';
-import {Route, Redirect} from 'react-router-dom';
+import {Route,} from 'react-router-dom';
 import SignInSide from './SignInSide';
 import Customers from './Customers';
 import ProductCheck from './ProductCheck';
-import axios from 'axios';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -140,7 +136,6 @@ export default function App({match}) {
     setOpen(false);
   };
   
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   
   return (
     

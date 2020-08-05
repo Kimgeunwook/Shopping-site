@@ -61,14 +61,10 @@ const styles = theme => ({
 
 function DatePickers(props) {
   const { classes } = props;
-  const [date, setDate] = React.useState('');
-  const [date2, setDate2] = React.useState('');
   const onChangeDate = (e) => {
-    setDate(e.currentTarget.value);
     props.fromfunc(e.currentTarget.value);
   };
   const onChangeDate2 = (e) => {
-    setDate2(e.currentTarget.value);
     props.tofunc(e.currentTarget.value);
   };
   return (

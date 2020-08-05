@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Calendar from './Calendar';
 import SelectKeyword from './SelectKeyword'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
 export default function CenteredGrid(props) {
   const classes = useStyles();
   const [searchKeyword, setsearchKeyword] = useState('')
-  const [searchText, setsearchText] = useState('')
   useEffect(() => { 
     props.func(searchKeyword)
   },[searchKeyword])
