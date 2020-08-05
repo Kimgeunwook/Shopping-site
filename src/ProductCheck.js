@@ -7,11 +7,18 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
-import RowList from './RowList.js';
 import Search from './Search';
 import PageControl from './PageControl';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 function preventDefault(event) {
   event.preventDefault();
 }
@@ -33,20 +40,52 @@ const useStyles = makeStyles((theme) => ({
     marginTop : theme.spacing(3),
     justifyContent: 'flex-end',
   }, 
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: 'auto',
+    width: 'fit-content',
+  },
+  formControl: {
+    marginTop: theme.spacing(2),
+    minWidth: 120,
+  },
 }));
 
 export default function Orders() {
   const classes = useStyles();
   const [Products, setProducts] = useState([])
-  // const [filt, setfilt] = useState('주문 모두 보기')
   const [page, setPage] = useState(1)
   const [keyword, setkeyword] = useState('')
   const [keyText, setkeyText] = useState('')
   const keywordArr = [['orderNum','상품 이름'],['seller', '판매자']]
+  const [open, setOpen] = React.useState(false);
+  const [maxWidth, setMaxWidth] = React.useState('md');
+  const [productId, setproductID] = useState('init')
+  const [selectedProduct, setselectedProduct] = useState('init')
+
+  
+  useEffect(  () => {
+    async function foo()
+    {
+        await axios.get(`/api/product/selected?id=${productId}`)
+        .then(response => {
+          setselectedProduct(response.data)
+        })    
+        if(productId != 'init')
+        {
+          setOpen(true);
+        }
+    }
+    foo();
+    
+  },[productId])
+  const handleClose = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     axios.get(`/api/product/check`)
     .then(response => {
-      console.log(response.data)
       setProducts(response.data)
     })
   },[])
@@ -71,10 +110,8 @@ export default function Orders() {
   
   return (
     <React.Fragment >      
-    <Title >주문 현황</Title>
+    <Title >상품 조회</Title>
       <Search func= {setkeyword} func2 = {setkeyText} btnfunc = {btnClick} arr = {keywordArr}/>
-      {/* <RowList func = {setfilt}/> */}
-
      
           <div className={classes.result}>
              {Products.length}건의 검색 결과가 있습니다.
@@ -91,6 +128,7 @@ export default function Orders() {
             <TableCell>상세보기</TableCell>
           </TableRow>
         </TableHead>
+        
         <TableBody>
         {Products.map((product) => (
             <TableRow key={product._id}>
@@ -99,7 +137,8 @@ export default function Orders() {
               <TableCell>{product.price}</TableCell>
               <TableCell>{product.site}</TableCell>
               <TableCell>{product.category}</TableCell>    
-              <TableCell><Button variant="contained" color="primary" onClick={btnClick}>상세보기</Button></TableCell> 
+              {/* <TableCell><Button variant="contained" value ={product._id} color="primary" onClick={handleClickOpen}>상세보기</Button></TableCell> */}
+              <TableCell><Button variant="contained" value ={product._id} color="primary" onClick={() => setproductID(product._id)}>상세보기</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -108,7 +147,35 @@ export default function Orders() {
         <PageControl func = {setPage}/>
       </div>
       
-      
+      {/* /////////////////////// */}
+      <Dialog
+        fullWidth={true}
+        maxWidth={maxWidth}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="max-width-dialog-title"
+      >
+        <DialogTitle id="max-width-dialog-title">상품 정보</DialogTitle>
+        <DialogContent>
+          <DialogContentText style ={{justify : 'center', textAlign: 'center',}}>
+             <>
+              <>{selectedProduct[0].name}</>
+            </>
+          </DialogContentText>
+          <form className={classes.form} noValidate>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="max-width">maxWidth</InputLabel>
+            </FormControl>
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* /////////////////////////////// */}
     </React.Fragment>
   );
 }
+

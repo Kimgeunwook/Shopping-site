@@ -101,9 +101,16 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
                 })
             }
         }
+    })
 
-        
-
+    router.get('/selected', function (req, res) {
+        const id = req.query.id 
+        console.log(id)
+        console.log('여기여기')
+        Product.find({_id : id}).populate('seller')
+            .then(ord =>{
+                res.send(ord)
+            })
     })
     return router;	//라우터를 리턴
 };
