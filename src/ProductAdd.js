@@ -173,8 +173,12 @@ export default function ProductAdd(props) {
       <Grid container spacing={2}>
         <Grid item xs = {2}>
           <Paper className={classes.paper} >
-             <SelectKeyword  value = {keyword} func= {setkeyword} arr= {keywordArr} disable = {props.object != undefined ? true : false} />       
-             <TextField style ={{display : 'none'}} name = 'category'  value = {keyword}/>
+          {props.object != undefined ? props.object[0].category : 
+                <>
+                  <SelectKeyword  value = {keyword} func= {setkeyword} arr= {keywordArr} disable = {props.object != undefined ? true : false} />       
+                  <TextField style ={{display : 'none'}} name = 'category'  value = {keyword}/>
+              </>
+           }
           </Paper>
         </Grid>
 
