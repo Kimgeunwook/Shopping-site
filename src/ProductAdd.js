@@ -78,10 +78,10 @@ export default function ProductAdd(props) {
   const keywordArr = [['top', '상의'], ['bottom','하의'], ['shoes','신발']]
   const [inputList, setInputList] = useState([{ firstName: "", lastName: "" }]);
   const [inputListOption, setInputListOption] = useState([{ optionName: "", optionDetail: [{detail:"", stock : "", price :""}] }]);
-  const [ReservePoint, setReservePoint] = useState('basic')
+  const [reserveMethod, setreserveMethod] = useState('basic')
   const [shippingFee, setshippingFee] = useState('basic')
-  const handleReservePoint = (e) => {
-    setReservePoint(e.target.value)
+  const handlereserveMethod = (e) => {
+    setreserveMethod(e.target.value)
   }
   const handleFee = (e) => {
     setshippingFee(e.target.value)
@@ -211,12 +211,12 @@ export default function ProductAdd(props) {
         </Grid>
         <Grid item xs={10}>
           <Paper className={classes.paper}>    
-            <RadioGroup row aria-label="position" name="reservePoint" value = {ReservePoint} onChange = {handleReservePoint} >
-                <FormControlLabel className={classes.radio} value="basic" control={<Radio color="primary" />} label="기본 포인트" />
-                <FormControlLabel className={classes.radio} value="seperate" control={<Radio color="primary" />} label="별도 포인트" />
-                <TextField className={classes.pointText} size = "small" id="outline-search" label="판매 가격의" variant="outlined"/>
+            <RadioGroup row aria-label="position" name="reserveMethod"  value = {props.object != undefined ? props.object[0].reserveMethod : reserveMethod} onChange = {handlereserveMethod} >
+                <FormControlLabel className={classes.radio} disabled = {props.object != undefined ? true : false}  value="basic" control={<Radio color="primary" />} label="기본 포인트" />
+                <FormControlLabel className={classes.radio} disabled = {props.object != undefined ? true : false}  value="seperate" control={<Radio color="primary" />} label="별도 포인트" />
+                <TextField className={classes.pointText} name = "reserveFee" disabled = {props.object != undefined ? true : false} defaultValue = {props.object != undefined ? props.object[0].reserveFee : null}  size = "small" id="outline-search" label="판매 가격의" variant="outlined"/>
                 <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;%</span>
-                <FormControlLabel className={classes.radio} value="notuse" control={<Radio color="primary" />} label="포인트 없음" />
+                <FormControlLabel className={classes.radio}  disabled = {props.object != undefined ? true : false}  value="notuse" control={<Radio color="primary" />} label="포인트 없음" />
             </RadioGroup>
           </Paper>
         </Grid>
@@ -245,7 +245,7 @@ export default function ProductAdd(props) {
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>
-          <TextField className={classes.categoryText} disabled = {props.object != undefined ? true : false} defaultValue = {props.object != undefined ? props.object[0].price : ''} name = 'productSite' size = "small"id="outline-search" label="상품 사이트 url" variant="outlined"/>
+          <TextField className={classes.categoryText} disabled = {props.object != undefined ? true : false} defaultValue = {props.object != undefined ? props.object[0].site : ''} name = 'productSite' size = "small"id="outline-search" label="상품 사이트 url" variant="outlined"/>
           </Paper>
         </Grid>
       </Grid>
@@ -259,12 +259,12 @@ export default function ProductAdd(props) {
         </Grid>
         <Grid item xs={10}>
           <Paper className={classes.paper}>    
-            <RadioGroup row aria-label="position" name="shippingFee" value = {shippingFee} onChange = {handleFee} >
-                <FormControlLabel className={classes.radio} value="basic" control={<Radio color="primary" />} label="기본 배송비" />
-                <FormControlLabel className={classes.radio} value="seperate" control={<Radio color="primary" />} label="별도 배송비" />
-                <TextField className={classes.pointText} name ="seperateRatio"  size = "small" id="outline-search" label="별도 배송비" variant="outlined"/>
+            <RadioGroup row aria-label="position" name="shippingFee" value = {props.object != undefined ? props.object[0].shippingMethod : shippingFee} onChange = {handleFee} >
+                <FormControlLabel className={classes.radio} disabled = {props.object != undefined ? true : false}  value="basic" control={<Radio color="primary" />} label="기본 배송비" />
+                <FormControlLabel className={classes.radio} disabled = {props.object != undefined ? true : false}  value="seperate" control={<Radio color="primary" />} label="별도 배송비" />
+                <TextField className={classes.pointText} disabled = {props.object != undefined ? true : false} defaultValue = {props.object != undefined ? props.object[0].shippingFee : null}  name ="seperateRatio"  size = "small" id="outline-search" label="별도 배송비" variant="outlined"/>
                  <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;원</span>
-                <FormControlLabel className={classes.radio} value="notuse" control={<Radio color="primary" />} label="배송비 무료" />
+                <FormControlLabel className={classes.radio} disabled = {props.object != undefined ? true : false}  value="notuse" control={<Radio color="primary" />} label="배송비 무료" />
             </RadioGroup>
           </Paper>
         </Grid>

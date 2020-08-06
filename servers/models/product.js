@@ -10,6 +10,8 @@ const productSchema = mongoose.Schema({
     price: Number,
     image : String,
     site : String,
+    reserveMethod : String,
+    reserveFee : Number,
     shippingMethod : String,
     shippingFee : Number,
     category : String,

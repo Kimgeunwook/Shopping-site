@@ -9,6 +9,8 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
         product.name = req.body.productName ;
         product.seller = req.user._id;
         product.price = req.body.productSalePrice;
+        product.reserveMethod = req.body.reserveMethod;
+        product.reserveFee = req.body.reserveFee;
         product.image = req.body.productImage;
         product.category = req.body.category;
         product.site = req.body.productSite;
@@ -105,8 +107,6 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
 
     router.get('/selected', function (req, res) {
         const id = req.query.id 
-        console.log(id)
-        console.log('여기여기')
         Product.find({_id : id}).populate('seller')
             .then(ord =>{
                 res.send(ord)
