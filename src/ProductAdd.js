@@ -167,7 +167,7 @@ export default function ProductAdd(props) {
 
   return (
     <div className={classes.root}>
-        <h1>상품 등록</h1>
+        <h1>{props.object != undefined ? "상품 수정" : "상품 등록"}</h1>
      <form className={classes.form} noValidate action = "/api/product/add" method = "post">
      {/* 상품 카테고리 부분 */}
       <Grid container spacing={2}>
@@ -306,7 +306,7 @@ export default function ProductAdd(props) {
           <Paper className={classes.optionpaper}>
               
           {
-            props.object == undefined &&
+          props.object == undefined &&
           inputList.map((x, i) => {
             return (
                 <div >
@@ -354,12 +354,15 @@ export default function ProductAdd(props) {
         <Grid item xs>
           <Paper className={classes.optionpaper}>
             <div>
-              <Button type="submit" variant="outlined" className={classes.infoOptionbtn}  color="primary" type = 'button'onClick = {addOption}>
-                      추가 
-              </Button>
+              
               
             </div>
-          {inputListOption.map((x, i) => {
+            <Button type="submit" variant="outlined" className={classes.infoOptionbtn}  color="primary" type = 'button'onClick = {addOption}>
+                      추가 
+              </Button>
+          {
+          props.object == undefined &&
+          inputListOption.map((x, i) => {
             return (
                   <div >
                     
@@ -405,13 +408,28 @@ export default function ProductAdd(props) {
                   </div>
                 );
             })}
-            <div style={{ marginTop: 20 }}>{JSON.stringify(inputListOption)}</div>
+            {
+            props.object != undefined &&
+                props.object[0].option.map((x, i) => {
+                  return (
+                    <div>
+                      <span>
+                        옵션명&nbsp;:&nbsp;{x.name}&nbsp;&nbsp;&nbsp;
+                        디테일 옵션&nbsp;:&nbsp;{x.detail}&nbsp;&nbsp;&nbsp;
+                        가격&nbsp;:&nbsp;{x.price}&nbsp;&nbsp;&nbsp;
+                        재고&nbsp;:&nbsp;{x.stock}&nbsp;&nbsp;&nbsp;
+                      </span>
+                    </div>
+                  )
+                })
+          }
+            {/* <div style={{ marginTop: 20 }}>{JSON.stringify(inputListOption)}</div> */}
           </Paper>
           
         </Grid>
       </Grid>
      <div className={classes.button}>
-      <Button type="submit" variant="outlined" color="primary" >
+      <Button type="submit" style = {props.object != undefined ? {visibility : "hidden"} : {visibility : "block"}} variant="outlined" color="primary" >
             상품 저장
      </Button>
      </div>
