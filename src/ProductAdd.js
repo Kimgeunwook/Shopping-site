@@ -80,6 +80,13 @@ export default function ProductAdd(props) {
   const [inputListOption, setInputListOption] = useState([{ optionName: "", optionDetail: [{detail:"", stock : "", price :""}] }]);
   const [reserveMethod, setreserveMethod] = useState('basic')
   const [shippingFee, setshippingFee] = useState('basic')
+  const [checkFeature, setcheckFeature] = useState([{"newProduct" : false, "bestProduct" : false, "saleProduct" : false}])
+  const handleCheckbox = (e) => {
+    const list = [...checkFeature];
+    list[0][e.target.value] = !checkFeature[0][e.target.value];
+    setcheckFeature(list);
+  };
+
   const handlereserveMethod = (e) => {
     setreserveMethod(e.target.value)
   }
@@ -270,7 +277,6 @@ export default function ProductAdd(props) {
         </Grid>
       </Grid>
 
-
       {/* 상품 특성 */}
       <Grid container spacing={2}>
         <Grid item xs={2}>
@@ -281,9 +287,9 @@ export default function ProductAdd(props) {
         <Grid item xs>
           <Paper className={classes.paper}>
           <FormGroup aria-label="position" row >
-                <FormControlLabel name = "newProduct" value = "checked" control={<Checkbox color="primary" />} label="New" />
-                <FormControlLabel name = "bestProduct" value = "checked" control={<Checkbox color="primary" />} label="Best" />
-                <FormControlLabel name = "saleProduct"value = "checked" control={<Checkbox color="primary" />} label="할인" />
+                <FormControlLabel name = "newProduct"  value = "newProduct"  onChange={handleCheckbox} checked = {props.object != undefined && props.object[0].feature.indexOf("newProduct") != -1 ? true : checkFeature[0]["newProduct"]} disabled = {props.object != undefined ? true : false} control={<Checkbox color="primary" />} label="New" />
+                <FormControlLabel name = "bestProduct" value = "bestProduct" onChange={handleCheckbox} checked = {props.object != undefined && props.object[0].feature.indexOf("bestProduct") != -1 ? true : checkFeature[0]["bestProduct"]} disabled = {props.object != undefined ? true : false} control={<Checkbox color="primary" />} label="Best" />
+                <FormControlLabel name = "saleProduct" value = "saleProduct" onChange={handleCheckbox} checked = {props.object != undefined && props.object[0].feature.indexOf("saleProduct") != -1 ? true : checkFeature[0]["saleProduct"]} disabled = {props.object != undefined ? true : false}  control={<Checkbox color="primary" />} label="할인" />
           </FormGroup>
           </Paper>
         </Grid>
@@ -299,7 +305,9 @@ export default function ProductAdd(props) {
         <Grid item xs>
           <Paper className={classes.optionpaper}>
               
-          {inputList.map((x, i) => {
+          {
+            props.object == undefined &&
+          inputList.map((x, i) => {
             return (
                 <div >
                     <TextField name="firstName" size = "small" className={classes.info} value = {x.firstName} onChange={e => handleInputChange(e, i)} label="상품 정보 항목" variant="outlined"/>
@@ -318,7 +326,19 @@ export default function ProductAdd(props) {
                 </div>
               );
           })}
-       <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
+          
+          {
+            props.object != undefined &&
+                props.object[0].information.map((x, i) => {
+                  return (
+                    <div>
+                      {x.info}&nbsp;:&nbsp;{x.description}
+                    </div>
+                  )
+                })
+          }
+          
+       {/* <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div> */}
           </Paper>
         </Grid>
       </Grid>
