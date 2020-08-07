@@ -80,12 +80,23 @@ export default function ProductAdd(props) {
   const keywordArr = [['top', '상의'], ['bottom','하의'], ['shoes','신발']]
   const [inputList, setInputList] = useState([{ firstName: "", lastName: "" }]);
   const [inputListOption, setInputListOption] = useState([{ optionName: "", optionDetail: [{detail:"", stock : "", price :""}] }]);
-  const [reserveMethod, setreserveMethod] = useState('basic')
-  const [shippingFee, setshippingFee] = useState('basic')
+  const [reserveMethod, setreserveMethod] = useState('')
+  const [shippingMethod, setshippingMethod] = useState('')
   const [checkFeature, setcheckFeature] = useState([{"newProduct" : false, "bestProduct" : false, "saleProduct" : false}])
   const [hiddenFlag , sethiddenFlag] = useState(false)//true = 상세보기 화면  false = 등록화면
   const [modifyMode, setmodifyMode] = useState(false)
   const [productObject, setproductObject] = useState()
+  useEffect( () => {
+    
+    if(props.object == undefined)
+     {
+      sethiddenFlag(false); 
+    }
+    else {
+      sethiddenFlag(true);
+      setproductObject(props.object[0])
+    }
+  },[])
   const handdleModify = async () =>{
     let isHost;
     await axios.get(`/api/product/getAuth?productId=${props.object[0]._id}`)
@@ -108,18 +119,6 @@ export default function ProductAdd(props) {
       window.location = "/App/ProductCheck"
     });
   }
-  useEffect( () => {
-    
-    if(props.object == undefined)
-     {
-      sethiddenFlag(false); 
-    }
-    else {
-      sethiddenFlag(true);
-      setproductObject(props.object[0])
-    }
-  },[])
-
 
   const handdleTextChange = (e) => {
     const name = e.target.name
@@ -130,8 +129,6 @@ export default function ProductAdd(props) {
   }));
   };
     
-  
-  
   const handleCheckbox = (e) => {
     const list = [...checkFeature];
     list[0][e.target.value] = !checkFeature[0][e.target.value];
@@ -139,10 +136,20 @@ export default function ProductAdd(props) {
   };
 
   const handlereserveMethod = (e) => {
-    setreserveMethod(e.target.value)
+    const value = e.target.value
+    setreserveMethod(value)
+    setproductObject(productObject => ({
+      ...productObject,
+      ["reserveMethod"]: value
+  }));
   }
   const handleFee = (e) => {
-    setshippingFee(e.target.value)
+    const value = e.target.value
+    setshippingMethod(value)
+    setproductObject(productObject => ({
+      ...productObject,
+      ["shippingMethod"]: value
+  }));
   }
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -232,7 +239,7 @@ export default function ProductAdd(props) {
 
         <Grid item xs>
           <Paper className={classes.paper}>
-          <TextField onChange ={handdleTextChange} className={classes.categoryText} disabled = {hiddenFlag? true : false} value = {hiddenFlag ? props.object[0].name : undefined} name = "name" size = "small"id="outline-search" label="상품명" variant="outlined"/>
+          <TextField onChange ={handdleTextChange} className={classes.categoryText} disabled = {hiddenFlag? true : false} value = {hiddenFlag ? productObject.name : undefined} name = "name" size = "small"id="outline-search" label="상품명" variant="outlined"/>
           </Paper>
         </Grid>
       </Grid>
@@ -244,7 +251,7 @@ export default function ProductAdd(props) {
           <Paper className={classes.paper}  >
               <div style={{display : 'flex',  position: 'relative', top: '50%', transform: 'translate(0%, -50%)'}}>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>판매 가격&nbsp;:&nbsp;</span>
-                  <TextField className={classes.priceText} disabled = {hiddenFlag ? true : false} value = {hiddenFlag? props.object[0].price : undefined} name = 'productSalePrice' size = "small" id="outline-search" label="판매 가격" variant="outlined"/>
+                  <TextField onChange ={handdleTextChange} className={classes.priceText} disabled = {hiddenFlag ? true : false} value = {hiddenFlag? productObject.price : undefined} name = 'price' size = "small" id="outline-search" label="판매 가격" variant="outlined"/>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;원</span>
             </div> 
           </Paper>
@@ -254,7 +261,7 @@ export default function ProductAdd(props) {
           <Paper className={classes.paper}  >
               <div style={{display : 'flex',  position: 'relative', top: '50%', transform: 'translate(0%, -50%)'}}>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>정상 가격&nbsp;:&nbsp;</span>
-                  <TextField className={classes.priceText} disabled = {hiddenFlag? true : false} value = {hiddenFlag ? props.object[0].price : undefined} name = 'productBasicPrice' size = "small" id="outline-search" label="정상 가격" variant="outlined"/>
+                  <TextField onChange ={handdleTextChange} className={classes.priceText} disabled = {hiddenFlag? true : false} value = {hiddenFlag ? productObject.price : undefined} name = 'productBasicPrice' size = "small" id="outline-search" label="정상 가격" variant="outlined"/>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;원</span>
             </div> 
           </Paper>
@@ -270,10 +277,10 @@ export default function ProductAdd(props) {
         </Grid>
         <Grid item xs={10}>
           <Paper className={classes.paper}>    
-            <RadioGroup row aria-label="position" name="reserveMethod"  value = {hiddenFlag ? props.object[0].reserveMethod : reserveMethod} onChange = {handlereserveMethod} >
+            <RadioGroup row aria-label="position" name="reserveMethod"  value = {hiddenFlag ? productObject.reserveMethod : reserveMethod} onChange = {handlereserveMethod} >
                 <FormControlLabel className={classes.radio} disabled = {hiddenFlag ? true : false}  value="basic" control={<Radio color="primary" />} label="기본 포인트" />
                 <FormControlLabel className={classes.radio} disabled = {hiddenFlag ? true : false}  value="seperate" control={<Radio color="primary" />} label="별도 포인트" />
-                <TextField className={classes.pointText} name = "reserveFee" disabled = {hiddenFlag ? true : false} value = {hiddenFlag ? props.object[0].reserveFee : undefined}  size = "small" id="outline-search" label="판매 가격의" variant="outlined"/>
+                <TextField onChange ={handdleTextChange} className={classes.pointText} name = "reserveFee" disabled = {hiddenFlag ? true : false} value = {hiddenFlag ? productObject.reserveFee : undefined}  size = "small" id="outline-search" label="판매 가격의" variant="outlined"/>
                 <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;%</span>
                 <FormControlLabel className={classes.radio}  disabled = {hiddenFlag ? true : false}  value="notuse" control={<Radio color="primary" />} label="포인트 없음" />
             </RadioGroup>
@@ -290,7 +297,7 @@ export default function ProductAdd(props) {
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>
-          <TextField className={classes.categoryText} disabled = {hiddenFlag ? true : false} value = {hiddenFlag ? props.object[0].image : undefined} name = 'productImage' size = "small"id="outline-search" label="상품 이미지 url" variant="outlined"/>
+          <TextField onChange ={handdleTextChange} className={classes.categoryText} disabled = {hiddenFlag ? true : false} value = {hiddenFlag ? productObject.image : undefined} name = 'image' size = "small"id="outline-search" label="상품 이미지 url" variant="outlined"/>
           </Paper>
         </Grid>
       </Grid>
@@ -304,7 +311,7 @@ export default function ProductAdd(props) {
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>
-          <TextField className={classes.categoryText} disabled = {hiddenFlag ? true : false} value = {hiddenFlag ? props.object[0].site : undefined} name = 'productSite' size = "small"id="outline-search" label="상품 사이트 url" variant="outlined"/>
+          <TextField onChange ={handdleTextChange} className={classes.categoryText} disabled = {hiddenFlag ? true : false} value = {hiddenFlag ? productObject.site : undefined} name = 'site' size = "small"id="outline-search" label="상품 사이트 url" variant="outlined"/>
           </Paper>
         </Grid>
       </Grid>
@@ -318,10 +325,10 @@ export default function ProductAdd(props) {
         </Grid>
         <Grid item xs={10}>
           <Paper className={classes.paper}>    
-            <RadioGroup row aria-label="position" name="shippingFee" value = {hiddenFlag ? props.object[0].shippingMethod : shippingFee} onChange = {handleFee} >
+            <RadioGroup row aria-label="position" name="shippingMethod" value = {hiddenFlag ? productObject.shippingMethod : shippingMethod} onChange = {handleFee} >
                 <FormControlLabel className={classes.radio} disabled = {hiddenFlag ? true : false}  value="basic" control={<Radio color="primary" />} label="기본 배송비" />
                 <FormControlLabel className={classes.radio} disabled = {hiddenFlag ? true : false}  value="seperate" control={<Radio color="primary" />} label="별도 배송비" />
-                <TextField className={classes.pointText} disabled = {hiddenFlag ? true : false} value = {hiddenFlag ? props.object[0].shippingFee : undefined}  name ="seperateRatio"  size = "small" id="outline-search" label="별도 배송비" variant="outlined"/>
+                <TextField onChange ={handdleTextChange}  className={classes.pointText} disabled = {hiddenFlag ? true : false} value = {hiddenFlag ? productObject.shippingFee : undefined}  name ="shippingFee"  size = "small" id="outline-search" label="별도 배송비" variant="outlined"/>
                  <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;원</span>
                 <FormControlLabel className={classes.radio} disabled = {hiddenFlag ? true : false}  value="notuse" control={<Radio color="primary" />} label="배송비 무료" />
             </RadioGroup>

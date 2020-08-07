@@ -8,14 +8,14 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
         var product = new Product();
         product.name = req.body.name ;
         product.seller = req.user._id;
-        product.price = req.body.productSalePrice;
+        product.price = req.body.price;
         product.reserveMethod = req.body.reserveMethod;
         product.reserveFee = req.body.reserveFee;
-        product.image = req.body.productImage;
+        product.image = req.body.image;
         product.category = req.body.category;
-        product.site = req.body.productSite;
-        product.shippingMethod = req.body.shippingFee;
-        product.shippingFee = req.body.seperateRatio;
+        product.site = req.body.site;
+        product.shippingMethod = req.body.shippingMethod;
+        product.shippingFee = req.body.shippingFee;
         if(typeof(req.body.optionName) == 'string')
         {
             var list = {
@@ -128,9 +128,7 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
     })
 
     router.post('/update', function(req,res){
-        console.log(req)
-        console.log('here')
-        console.log(req.body.productObject.option)
+        console.log(req.body)
         res.redirect('/')
     })
     return router;	//라우터를 리턴
