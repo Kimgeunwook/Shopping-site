@@ -6,7 +6,7 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
     router.post('/add' , function (req, res) {
         
         var product = new Product();
-        product.name = req.body.productName ;
+        product.name = req.body.name ;
         product.seller = req.user._id;
         product.price = req.body.productSalePrice;
         product.reserveMethod = req.body.reserveMethod;
@@ -107,10 +107,31 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
 
     router.get('/selected', function (req, res) {
         const id = req.query.id 
-        Product.find({_id : id}).populate('seller')
+        if(id == "init") res.end()
+        else{
+            Product.find({_id : id}).populate('seller')
             .then(ord =>{
                 res.send(ord)
             })
+        }
+        
+    })
+
+    router.get('/getAuth', function(req, res){
+        const productId = req.query.productId;
+        const requestUser = req.user._id
+        Product.find({_id : productId})
+            .then(ord =>{
+                if(requestUser == ord[0].seller) res.send(true)
+                else res.send(false)
+            })
+    })
+
+    router.post('/update', function(req,res){
+        console.log(req)
+        console.log('here')
+        console.log(req.body.productObject.option)
+        res.redirect('/')
     })
     return router;	//라우터를 리턴
 };
