@@ -127,9 +127,29 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
             })
     })
 
+
+
+
+    // UPDATE THE BOOK (ALTERNATIVE)
+    app.put('/api/books/:book_id', function(req, res){
+        Book.update({ _id: req.params.book_id }, { $set: req.body }, function(err, output){
+            if(err) res.status(500).json({ error: 'database failure' });
+            console.log(output);
+            if(!output.n) return res.status(404).json({ error: 'book not found' });
+            res.json( { message: 'book updated' } );
+        })
+    });
+
+
+
     router.put('/update', function(req,res){
-        console.log(req.body.productObject)
-        res.end()
+        Product.updateOne({_id : req.body.productObject._id},req.body.productObject , function(err,output){
+            if(err) res.status(500).json({ error: 'database failure' });
+            console.log(output);
+            if(!output) return res.status(404).json({ error: 'book not found' });
+            res.end();
+        })
+
     })
     return router;	//라우터를 리턴
 };
