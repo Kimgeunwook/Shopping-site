@@ -192,7 +192,17 @@ export default function ProductAdd(props) {
   };
    ///////////////////옵션관련
    const addOption = () => {
-    setInputListOption([...inputListOption, { optionName: "",  optionDetail: [{detail:"", stock : "", price :""}]}]);
+     if(!hiddenFlag && !modifyMode)
+     {
+        setInputListOption([...inputListOption, { optionName: "",  optionDetail: [{detail:"", stock : "", price :""}]}]);
+     }
+     if(hiddenFlag || !hiddenFlag && modifyMode)
+     {
+      setproductObject({
+        ...productObject,
+        option : productObject.option.concat({name : "", detail : "", price : "", stock : ""})
+      })
+     }
   }
   const deleteOption = (index, flag) => {
     if(flag == 1)
@@ -204,8 +214,21 @@ export default function ProductAdd(props) {
       }
       setInputListOption(list);
     }
-    else{
-
+    else
+    {
+      const list = [...productObject.option];
+      if(list.length != 1)
+      {
+        const initname = list[index].name
+        let cnt = 0;
+        for(let i = 0 ; i < list.length; i++) if(initname == list[i].name) cnt++;
+        list.splice(index, cnt);
+        setproductObject({
+          ...productObject,
+          option : list
+        })
+      }
+      
     }
   }
   const handleInputChangeOption = (e, index, j) => {
@@ -233,6 +256,16 @@ export default function ProductAdd(props) {
       list[index]['optionDetail'][j]['price'] = value;
       setInputListOption(list);
     }
+  };
+
+  const handleInputChangeOption2 = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...productObject.option];
+    list[index][name] = value;
+      setproductObject({
+        ...productObject,
+        information : list
+      })
   };
   // handle click event of the Remove button
   const handleAddClickOption = (i, j, flag) => {
@@ -544,7 +577,7 @@ export default function ProductAdd(props) {
                               <Button variant="contained"  color="primary" className={classes.infoOptionbtn}  onClick={() => deleteOption(i, 2)}>
                                   옵션 삭제
                               </Button>
-                              <TextField name="optionName" size = "small" className={classes.infoOption} value = {x.name} onChange={e => handleInputChangeOption(e, i)} label="옵션명" variant="outlined"/>
+                              <TextField name="name" size = "small" className={classes.infoOption} value = {x.name} onChange={e => handleInputChangeOption2(e, i)} label="옵션명" variant="outlined"/>
                               </>}
 
                       {(i != 0 && x.name == productObject.option[i - 1].name ) &&
@@ -552,12 +585,12 @@ export default function ProductAdd(props) {
                               <Button variant="contained" style = {{visibility : 'hidden'}}  color="primary" className={classes.infoOptionbtn}  onClick={() => deleteOption(i,2)}>
                                   옵션 삭제
                               </Button>
-                              <TextField name="optionName" size = "small"  style = {{visibility : 'hidden'}} className={classes.infoOption} value = {x.name} onChange={e => handleInputChangeOption(e, i)} label="옵션명" variant="outlined"/>
+                              <TextField name="name" size = "small"  style = {{visibility : 'hidden'}} className={classes.infoOption} value = {x.name} onChange={e => handleInputChangeOption2(e, i)} label="옵션명" variant="outlined"/>
                               </>}
                       
-                      <TextField name="detailName"  size = "small" className={classes.infoOption} value = {x.detail} onChange={e => handleInputChangeOption(e, i, 1)} label="디테일 옵션" variant="outlined"/>
-                      <TextField name="lastNameone"  size = "small" className={classes.infoOption} value = {x.price} onChange={e => handleInputChangeOption(e, i, 1)} label="추가가격" variant="outlined"/>
-                      <TextField name="lastNametwo"  size = "small" className={classes.infoOption} value = {x.stock} onChange={e => handleInputChangeOption(e, i, 1)} label="재고" variant="outlined"/>
+                      <TextField name="detail"  size = "small" className={classes.infoOption} value = {x.detail} onChange={e => handleInputChangeOption2(e, i)} label="디테일 옵션" variant="outlined"/>
+                      <TextField name="price"  size = "small" className={classes.infoOption} value = {x.price} onChange={e => handleInputChangeOption2(e, i)} label="추가가격" variant="outlined"/>
+                      <TextField name="stock"  size = "small" className={classes.infoOption} value = {x.stock} onChange={e => handleInputChangeOption2(e, i)} label="재고" variant="outlined"/>
                       <span >
                       {(productObject.option.length - 1 === i || x.name != productObject.option[i + 1].name )&& 
                           <Button variant="contained" color="primary" className={classes.infoOptionbtn}   onClick={() => handleAddClickOption(i, 1, 2)}>
