@@ -108,9 +108,9 @@ export default function ProductAdd(props) {
     setmodifyMode(true)
   }
 
-  const postModify = async () => {
+  const putModify = async () => {
     await axios({
-      method: 'post',
+      method: 'put',
       url: '/api/product/update',
       data: {
         productObject
@@ -232,6 +232,7 @@ export default function ProductAdd(props) {
     }
   }
   const handleInputChangeOption = (e, index, j) => {
+    console.log('여긱여이기@@@@@@')
     const { name, value } = e.target;
     if(name == 'optionName')
     {
@@ -264,7 +265,7 @@ export default function ProductAdd(props) {
     list[index][name] = value;
       setproductObject({
         ...productObject,
-        information : list
+        option : list
       })
   };
   // handle click event of the Remove button
@@ -574,10 +575,10 @@ export default function ProductAdd(props) {
                       <div>
                       {(i == 0 || x.name != productObject.option[i - 1].name ) &&
                               <> 
-                              <Button variant="contained"  color="primary" className={classes.infoOptionbtn}  onClick={() => deleteOption(i, 2)}>
+                              <Button variant="contained" disabled = {!modifyMode ? true : false}  color="primary" className={classes.infoOptionbtn}  onClick={() => deleteOption(i, 2)}>
                                   옵션 삭제
                               </Button>
-                              <TextField name="name" size = "small" className={classes.infoOption} value = {x.name} onChange={e => handleInputChangeOption2(e, i)} label="옵션명" variant="outlined"/>
+                              <TextField name="name" size = "small" disabled = {!modifyMode ? true : false} className={classes.infoOption} value = {x.name} onChange={e => handleInputChangeOption2(e, i)} label="옵션명" variant="outlined"/>
                               </>}
 
                       {(i != 0 && x.name == productObject.option[i - 1].name ) &&
@@ -588,16 +589,16 @@ export default function ProductAdd(props) {
                               <TextField name="name" size = "small"  style = {{visibility : 'hidden'}} className={classes.infoOption} value = {x.name} onChange={e => handleInputChangeOption2(e, i)} label="옵션명" variant="outlined"/>
                               </>}
                       
-                      <TextField name="detail"  size = "small" className={classes.infoOption} value = {x.detail} onChange={e => handleInputChangeOption2(e, i)} label="디테일 옵션" variant="outlined"/>
-                      <TextField name="price"  size = "small" className={classes.infoOption} value = {x.price} onChange={e => handleInputChangeOption2(e, i)} label="추가가격" variant="outlined"/>
-                      <TextField name="stock"  size = "small" className={classes.infoOption} value = {x.stock} onChange={e => handleInputChangeOption2(e, i)} label="재고" variant="outlined"/>
+                      <TextField name="detail"  size = "small" disabled = {!modifyMode ? true : false} className={classes.infoOption} value = {x.detail} onChange={e => handleInputChangeOption2(e, i)} label="디테일 옵션" variant="outlined"/>
+                      <TextField name="price"  size = "small" disabled = {!modifyMode ? true : false} className={classes.infoOption} value = {x.price} onChange={e => handleInputChangeOption2(e, i)} label="추가가격" variant="outlined"/>
+                      <TextField name="stock"  size = "small" disabled = {!modifyMode ? true : false} className={classes.infoOption} value = {x.stock} onChange={e => handleInputChangeOption2(e, i)} label="재고" variant="outlined"/>
                       <span >
                       {(productObject.option.length - 1 === i || x.name != productObject.option[i + 1].name )&& 
-                          <Button variant="contained" color="primary" className={classes.infoOptionbtn}   onClick={() => handleAddClickOption(i, 1, 2)}>
+                          <Button variant="contained" disabled = {!modifyMode ? true : false} color="primary" className={classes.infoOptionbtn}   onClick={() => handleAddClickOption(i, 1, 2)}>
                               Add
                           </Button>}
                       {productObject.option.length !== 1 && 
-                          <Button variant="contained" color="primary" className={classes.infoOptionbtn}  onClick={() => removeOptionItem(i,1,2)}>
+                          <Button variant="contained" disabled = {!modifyMode ? true : false} color="primary" className={classes.infoOptionbtn}  onClick={() => removeOptionItem(i,1,2)}>
                               Remove
                           </Button>}
                         </span>
@@ -632,7 +633,7 @@ export default function ProductAdd(props) {
             (!hiddenFlag && modifyMode) // 상품 상세보기
                 && 
             <div className={classes.button}>
-                <Button type="button" variant="outlined" color="primary" onClick={postModify}>
+                <Button type="button" variant="outlined" color="primary" onClick={putModify}>
                       상품 업데이트
                 </Button>
             </div>

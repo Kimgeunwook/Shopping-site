@@ -127,9 +127,9 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
             })
     })
 
-    router.post('/update', function(req,res){
-        console.log(req.body.productObject.option)
-        res.redirect('/')
+    router.put('/update', function(req,res){
+        console.log(req.body.productObject)
+        res.end()
     })
     return router;	//라우터를 리턴
 };
