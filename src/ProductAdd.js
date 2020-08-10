@@ -78,7 +78,7 @@ export default function ProductAdd(props) {
   const classes = useStyles();
   const [keyword, setkeyword] = useState('')
   const keywordArr = [['top', '상의'], ['bottom','하의'], ['shoes','신발']]
-  const [inputList, setInputList] = useState([{ firstName: "", lastName: "" }]);
+  const [inputList, setInputList] = useState([{ info: "", description: "" }]);
   const [inputListOption, setInputListOption] = useState([{ optionName: "", optionDetail: [{detail:"", stock : "", price :""}] }]);
   const [reserveMethod, setreserveMethod] = useState('')
   const [shippingMethod, setshippingMethod] = useState('')
@@ -164,9 +164,38 @@ export default function ProductAdd(props) {
     setInputList(list);
   };
   const handleAddClick = () => {
-    setInputList([...inputList, { firstName: "", lastName: "" }]);
+    console.log(inputList)
+    setInputList([...inputList, { info: "", description: "" }]);
   };
-
+  const handlemodiAddClick = () => {
+    let list = {info : "", description : ""};
+    console.log(productObject)
+    // setproductObject((cur) =>({
+    //   ...cur,
+    //   information : cur.information.concat({info : "", description : ""})
+    // }) )
+    setproductObject({
+      ...productObject,
+      information : productObject.information.concat({info : "", description : ""})
+    })
+  };
+  const handlemodiRemoveClick = index => {
+    const list = [...productObject.information];
+    list.splice(index, 1);
+    setproductObject({
+      ...productObject,
+      information : list
+    })
+  };
+  const handlemodiInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...productObject.information];
+    list[index][name] = value;
+    setproductObject({
+      ...productObject,
+      information : list
+    })
+  };
    ///////////////////옵션관련
    const addOption = () => {
     setInputListOption([...inputListOption, { optionName: "",  optionDetail: [{detail:"", stock : "", price :""}]}]);
@@ -365,12 +394,12 @@ export default function ProductAdd(props) {
           <Paper className={classes.optionpaper}>
               
           {
-          !hiddenFlag &&
+          (!hiddenFlag && !modifyMode) &&
           inputList.map((x, i) => {
             return (
                 <div >
-                    <TextField name="firstName" size = "small" className={classes.info} value = {x.firstName} onChange={e => handleInputChange(e, i)} label="상품 정보 항목" variant="outlined"/>
-                    <TextField name="lastName" size = "small" className={classes.info} value = {x.lastName} onChange={e => handleInputChange(e, i)} label="설명" variant="outlined"/>
+                    <TextField name="info" size = "small" className={classes.info} value = {x.info} onChange={e => handleInputChange(e, i)} label="상품 정보 항목" variant="outlined"/>
+                    <TextField name="description" size = "small" className={classes.info} value = {x.description} onChange={e => handleInputChange(e, i)} label="설명" variant="outlined"/>
                     <span >
                         {inputList.length - 1 === i && 
                             <Button variant="contained" color="primary" className={classes.infoOptionbtn}   onClick={handleAddClick}>
@@ -387,15 +416,26 @@ export default function ProductAdd(props) {
           })}
           
           {
-            hiddenFlag &&
-                props.object[0].information.map((x, i) => {
-                  return (
-                    <div>
-                      {x.info}&nbsp;:&nbsp;{x.description}
-                    </div>
-                  )
-                })
-          }
+           (hiddenFlag || !hiddenFlag && modifyMode)  &&
+          productObject.information.map((x, i) => {
+            return (
+                <div >
+                    <TextField name="info" size = "small" disabled = {!modifyMode ? true : false}  className={classes.info} value = {x.info} onChange={e => handlemodiInputChange(e, i)} label="상품 정보 항목" variant="outlined"/>
+                    <TextField name="description" size = "small" disabled = {!modifyMode ? true : false}  className={classes.info} value = {x.description} onChange={e => handlemodiInputChange(e, i)} label="설명" variant="outlined"/>
+                    <span >
+                        {productObject.information.length - 1 === i && 
+                            <Button variant="contained" color="primary" className={classes.infoOptionbtn}   onClick={handlemodiAddClick}>
+                                Add
+                            </Button>}
+                        {productObject.information.length !== 1 && 
+                            <Button variant="contained" color="primary" className={classes.infoOptionbtn}  onClick={() => handlemodiRemoveClick(i)}>
+                                Remove
+                            </Button>}
+                        
+                    </span>
+                </div>
+              );
+          })}
           
        {/* <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div> */}
           </Paper>

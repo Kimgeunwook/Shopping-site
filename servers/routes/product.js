@@ -40,20 +40,20 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
             }
         }
         
-        if(typeof(req.body.firstName) == 'string')
+        if(typeof(req.body.info) == 'string')
         {
             var list = {
-                info: req.body.firstName,
-                description: req.body.lastName
+                info: req.body.info,
+                description: req.body.description
             };
             product.information.push(list);
         }
         else{
-            for(var i = 0 ; i < req.body.firstName.length; i++)
+            for(var i = 0 ; i < req.body.info.length; i++)
             {
                 var list = {
-                    info: req.body.firstName[i],
-                    description: req.body.lastName[i]
+                    info: req.body.info[i],
+                    description: req.body.description[i]
                 };
                 product.information.push(list);
             }
@@ -128,7 +128,7 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
     })
 
     router.post('/update', function(req,res){
-        console.log(req.body)
+        console.log(req.body.productObject)
         res.redirect('/')
     })
     return router;	//라우터를 리턴
