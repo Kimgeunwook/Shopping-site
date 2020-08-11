@@ -16,13 +16,14 @@ import { ListItemText } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
     backgroundColor : '#f5f5f5',
     color: theme.palette.text.secondary,
-    height : '7vh',
+    
   },
   optionpaper : {
     padding: theme.spacing(2),
@@ -46,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
   },
   featureTitle : {
     textAlign: 'center',
-    transform: 'translate(0%, +50%)'
   },
   button : {
       marginTop : theme.spacing(6),
@@ -72,6 +72,17 @@ const useStyles = makeStyles((theme) => ({
     marginRight :theme.spacing(2),
     marginBottom : theme.spacing(3),
   },
+  img : {
+  width: "120px",
+  height: "160px",
+  },
+  imglist : {
+    display : 'flex',
+    flexDirection : 'row',
+    position : 'realtive',
+    width : '100%',
+    overflowX:'scroll',
+  }
 }));
 
 export default function ProductAdd(props) {
@@ -86,11 +97,12 @@ export default function ProductAdd(props) {
   const [hiddenFlag , sethiddenFlag] = useState(false)//true = 상세보기 화면  false = 등록화면
   const [modifyMode, setmodifyMode] = useState(false)
   const [productObject, setproductObject] = useState()
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState([]);
   const [uploadedImg, setUploadedImg] = useState({
     fileName: "",
     fillPath: ""
   });
+  const [uploadedImg2, setUploadedImg2] = useState();
   useEffect( () => {
     
     if(props.object == undefined)
@@ -315,19 +327,30 @@ export default function ProductAdd(props) {
   }
 
   const onChangeimg = e => {
-    setContent(e.target.files[0]);
+    const list = [...content,e.target.files[0]]
+    setContent(list)
+    //setContent(e.target.files[0]);
+    
   };
   const onSubmit = e => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("img", content); 
+    for(let i = 0 ; i < content.length; i++)
+    {
+      formData.append("img",content[i])
+    }
+    // formData.append("img", content); 
     axios
       .post("/api/product/uploadimg", formData)
       .then(res => {
-        const { fileName } = res.data;
-        console.log(fileName);
-        setUploadedImg({ fileName, filePath: `/img/${fileName}` });
-        alert("The file is successfully uploaded");
+        
+        const { imgFile } = res.data;
+        // const { fileName } = res.data;
+        // console.log(res.data.imgfiles)
+        
+        setUploadedImg2(res.data.imgfiles)
+        // setUploadedImg({ fileName, filePath: `/img/${fileName}` });
+        // alert("The file is successfully uploaded");
       })
       .catch(err => {
         console.error(err);
@@ -363,7 +386,7 @@ export default function ProductAdd(props) {
       <Grid container spacing={2} justify = "space-between">
         <Grid item xs ={ 6}>
           <Paper className={classes.paper}  >
-              <div style={{display : 'flex',  position: 'relative', top: '50%', transform: 'translate(0%, -50%)'}}>
+              <div style={{display : 'flex',  position: 'relative', top: '50%', }}>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>판매 가격&nbsp;:&nbsp;</span>
                   <TextField onChange ={handdleTextChange} className={classes.priceText} disabled = {hiddenFlag ? true : false} value = {hiddenFlag? productObject.price : undefined} name = 'price' size = "small" id="outline-search" label="판매 가격" variant="outlined"/>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;원</span>
@@ -373,7 +396,7 @@ export default function ProductAdd(props) {
 
         <Grid item  xs ={ 6}>
           <Paper className={classes.paper}  >
-              <div style={{display : 'flex',  position: 'relative', top: '50%', transform: 'translate(0%, -50%)'}}>
+              <div style={{display : 'flex',  position: 'relative', top: '50%',}}>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>정상 가격&nbsp;:&nbsp;</span>
                   <TextField onChange ={handdleTextChange} className={classes.priceText} disabled = {hiddenFlag? true : false} value = {hiddenFlag ? productObject.price : undefined} name = 'productBasicPrice' size = "small" id="outline-search" label="정상 가격" variant="outlined"/>
                   <span style={{textAlign: 'center', transform: 'translate(0%, +25%)'}}>&nbsp;원</span>
@@ -413,14 +436,22 @@ export default function ProductAdd(props) {
           <Paper className={classes.paper}>
           <>
               <form onSubmit={onSubmit}>
-                  {uploadedImg ? (
+              <div className={classes.imglist}> 
+              {uploadedImg2 != undefined ? 
+                uploadedImg2.map((x, i) => {
+                  return (
                     <>
-                      <img src={uploadedImg.filePath} alt="" />
-                      <h3>{uploadedImg.fileName}</h3>
+                      <img className={classes.img} src={`/img/${x.filename}`} alt="" />
+                      <h3>{x.filename}</h3>
+                      <img className={classes.img} src={`/img/${x.filename}`} alt="" />
+                      <h3>{x.filename}</h3>
                     </>
-                  ) : (
-                    ""
-                  )}
+                  )})
+                  :
+                  <></>
+                }
+                </div>
+                  <input type="file" onChange={onChangeimg} />
                   <input type="file" onChange={onChangeimg} />
                   <button type="submit">Upload</button>
               </form>

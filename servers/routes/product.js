@@ -149,9 +149,10 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
         storage: storage,
         limits: { fileSize: 1000000 }
       });
-    router.post("/uploadimg", upload.single("img"), function(req, res, next) {
+    router.post("/uploadimg", upload.array("img"), function(req, res, next) {
         res.send({
-            fileName: req.file.filename
+            // fileName: req.file.filename
+            imgfiles: req.files
         });
     });
     return router;	//라우터를 리턴
