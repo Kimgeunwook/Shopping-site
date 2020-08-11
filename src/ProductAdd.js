@@ -86,6 +86,11 @@ export default function ProductAdd(props) {
   const [hiddenFlag , sethiddenFlag] = useState(false)//true = 상세보기 화면  false = 등록화면
   const [modifyMode, setmodifyMode] = useState(false)
   const [productObject, setproductObject] = useState()
+  const [content, setContent] = useState("");
+  const [uploadedImg, setUploadedImg] = useState({
+    fileName: "",
+    fillPath: ""
+  });
   useEffect( () => {
     
     if(props.object == undefined)
@@ -309,7 +314,26 @@ export default function ProductAdd(props) {
     
   }
 
-
+  const onChangeimg = e => {
+    setContent(e.target.files[0]);
+  };
+  const onSubmit = e => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("img", content); 
+    axios
+      .post("/api/product/uploadimg", formData)
+      .then(res => {
+        const { fileName } = res.data;
+        console.log(fileName);
+        setUploadedImg({ fileName, filePath: `/img/${fileName}` });
+        alert("The file is successfully uploaded");
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
+  
   return (
     <div className={classes.root}>
         <h1>{hiddenFlag ? "상품 수정" : "상품 등록"}</h1>
@@ -387,7 +411,20 @@ export default function ProductAdd(props) {
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>
-          <TextField onChange ={handdleTextChange} className={classes.categoryText} disabled = {hiddenFlag ? true : false} value = {hiddenFlag ? productObject.image : undefined} name = 'image' size = "small"id="outline-search" label="상품 이미지 url" variant="outlined"/>
+          <>
+              <form onSubmit={onSubmit}>
+                  {uploadedImg ? (
+                    <>
+                      <img src={uploadedImg.filePath} alt="" />
+                      <h3>{uploadedImg.fileName}</h3>
+                    </>
+                  ) : (
+                    ""
+                  )}
+                  <input type="file" onChange={onChangeimg} />
+                  <button type="submit">Upload</button>
+              </form>
+          </>
           </Paper>
         </Grid>
       </Grid>

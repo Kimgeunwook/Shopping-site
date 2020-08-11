@@ -24,6 +24,7 @@ app.use(passport.initialize()); // passport 구동
 app.use(passport.session()); // 세션 연결
 passportConfig(); // passport.js호출
   /////////////pass
+app.use(express.static("public"));
 
 
 // CONNECT TO MONGODB SERVER
