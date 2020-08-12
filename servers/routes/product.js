@@ -140,7 +140,8 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
 
     
     const storage = multer.diskStorage({
-        destination: "./public/img/",
+        // destination: "./public/img/",
+        destination: "./img/",
         filename: function(req, file, cb) {
           cb(null, "imgfile" + Date.now() + path.extname(file.originalname));
         }
@@ -149,7 +150,9 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
         storage: storage,
         limits: { fileSize: 1000000 }
       });
+
     router.post("/uploadimg", upload.array("img"), function(req, res, next) {
+        console.log(req.files)
         res.send({
             // fileName: req.file.filename
             imgfiles: req.files

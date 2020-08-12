@@ -343,14 +343,11 @@ export default function ProductAdd(props) {
     axios
       .post("/api/product/uploadimg", formData)
       .then(res => {
-        
         const { imgFile } = res.data;
+        console.log(res)
         // const { fileName } = res.data;
-        // console.log(res.data.imgfiles)
-        
         setUploadedImg2(res.data.imgfiles)
         // setUploadedImg({ fileName, filePath: `/img/${fileName}` });
-        // alert("The file is successfully uploaded");
       })
       .catch(err => {
         console.error(err);
@@ -441,9 +438,7 @@ export default function ProductAdd(props) {
                 uploadedImg2.map((x, i) => {
                   return (
                     <>
-                      <img className={classes.img} src={`/img/${x.filename}`} alt="" />
-                      <h3>{x.filename}</h3>
-                      <img className={classes.img} src={`/img/${x.filename}`} alt="" />
+                      <img className={classes.img} src={`img/imgfile1597200037206.jfif`} alt="" />
                       <h3>{x.filename}</h3>
                     </>
                   )})

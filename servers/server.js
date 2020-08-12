@@ -4,6 +4,7 @@ var app         = express();
 var bodyParser  = require('body-parser');
 var mongoose    = require('mongoose');
 var MongoStore = require('connect-mongo')
+const path = require('path');
 
 /////////////pass
 const session = require('express-session'); // 세션 설정
@@ -24,8 +25,7 @@ app.use(passport.initialize()); // passport 구동
 app.use(passport.session()); // 세션 연결
 passportConfig(); // passport.js호출
   /////////////pass
-app.use(express.static("public"));
-
+// app.use(express.static('public'));
 
 // CONNECT TO MONGODB SERVER
 var db = mongoose.connection;
