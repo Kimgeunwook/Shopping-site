@@ -3,6 +3,7 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
     var router = express.Router();
     const path = require("path");
     const multer = require("multer");
+    var fs = require('fs');
     //상품 등록
     router.post('/add' , function (req, res) {
         
@@ -140,8 +141,8 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
 
     
     const storage = multer.diskStorage({
-        // destination: "./public/img/",
-        destination: "./img/",
+        destination: "./public/img/",
+        //destination: path.join(__dirname,'/../../img'),
         filename: function(req, file, cb) {
           cb(null, "imgfile" + Date.now() + path.extname(file.originalname));
         }
@@ -157,6 +158,21 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
             // fileName: req.file.filename
             imgfiles: req.files
         });
+    });
+
+    router.get('/imgs',function(req, res){
+        console.log(__dirname)
+        console.log('딜네임~~~~')
+        fs.readFile(path.join(__dirname,'/../../img/imgfile1597215089451.jpg'),function(error, data){
+            res.send({
+                imgbuf : data
+            })
+            // res.writeHead(200, { "Context-Type": "image/jpg" });//보낼 헤더를 만듬
+            // res.write(data);   //본문을 만들고
+            // console.log(data)
+            // res.end();
+
+        })
     });
     return router;	//라우터를 리턴
 };

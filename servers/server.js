@@ -5,6 +5,7 @@ var bodyParser  = require('body-parser');
 var mongoose    = require('mongoose');
 var MongoStore = require('connect-mongo')
 const path = require('path');
+var fs = require('fs');
 
 /////////////pass
 const session = require('express-session'); // 세션 설정
@@ -25,7 +26,9 @@ app.use(passport.initialize()); // passport 구동
 app.use(passport.session()); // 세션 연결
 passportConfig(); // passport.js호출
   /////////////pass
-// app.use(express.static('public'));
+  console.log(path.join(__dirname,'/../public'))
+  console.log('딜네임이다@@@@@@@@')
+app.use(express.static(path.join(__dirname,'/../public')));
 
 // CONNECT TO MONGODB SERVER
 var db = mongoose.connection;

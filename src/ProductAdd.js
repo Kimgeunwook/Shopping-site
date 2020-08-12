@@ -98,10 +98,7 @@ export default function ProductAdd(props) {
   const [modifyMode, setmodifyMode] = useState(false)
   const [productObject, setproductObject] = useState()
   const [content, setContent] = useState([]);
-  const [uploadedImg, setUploadedImg] = useState({
-    fileName: "",
-    fillPath: ""
-  });
+  const [imgsrc , setimgsrc] = useState('')
   const [uploadedImg2, setUploadedImg2] = useState();
   useEffect( () => {
     
@@ -353,7 +350,6 @@ export default function ProductAdd(props) {
         console.error(err);
       });
   };
-  
   return (
     <div className={classes.root}>
         <h1>{hiddenFlag ? "상품 수정" : "상품 등록"}</h1>
@@ -433,12 +429,13 @@ export default function ProductAdd(props) {
           <Paper className={classes.paper}>
           <>
               <form onSubmit={onSubmit}>
+              {/* <img className={classes.img}  src={'/img/imgfile1597221944237.jpg'} alt="" /> */}
               <div className={classes.imglist}> 
               {uploadedImg2 != undefined ? 
                 uploadedImg2.map((x, i) => {
                   return (
                     <>
-                      <img className={classes.img} src={`img/imgfile1597200037206.jfif`} alt="" />
+                      <img className={classes.img}  src={'/img/imgfile1597221744714.jpg'} alt="" />
                       <h3>{x.filename}</h3>
                     </>
                   )})
@@ -446,11 +443,12 @@ export default function ProductAdd(props) {
                   <></>
                 }
                 </div>
-                  <input type="file" onChange={onChangeimg} />
-                  <input type="file" onChange={onChangeimg} />
+                
+                  <input type="file" onChange={onChangeimg} multiple enctype="multipart/form-data"/>
                   <button type="submit">Upload</button>
               </form>
           </>
+
           </Paper>
         </Grid>
       </Grid>
