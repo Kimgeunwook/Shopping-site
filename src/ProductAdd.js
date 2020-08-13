@@ -336,7 +336,6 @@ export default function ProductAdd(props) {
     {
       formData.append("img",content[i])
     }
-    // formData.append("img", content); 
     axios
       .post("/api/product/uploadimg", formData)
       .then(res => {
@@ -429,7 +428,7 @@ export default function ProductAdd(props) {
           <Paper className={classes.paper}>
           <>
               <form onSubmit={onSubmit}>
-              {/* <img className={classes.img}  src={'/img/imgfile1597221944237.jpg'} alt="" /> */}
+              <img className={classes.img}  src={'http://localhost:3000/api/product/imgs/imgfile1597291192308.jpg'} alt="" />
               <div className={classes.imglist}> 
               {uploadedImg2 != undefined ? 
                 uploadedImg2.map((x, i) => {
