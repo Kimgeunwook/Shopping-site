@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     backgroundColor : '#f5f5f5',
     color: theme.palette.text.secondary,
-    
   },
   optionpaper : {
     padding: theme.spacing(2),
@@ -75,13 +74,15 @@ const useStyles = makeStyles((theme) => ({
   img : {
   width: "120px",
   height: "160px",
+  marginRight :theme.spacing(3),
   },
   imglist : {
-    display : 'flex',
-    flexDirection : 'row',
+    // display : 'flex',
+    // flexDirection : 'row',
     position : 'realtive',
-    width : '100%',
-    overflowX:'scroll',
+    width : 'inherit',
+    whiteSpace : 'nowrap',
+    overflowX :'scroll'
   }
 }));
 
@@ -98,8 +99,7 @@ export default function ProductAdd(props) {
   const [modifyMode, setmodifyMode] = useState(false)
   const [productObject, setproductObject] = useState()
   const [content, setContent] = useState([]);
-  const [imgsrc , setimgsrc] = useState('')
-  const [uploadedImg2, setUploadedImg2] = useState();
+  const [uploadedImg, setUploadedImg] = useState();
   useEffect( () => {
     
     if(props.object == undefined)
@@ -326,23 +326,21 @@ export default function ProductAdd(props) {
   const onChangeimg = e => {
     const list = [...content,e.target.files[0]]
     setContent(list)
-    //setContent(e.target.files[0]);
-    
   };
+
   const onSubmit = e => {
     e.preventDefault();
-    const formData = new FormData();
+    let formData = new FormData();
     for(let i = 0 ; i < content.length; i++)
     {
       formData.append("img",content[i])
     }
+    
     axios
       .post("/api/product/uploadimg", formData)
       .then(res => {
-        const { imgFile } = res.data;
-        console.log(res)
-        // const { fileName } = res.data;
-        setUploadedImg2(res.data.imgfiles)
+        setUploadedImg(res.data.imgfiles)
+        console.log(uploadedImg)
         // setUploadedImg({ fileName, filePath: `/img/${fileName}` });
       })
       .catch(err => {
@@ -427,24 +425,40 @@ export default function ProductAdd(props) {
         <Grid item xs>
           <Paper className={classes.paper}>
           <>
-              <form onSubmit={onSubmit}>
-              <img className={classes.img}  src={'http://localhost:3000/api/product/imgs/imgfile1597291192308.jpg'} alt="" />
-              <div className={classes.imglist}> 
-              {uploadedImg2 != undefined ? 
-                uploadedImg2.map((x, i) => {
-                  return (
+              <form onSubmit={onSubmit} >
+                  <div className={classes.imglist}> 
+                  { uploadedImg != undefined &&
+                   uploadedImg.map((x, i) => {
+                    return (
+                        <span >
+                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
+                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
+                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
+                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
+                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
+                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
+                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
+                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
+                            
+                            {uploadedImg.length - 1 === i && 
+                                <>
+                                <input type="file" onChange={onChangeimg} multiple enctype="multipart/form-data"/>
+                                <button type="submit">Upload</button>
+                                </>
+                                }
+                               
+                        </span>
+                      );
+                      })
+                  }
+                  </div>
+                  {uploadedImg == undefined &&
                     <>
-                      <img className={classes.img}  src={'/img/imgfile1597221744714.jpg'} alt="" />
-                      <h3>{x.filename}</h3>
+                    <input type="file" onChange={onChangeimg} multiple enctype="multipart/form-data"/>
+                    <button type="submit">Upload</button>
                     </>
-                  )})
-                  :
-                  <></>
-                }
-                </div>
-                
-                  <input type="file" onChange={onChangeimg} multiple enctype="multipart/form-data"/>
-                  <button type="submit">Upload</button>
+                    }
+                    
               </form>
           </>
 

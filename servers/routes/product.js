@@ -145,7 +145,8 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
         destination: path.join(__dirname,'/../../img'),
         filename: function(req, file, cb) {
             // + path.extname(file.originalname)
-          cb(null, "imgfile" + Date.now() );
+            // console.log(file) originalname:
+          cb(null, file.originalname );
         }
       });
       const upload = multer({
@@ -154,7 +155,7 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
       });
 
     router.post("/uploadimg", upload.array("img"), function(req, res, next) {
-        console.log(req.files)
+        // console.log(req.files)
         res.send({
             // fileName: req.file.filename
             imgfiles: req.files
