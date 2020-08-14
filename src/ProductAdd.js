@@ -368,6 +368,26 @@ export default function ProductAdd(props) {
       });
   };
 
+  const onSubmitModi = e => {
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append("img",content);
+    axios
+      .post("/api/product/uploadimg", formData)
+      .then(res => {
+        for(let i = 0 ; i < res.data.imgfiles.length; i++)
+        {
+          const el = res.data.imgfiles[i].filename
+          setproductObject({
+          ...productObject,
+          image : productObject.image.concat(el)
+          })
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
 
   return (
     <div className={classes.root}>
@@ -448,35 +468,57 @@ export default function ProductAdd(props) {
         <Grid item xs>
           <Paper className={classes.paper}>
           <>
+          {
+          (!hiddenFlag && !modifyMode) &&
                   <div className={classes.imglist}> 
-                  { uploadedImg != undefined &&
-                   uploadedImg.map((x, i) => {
-                    return (
-                        <span >
-                             <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x[0].filename}`} alt="" />
-                             
-                             
-                            {uploadedImg.length - 1 === i && 
-                                <>
-                                <input disabled = {hiddenFlag ? true : false} type="file" onChange={onChangeimg} multiple encType="multipart/form-data"/>
-                                <button disabled = {hiddenFlag ? true : false} type="submit" onClick ={onSubmit}>Upload</button>
-                                </>
-                                }
-                               
-                        </span>
-                      );
-                      })
-                  }
-                  
-                  </div>
-                 
-                    {uploadedImg.length == 0 &&
-                    <>
-                    <input type="file"disabled = {hiddenFlag ? true : false}  onChange={onChangeimg} multiple encType="multipart/form-data"/>
-                    <button type="submit"disabled = {hiddenFlag ? true : false} onClick ={onSubmit} >Upload</button>
-                    </>
+                    { uploadedImg != undefined &&
+                        uploadedImg.map((x, i) => {
+                          return (
+                                  <span >
+                                      <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x[0].filename}`} alt="" />
+                                      {uploadedImg.length - 1 === i && 
+                                          <>
+                                          <input disabled = {hiddenFlag ? true : false} type="file" onChange={onChangeimg} multiple encType="multipart/form-data"/>
+                                          <button disabled = {hiddenFlag ? true : false} type="submit" onClick ={onSubmit}>Upload</button>
+                                          </>
+                                      }
+                                        
+                                  </span>
+                                );
+                            })
                     }
-              
+                </div>
+            }
+            {(uploadedImg.length == 0  && !hiddenFlag && !modifyMode)&&
+            <>
+            <input type="file"disabled = {hiddenFlag ? true : false}  onChange={onChangeimg} multiple encType="multipart/form-data"/>
+            <button type="submit"disabled = {hiddenFlag ? true : false} onClick ={onSubmit} >Upload</button>
+            </>
+            }
+            
+
+
+            {
+              (hiddenFlag || (!hiddenFlag && modifyMode ))  &&
+                  <div className={classes.imglist}> 
+                    { productObject.image.length > 0 &&
+                      productObject.image.map((x, i) => {
+                        return (
+                          <span >
+                              <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x}`} alt="" />
+                              {productObject.image.length - 1 === i && 
+                                  <>
+                                      <input disabled = {!modifyMode ? true : false} type="file" onChange={onChangeimg} multiple encType="multipart/form-data"/>
+                                      <button disabled = {!modifyMode ? true : false} type="submit" onClick ={onSubmitModi}>Upload</button>
+                                  </>
+                              }
+                                
+                          </span>
+                          );
+                      })
+                    }
+                  </div>
+            }
           </>
 
           </Paper>
