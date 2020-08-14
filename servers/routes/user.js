@@ -1,6 +1,10 @@
 module.exports = function(app, User){//함수로 만들어 객체 app을 전달받음
 	var express = require('express');
     var router = express.Router();
+    router.get('/who', function(req, res) {
+        res.send({ username : req.user._id });
+    })
+
     router.get('/table', function (req, res) {
         // User.find().skip((req.query.page - 1) * 10).skip((req.query.page - 1) * 10).limit(10)
         //         .then(ord =>{

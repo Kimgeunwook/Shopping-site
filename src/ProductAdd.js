@@ -77,13 +77,10 @@ const useStyles = makeStyles((theme) => ({
   marginRight :theme.spacing(3),
   },
   imglist : {
-    // display : 'flex',
-    // flexDirection : 'row',
-    position : 'realtive',
     width : 'inherit',
     whiteSpace : 'nowrap',
     overflowX :'scroll'
-  }
+  },
 }));
 
 export default function ProductAdd(props) {
@@ -98,10 +95,17 @@ export default function ProductAdd(props) {
   const [hiddenFlag , sethiddenFlag] = useState(false)//true = 상세보기 화면  false = 등록화면
   const [modifyMode, setmodifyMode] = useState(false)
   const [productObject, setproductObject] = useState()
-  const [content, setContent] = useState([]);
-  const [uploadedImg, setUploadedImg] = useState();
+  const [content, setContent] = useState();
+  const [uploadedImg, setUploadedImg] = useState([]);
+  const [userId, setuserId] = useState('')
+  const [imgList, setimgList] = useState([])
   useEffect( () => {
-    
+
+    axios.get("/api/user/who")
+      .then(res => {
+        setuserId(res.data.username)
+      })
+
     if(props.object == undefined)
      {
       sethiddenFlag(false); 
@@ -111,6 +115,8 @@ export default function ProductAdd(props) {
       setproductObject(props.object[0])
     }
   },[])
+
+  
   const handdleModify = async () =>{
     let isHost;
     await axios.get(`/api/product/getAuth?productId=${props.object[0]._id}`)
@@ -157,6 +163,7 @@ export default function ProductAdd(props) {
       ["reserveMethod"]: value
   }));
   }
+
   const handleFee = (e) => {
     const value = e.target.value
     setshippingMethod(value)
@@ -165,28 +172,32 @@ export default function ProductAdd(props) {
       ["shippingMethod"]: value
   }));
   }
+
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
   };
+
   // handle click event of the Remove button
   const handleRemoveClick = index => {
     const list = [...inputList];
     list.splice(index, 1);
     setInputList(list);
   };
+
   const handleAddClick = () => {
-    console.log(inputList)
     setInputList([...inputList, { info: "", description: "" }]);
   };
+
   const handlemodiAddClick = () => {
     setproductObject({
       ...productObject,
       information : productObject.information.concat({info : "", description : ""})
     })
   };
+
   const handlemodiRemoveClick = index => {
     const list = [...productObject.information];
     list.splice(index, 1);
@@ -195,6 +206,7 @@ export default function ProductAdd(props) {
       information : list
     })
   };
+
   const handlemodiInputChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...productObject.information];
@@ -204,6 +216,7 @@ export default function ProductAdd(props) {
       information : list
     })
   };
+
    ///////////////////옵션관련
    const addOption = () => {
      if(!hiddenFlag && !modifyMode)
@@ -218,6 +231,7 @@ export default function ProductAdd(props) {
       })
      }
   }
+
   const deleteOption = (index, flag) => {
     if(flag == 1)
     {
@@ -245,8 +259,8 @@ export default function ProductAdd(props) {
       
     }
   }
+
   const handleInputChangeOption = (e, index, j) => {
-    console.log('여긱여이기@@@@@@')
     const { name, value } = e.target;
     if(name == 'optionName')
     {
@@ -324,29 +338,37 @@ export default function ProductAdd(props) {
   }
 
   const onChangeimg = e => {
-    const list = [...content,e.target.files[0]]
-    setContent(list)
+    setContent(e.target.files[0])
   };
 
   const onSubmit = e => {
     e.preventDefault();
     let formData = new FormData();
-    for(let i = 0 ; i < content.length; i++)
-    {
-      formData.append("img",content[i])
-    }
+    // for(let i = 0 ; i < content.length; i++)
+    // {
+    //   formData.append("img",content[i])
+    // }
+    formData.append("img",content);
     
     axios
       .post("/api/product/uploadimg", formData)
       .then(res => {
-        setUploadedImg(res.data.imgfiles)
-        console.log(uploadedImg)
+        const list = [...uploadedImg, res.data.imgfiles]
+        setUploadedImg(list)
+
+        
+        for(let i = 0 ; i < res.data.imgfiles.length; i++)
+        {
+          setimgList([...imgList, res.data.imgfiles[i].filename])
+        }
         // setUploadedImg({ fileName, filePath: `/img/${fileName}` });
       })
       .catch(err => {
         console.error(err);
       });
   };
+
+
   return (
     <div className={classes.root}>
         <h1>{hiddenFlag ? "상품 수정" : "상품 등록"}</h1>
@@ -420,6 +442,7 @@ export default function ProductAdd(props) {
         <Grid item xs={2}>
           <Paper className={classes.paper}>
               <div className={classes.featureTitle}>상품 이미지</div>
+              <TextField name="imgList" style ={{display : 'none'}}   value = {imgList} />
           </Paper>
         </Grid>
         <Grid item xs>
@@ -431,15 +454,9 @@ export default function ProductAdd(props) {
                    uploadedImg.map((x, i) => {
                     return (
                         <span >
-                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
-                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
-                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
-                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
-                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
-                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
-                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
-                            <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x.filename}`} alt="" />
-                            
+                             <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x[0].filename}`} alt="" />
+                             
+                             
                             {uploadedImg.length - 1 === i && 
                                 <>
                                 <input type="file" onChange={onChangeimg} multiple enctype="multipart/form-data"/>
@@ -451,15 +468,18 @@ export default function ProductAdd(props) {
                       );
                       })
                   }
+                  
                   </div>
-                  {uploadedImg == undefined &&
+                 
+                    {uploadedImg.length == 0 &&
                     <>
                     <input type="file" onChange={onChangeimg} multiple enctype="multipart/form-data"/>
                     <button type="submit">Upload</button>
                     </>
                     }
-                    
+                   
               </form>
+              
           </>
 
           </Paper>
@@ -535,6 +555,7 @@ export default function ProductAdd(props) {
                 <div >
                     <TextField name="info" size = "small" className={classes.info} value = {x.info} onChange={e => handleInputChange(e, i)} label="상품 정보 항목" variant="outlined"/>
                     <TextField name="description" size = "small" className={classes.info} value = {x.description} onChange={e => handleInputChange(e, i)} label="설명" variant="outlined"/>
+                    
                     <span >
                         {inputList.length - 1 === i && 
                             <Button variant="contained" color="primary" className={classes.infoOptionbtn}   onClick={handleAddClick}>

@@ -8,7 +8,7 @@ const productSchema = mongoose.Schema({
         ref : "users",
     },
     price: Number,
-    image : String,
+    image : [String],
     site : String,
     reserveMethod : String,
     reserveFee : Number,
