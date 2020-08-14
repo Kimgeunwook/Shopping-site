@@ -458,8 +458,8 @@ export default function ProductAdd(props) {
                              
                             {uploadedImg.length - 1 === i && 
                                 <>
-                                <input type="file" onChange={onChangeimg} multiple encType="multipart/form-data"/>
-                                <button type="submit" onClick ={onSubmit}>Upload</button>
+                                <input disabled = {hiddenFlag ? true : false} type="file" onChange={onChangeimg} multiple encType="multipart/form-data"/>
+                                <button disabled = {hiddenFlag ? true : false} type="submit" onClick ={onSubmit}>Upload</button>
                                 </>
                                 }
                                
@@ -472,8 +472,8 @@ export default function ProductAdd(props) {
                  
                     {uploadedImg.length == 0 &&
                     <>
-                    <input type="file" onChange={onChangeimg} multiple encType="multipart/form-data"/>
-                    <button type="submit" onClick ={onSubmit} >Upload</button>
+                    <input type="file"disabled = {hiddenFlag ? true : false}  onChange={onChangeimg} multiple encType="multipart/form-data"/>
+                    <button type="submit"disabled = {hiddenFlag ? true : false} onClick ={onSubmit} >Upload</button>
                     </>
                     }
               
@@ -577,11 +577,11 @@ export default function ProductAdd(props) {
                     <TextField name="description" size = "small" disabled = {!modifyMode ? true : false}  className={classes.info} value = {x.description} onChange={e => handlemodiInputChange(e, i)} label="설명" variant="outlined"/>
                     <span >
                         {productObject.information.length - 1 === i && 
-                            <Button variant="contained" color="primary" className={classes.infoOptionbtn}   onClick={handlemodiAddClick}>
+                            <Button variant="contained" color="primary" disabled = {hiddenFlag ? true : false} className={classes.infoOptionbtn}   onClick={handlemodiAddClick}>
                                 Add
                             </Button>}
                         {productObject.information.length !== 1 && 
-                            <Button variant="contained" color="primary" className={classes.infoOptionbtn}  onClick={() => handlemodiRemoveClick(i)}>
+                            <Button variant="contained" color="primary" disabled = {hiddenFlag ? true : false} className={classes.infoOptionbtn}  onClick={() => handlemodiRemoveClick(i)}>
                                 Remove
                             </Button>}
                         
