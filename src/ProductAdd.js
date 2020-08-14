@@ -448,7 +448,6 @@ export default function ProductAdd(props) {
         <Grid item xs>
           <Paper className={classes.paper}>
           <>
-              <form onSubmit={onSubmit} >
                   <div className={classes.imglist}> 
                   { uploadedImg != undefined &&
                    uploadedImg.map((x, i) => {
@@ -459,8 +458,8 @@ export default function ProductAdd(props) {
                              
                             {uploadedImg.length - 1 === i && 
                                 <>
-                                <input type="file" onChange={onChangeimg} multiple enctype="multipart/form-data"/>
-                                <button type="submit">Upload</button>
+                                <input type="file" onChange={onChangeimg} multiple encType="multipart/form-data"/>
+                                <button type="submit" onClick ={onSubmit}>Upload</button>
                                 </>
                                 }
                                
@@ -473,12 +472,10 @@ export default function ProductAdd(props) {
                  
                     {uploadedImg.length == 0 &&
                     <>
-                    <input type="file" onChange={onChangeimg} multiple enctype="multipart/form-data"/>
-                    <button type="submit">Upload</button>
+                    <input type="file" onChange={onChangeimg} multiple encType="multipart/form-data"/>
+                    <button type="submit" onClick ={onSubmit} >Upload</button>
                     </>
                     }
-                   
-              </form>
               
           </>
 

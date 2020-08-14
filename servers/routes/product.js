@@ -7,19 +7,24 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
     var fs = require('fs');
     //상품 등록
     router.post('/add' , function (req, res) {
-        console.log(req.body.imgList.split(','))
         var product = new Product();
         product.name = req.body.name ;
         product.seller = req.user._id;
         product.price = req.body.price;
+        for(var i = 0 ; i < req.body.imgList.split(',').length; i++) 
+        {
+            const el = req.body.imgList.split(',')[i]
+            product.image.push(el);
+        }
         product.reserveMethod = req.body.reserveMethod;
         product.reserveFee = req.body.reserveFee;
-        product.image = req.body.image;
         product.category = req.body.category;
         product.site = req.body.site;
         product.shippingMethod = req.body.shippingMethod;
         product.shippingFee = req.body.shippingFee;
+        
         if(typeof(req.body.optionName) == 'string')
+
         {
             var list = {
                 name : req.body.optionName,
