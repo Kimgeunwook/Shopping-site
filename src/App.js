@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import {useHistory} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -17,8 +18,8 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItems from './ListItems';
+import ModifyUserInfo from './ModifyUserInfo';
 import Deposits from './Deposits';
 import ProductAdd from './ProductAdd';
 import Orders from './Orders';
@@ -26,6 +27,8 @@ import {Route,} from 'react-router-dom';
 import SignInSide from './SignInSide';
 import Customers from './Customers';
 import ProductCheck from './ProductCheck';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -125,6 +128,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App({match}) {
   // URL에서 APP다음 오는애가 누군지 알아내는 부분
+  const history = useHistory();
   const {categoryname} = match.params
   
   const classes = useStyles();
@@ -162,15 +166,10 @@ export default function App({match}) {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             {categoryname}
           </Typography>
-          <IconButton color="inherit">
-            {/* badge == 알림개수 , notificationsicon == 종모양 */}
-            <Badge badgeContent={3} color="secondary">
-              <NotificationsIcon />
-            </Badge>
           
+          <IconButton color="inherit" onClick = {() => history.push('/App/ModifyUserInfo')}>
+              <AccountCircleIcon/>
           </IconButton>
-          
-          
         </Toolbar>
       </AppBar>
       
@@ -204,6 +203,7 @@ export default function App({match}) {
             <Grid item xs={12}  >
               <Paper className={classes.paper} >
                 {/* {categoryname === "HOME"  && <Home /> } */}
+                {categoryname === "ModifyUserInfo"  && <ModifyUserInfo />}
                 {categoryname === "Orders"  && <Orders />}
                 {categoryname === "Customers"  && <Customers />}
                 {categoryname === "ProductAdd"  && <ProductAdd/>}

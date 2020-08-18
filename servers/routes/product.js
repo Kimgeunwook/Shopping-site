@@ -173,5 +173,12 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
             res.end();
         })
     });
+
+    router.delete('/img/remove', function (req, res){
+        fs.unlink(path.join(__dirname,`/../../img/`+ req.body.filename), function(err){
+            if( err ) throw err;
+            res.end()
+        })
+    })
     return router;	//라우터를 리턴
 };

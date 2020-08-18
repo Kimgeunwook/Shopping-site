@@ -99,6 +99,7 @@ export default function ProductAdd(props) {
   const [uploadedImg, setUploadedImg] = useState([]);
   const [userId, setuserId] = useState('')
   const [imgList, setimgList] = useState([])
+  const [imgDeleteFlag, setimgDeleteFlag] = useState(false)
   useEffect( () => {
 
     axios.get("/api/user/who")
@@ -127,7 +128,7 @@ export default function ProductAdd(props) {
     {isHost ? sethiddenFlag(false) : alert('상품의 주인이 아닙니다.') }
     setmodifyMode(true)
   }
-
+  
   const putModify = async () => {
     await axios({
       method: 'put',
@@ -136,7 +137,11 @@ export default function ProductAdd(props) {
         productObject
       }
     }).then(function (response) {
-      window.location = "/App/ProductCheck"
+      if(imgDeleteFlag == false)
+      {
+        window.location = "/App/ProductCheck"
+      }
+      
     });
   }
 
@@ -389,6 +394,27 @@ export default function ProductAdd(props) {
       });
   }
 
+  const  handleRemoveimgClick = async (index) => {
+    const list = [...productObject.image];
+    list.splice(index, 1);
+
+    setproductObject({
+      ...productObject,
+      image : list
+      })
+    setimgDeleteFlag(true);
+
+    axios.delete("/api/product/img/remove",{data : {filename : productObject.image[index]}})
+  };
+
+  useEffect( () => {
+    if(imgDeleteFlag == true)
+    {
+      putModify();
+      setimgDeleteFlag(false);
+    }
+  },[imgDeleteFlag])
+
   return (
     <div className={classes.root}>
         <h1>{hiddenFlag ? "상품 수정" : "상품 등록"}</h1>
@@ -506,6 +532,9 @@ export default function ProductAdd(props) {
                         return (
                           <span >
                               <img className={classes.img}  src={`http://localhost:3000/api/product/imgs/${x}`} alt="" />
+                              <button type ='button'  onClick={() => handleRemoveimgClick(i)}>
+                                삭제
+                              </button>
                               {productObject.image.length - 1 === i && 
                                   <>
                                       <input disabled = {!modifyMode ? true : false} type="file" onChange={onChangeimg} multiple encType="multipart/form-data"/>
