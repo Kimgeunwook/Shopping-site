@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState , useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,18 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {useHistory} from 'react-router-dom';
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -47,8 +36,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
+  const [userObject, setuserObject] = useState()
   const classes = useStyles();
   const history = useHistory();
+  const [hiddenFlag , sethiddenFlag] = useState(false)
+
+  useEffect( () => {
+    axios.get("/api/user/who")
+        .then(res => {
+            setuserObject(res.data[0])
+            sethiddenFlag(true)
+        })
+  },[])
+  const handdleTextChange = (e) => {
+    console.log('aaa')
+    const name = e.target.name
+    const value = e.target.value
+    setuserObject(userObject => ({
+      ...userObject,
+      [name]: value
+  }));
+  };
+  const updateUser = async() => {
+    await axios({
+        method: 'put',
+        url: '/api/user/update',
+        data: {
+            userObject
+        }
+      }).then(function (response) {
+          window.location = "/App/HOME"
+      });
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -61,26 +80,25 @@ export default function SignUp() {
         </Typography>
         
 
-        <form className={classes.form} action="/api/login/join" method="post" noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete="fname"
+                onChange ={handdleTextChange}
                 name="Name"
                 variant="outlined"
-                required
                 fullWidth
-                id="Name"
+                value = {hiddenFlag ? userObject.Name : ""}
                 label="Name"
                 autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                onChange ={handdleTextChange}
                 variant="outlined"
                 fullWidth
                 required
-                id="HP"
+                value = {hiddenFlag ? userObject.HP : ""}
                 label="HP"
                 name="HP"
                 autoComplete="lname"
@@ -90,20 +108,20 @@ export default function SignUp() {
             
              <Grid item xs={12} sm={6}>
               <TextField
+                onChange ={handdleTextChange}
+                value = {hiddenFlag ? userObject.address : ""}
                 name="address"
                 variant="outlined"
-                required
                 fullWidth
-                id="address"
                 label="address"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                onChange ={handdleTextChange}
                 variant="outlined"
                 fullWidth
-                required
-                id="site"
+                value = {hiddenFlag ? userObject.site : ""}
                 label="site"
                 name="site"
               />
@@ -111,25 +129,24 @@ export default function SignUp() {
             
 
             <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
+                <TextField 
+                    onChange ={handdleTextChange}
+                    value = {hiddenFlag ? userObject.id : ""} 
+                    fullWidth 
+                    name = "id"  
+                    label="Email Address" 
+                    variant="outlined"
+                />
             </Grid>
             <Grid item xs={12}>
               <TextField
+                onChange ={handdleTextChange}
                 variant="outlined"
-                required
+                value = {hiddenFlag ? userObject.password : ""} 
                 fullWidth
                 name="password"
                 label="Password"
                 type="password"
-                id="password"
                 autoComplete="current-password"
               />
             </Grid>
@@ -142,12 +159,12 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            // onClick = {() => history.push('./')}
+            onClick ={updateUser}
           >
             수정
           </Button>
           
-        </form>
+        
       </div>
       <Box mt={5}>
       </Box>

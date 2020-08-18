@@ -2,7 +2,11 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
 	var express = require('express');
     var router = express.Router();
     router.get('/who', function(req, res) {
-        res.send({ username : req.user._id });
+        
+        User.find({_id : req.user._id})
+                    .then(ord =>{
+                        res.send(ord)
+                    })
     })
 
     router.get('/table', function (req, res) {
@@ -65,6 +69,16 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
                 .then(ord =>{
                     res.send(ord)
                 })
-	})
+    })
+    
+    router.put('/update', function(req,res){
+        User.updateOne({_id : req.user._id},req.body.userObject, function(err,output){
+            if(err) res.status(500).json({ error: 'database failure' });
+            console.log(output);
+            if(!output) return res.status(404).json({ error: 'book not found' });
+            res.end();
+        })
+
+    })
     return router;	//라우터를 리턴
 };
