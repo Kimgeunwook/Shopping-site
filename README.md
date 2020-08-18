@@ -2,7 +2,6 @@
 # Stack
 - React
 - Material Ui
-- React Router
 - Node js
 - Express
 - Mongo DB
@@ -10,10 +9,11 @@
 
 # running
 ```
-mongodb setup(env)
-create folder in C:\data\db 
-cmd -> mongod
-npm install 
+1. mongodb setup(env)
+2. create folder in C:\data\db 
+3. cmd -> mongod
+4. npm install 
+5. npm start
 ```
 
 # solution
