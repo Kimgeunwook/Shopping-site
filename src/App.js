@@ -20,7 +20,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ListItems from './ListItems';
 import ModifyUserInfo from './ModifyUserInfo';
-import Deposits from './Deposits';
+import NoticeBoard from './NoticeBoard';
+import NoticeAdd from './NoticeAdd';
 import ProductAdd from './ProductAdd';
 import Orders from './Orders';
 import {Route,} from 'react-router-dom';
@@ -207,8 +208,9 @@ export default function App({match}) {
                 {categoryname === "Orders"  && <Orders />}
                 {categoryname === "Customers"  && <Customers />}
                 {categoryname === "ProductAdd"  && <ProductAdd/>}
-                {categoryname === "Integrations"  && <Deposits />}
+                {categoryname === "NoticeBoard"  && <NoticeBoard />}
                 {categoryname === "ProductCheck"  && <ProductCheck />}
+                {categoryname === "NoticeAdd" && <NoticeAdd />}
               </Paper>
             </Grid>
           </Grid>

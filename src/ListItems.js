@@ -171,7 +171,7 @@ export default function ListItems() {
 
         {/* //////////////////// */}
         <ListItem button
-        onClick = {() => history.push('/App/Integrations')}
+        onClick = {() => history.push('/App/NoticeBoard')}
         >
             게시판
         </ListItem>

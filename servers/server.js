@@ -26,8 +26,6 @@ app.use(passport.initialize()); // passport 구동
 app.use(passport.session()); // 세션 연결
 passportConfig(); // passport.js호출
   /////////////pass
-  console.log(path.join(__dirname,'/../public'))
-  console.log('딜네임이다@@@@@@@@')
 app.use(express.static(path.join(__dirname,'/../public')));
 
 // CONNECT TO MONGODB SERVER
@@ -44,6 +42,7 @@ mongoose.connect('mongodb://localhost/mongodb_tutorial');
 var User = require('./models/user');
 var Product = require('./models/product');
 var Orderstate = require('./models/orderstate');
+var NoticeBoard = require('./models/noticeBoard');
 // [CONFIGURE APP TO USE bodyParser]
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -57,11 +56,13 @@ var loginRouter = require('./routes/login.js')(app, User);
 var OrderstateRouter = require('./routes/Orderstate.js')(app, Orderstate);
 var userstateRouter = require('./routes/user.js')(app, User);
 var ProductRouter = require('./routes/product.js')(app,Product);
+var NoticeRouter = require('./routes/noticeBoard.js')(app, NoticeBoard);
 
 app.use('/api/login', loginRouter);
 app.use('/api/order',OrderstateRouter);
 app.use('/api/user',userstateRouter);
 app.use('/api/product',ProductRouter);
+app.use('/api/noticeBoard',NoticeRouter);
 
 // [RUN SERVER]
 app.listen(port, function(){
