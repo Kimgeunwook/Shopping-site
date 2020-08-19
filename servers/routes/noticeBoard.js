@@ -18,5 +18,13 @@ module.exports = function(app, NoticeBoard){//함수로 만들어 객체 app을 
         })
     })
     
+    router.get('/table', function (req, res) {
+        NoticeBoard.find().populate('writer').skip((req.query.page - 1) * 10).limit(10)
+        .then(ord =>{
+            console.log(ord)
+            res.send(ord)
+        })
+
+	})
     return router;	//라우터를 리턴
 };
