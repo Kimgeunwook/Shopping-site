@@ -180,5 +180,13 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
             res.end()
         })
     })
+
+    router.get('/template/:productid', function(req, res){ // routing the request
+        Product.find({_id : req.params.productid})
+            .then(ord =>{
+                res.render('temp', {time: Date(), _title: 'PUG', obj : ord[0]});
+            })
+        
+   });
     return router;	//라우터를 리턴
 };

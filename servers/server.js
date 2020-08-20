@@ -38,6 +38,12 @@ db.once('open', function(){
 
 mongoose.connect('mongodb://localhost/mongodb_tutorial');
 
+//CONECT views tempalte folder
+app.set('views', './servers/views'); // set the directory where your template files exist
+app.set('view engine', 'pug'); // set which template engine to use
+
+
+
 // DEFINE MODEL
 var User = require('./models/user');
 var Product = require('./models/product');
@@ -63,7 +69,9 @@ app.use('/api/order',OrderstateRouter);
 app.use('/api/user',userstateRouter);
 app.use('/api/product',ProductRouter);
 app.use('/api/noticeBoard',NoticeRouter);
-
+// app.get('/api/template', function(req, res){ // routing the request
+//      res.render('temp', {time: Date(), _title: 'PUG'});
+// });
 // [RUN SERVER]
 app.listen(port, function(){
  console.log("Express server has started on port " + port)
