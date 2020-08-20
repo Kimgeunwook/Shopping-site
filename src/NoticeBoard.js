@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Deposits() {
+export default function NoticeBoard() {
   const classes = useStyles();
   const history = useHistory();
   const [NoticeBoard, setNoticeBoard] = useState([])
@@ -59,9 +59,7 @@ export default function Deposits() {
     })
   },[])
 
-  useEffect(() => {
-    console.log(NoticeBoard)
-  },[NoticeBoard])
+ 
   return (
     <React.Fragment >      
     <Title >게시판</Title>

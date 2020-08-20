@@ -29,7 +29,6 @@ import SignInSide from './SignInSide';
 import Customers from './Customers';
 import ProductCheck from './ProductCheck';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -140,7 +139,6 @@ export default function App({match}) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  
   
   return (
     
