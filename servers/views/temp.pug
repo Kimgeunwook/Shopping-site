@@ -1,14 +1,40 @@
+
 html
     head
-        title 상품정보 화면
+        title 상품정보 화면2
         style
             include temp.css
     body
         header= obj.name
         container 
-            article= obj.name
+            article
+                img#RepresentPhoto(src=`/../../img/`+ obj.image[0])
             content
-                ul
-                    - for(var i=0; i<5; i++)
-                        li coding
-        footer 뭐야뭐야
+                div#list
+                    span#itemcategory 상품명 : 
+                    span#iteminfo= obj.name
+                div#list
+                    span#itemcategory 가격 : 
+                    span#iteminfo= obj.price
+                    span 원
+                div#list
+                    span#itemcategory 포인트 : 
+                    span#iteminfo= obj.reserveMethod
+                    
+                div#list
+                    span#itemcategory 상품 내용 : 
+                    span#iteminfo= obj.name
+                div#list
+                    span#itemcategory 상품 옵션 : 
+                    span#iteminfo= obj.name
+                div#list
+                    span#itemcategory 수량 : 
+                    span#iteminfo= obj.image[0]
+                div#list
+                    span#itemcategory 배송비 : 
+                    span#iteminfo= obj.name
+                div#list
+                    span#itemcategory 총 금액 : 
+                    span#iteminfo= obj.name    
+                button#buybtn 구매하기
+        footer 푸터
