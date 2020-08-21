@@ -182,9 +182,41 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
     })
 
     router.get('/template/:productid', function(req, res){ // routing the request
-        Product.find({_id : req.params.productid})
+        Product.find({_id : req.params.productid}).populate('seller')
             .then(ord =>{
-                res.render('temp', {time: Date(), _title: 'PUG', obj : ord[0]});
+
+                let list = [];
+                let templist = [];
+                let curname = '';
+                let tempname = '';
+                if(ord[0].option.length > 0)
+                {
+                    curname = ord[0].option[0].name;
+                    for(let i = 0 ; i < ord[0].option.length; i++)
+                    {
+                        // console.log(i,'번째')
+                        tempname = ord[0].option[i].name;
+                        if(curname === tempname)
+                        {
+                            templist.push(ord[0].option[i]);
+                            // console.log('cur === temp일때 templist', templist)
+                        }
+                        else
+                        {
+                            list.push(templist);
+                            templist = [];
+                            templist.push(ord[0].option[i]);
+                            curname = tempname;
+                            // console.log('cur !== temp일때 list', list)
+                            // console.log('cur !== temp일때 templist', templist)
+                            // console.log('curname ', curname)
+
+                        }
+                    }        
+                    list.push(templist)
+                }
+                console.log(list)
+                res.render('temp', {time: Date(), _title: 'PUG', obj : ord[0], option : list});
             })
         
    });

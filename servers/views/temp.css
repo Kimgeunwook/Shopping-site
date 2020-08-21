@@ -1,40 +1,148 @@
 html { 
-    background-color: #F2F2F2;
+    background-color: #F5F5F5;
 }
 body {
     margin: 0 auto;
-    width : 900px;
+    width: 1050px;
+    padding-bottom: 170px;
     background-color : white;
-    text-justify: center;
-    text-align: center;
 }
-
 article {
-    width: 49%;
-    height: 200px;
-    border: 1px solid green;
+    padding : 0 px;
     float: left;
 }
-
 #RepresentPhoto{
-    width : 100%;
-    height: 100%;
+    padding-left: 10px;
+    width:400px;
 }
+
 content {
-    width: 50%;
+    float: right;
+    width: 500px;
+    padding: 10px;
     overflow:hidden;
     height:auto;
-    border: 1px solid red;
+}
+.contentSection
+{
+    margin-top: 20px;
+    width : 500px;   
+}
+#itemprice {
+    font-size: 14px;
+}
+#price {
+    
+    color: #ae0000;
+
+    font-weight : 700;
+    font-size : 28px;
+    letter-spacing : -.5px;
+}
+#priceunit {
+    
+    color: #ae0000;
+    font-weight : 700;
+    font-size : 18px;
+    vertical-align :2px;
+}
+#priceinfo {
+    margin-top : 7px;
+    display: block;
+    font-size: 14px;
+    color: #5f0080;
+    line-height: 20px;
+    letter-spacing: 0;
+}
+hr {
+    margin : 30px 0;
+    size : 5px;
+}
+#tit {
     float: left;
+    width: 150px;
+    font-size: 14px;
+    color: #666;
+    line-height: 20px;
+}
+#desc {
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 20px;
+    word-break: break-all;
+
+}
+strong {
+    font-size: 2em;
 }
 #list {
-    margin-bottom: 5%;
+    margin-top: 20px;
+}
+#minus{
+    line-height: 20px;
+}
+#plus {
+    line-height: 20px;
+}
+
+#quantitiyInput{
+    text-align: center;
+    text-justify: center;
+    line-height: 20px;
+    width : 50px;
+}
+#optionName {
+    font-weight : 700;
+    font-size : 18px;
+    vertical-align :2px;
+    margin : 16px 0 8px 0;
+}
+#btncontent {
+    margin-top: 32px;
+    overflow: hidden;
+    float: right;
+    width: 500px;
+    overflow:hidden;
+    height:auto;
 }
 #buybtn
 {
-    margin-bottom: 5%;
+    overflow: hidden;
+    float: right;
+    width: 256px;
+    height: 54px;
+    margin-right: 12px;
+    border: 1px solid #5f0080;
+    border-radius: 3px;
+    background: #5f0080;
+    font-weight: 700;
+    font-size: 16px;
+    color: #fff;
+    line-height: 52px;
+    letter-spacing: -.1px;
+    text-align: center;
+
 }
-footer {
+#basketbtn {
+    overflow: hidden;
+    float: right;
+    width: 128px;
+    height: 54px;
+    margin-right: 12px;
+    border: 1px solid #5f0080;
+    border-radius: 3px;
+    background: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    color: #5f0080;
+    line-height: 52px;
+    letter-spacing: -.1px;
+    text-align: center;
+
+}
+
+
+main {
     width: 100%;
     height: 100px;
     border: 1px solid blue;

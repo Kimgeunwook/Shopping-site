@@ -1,40 +1,61 @@
-
 html
     head
-        title 상품정보 화면2
+        title 상품정보 화면
         style
             include temp.css
     body
-        header= obj.name
+        
         container 
+
             article
-                img#RepresentPhoto(src= require("../../img/1597729295412adidas.jpg"))
+                img#RepresentPhoto(src= "https://thumbnail9.coupangcdn.com/thumbnails/remote/q89/image/vendor_inventory/1573/02f8ec3142615dcf621eb603cc74f6f696523e91b9872a26601536a3c917.JPG")
+
             content
-                div#list
-                    span#itemcategory 상품명 : 
-                    span#iteminfo= obj.name
-                div#list
-                    span#itemcategory 가격 : 
-                    span#iteminfo= obj.price
-                    span 원
-                div#list
-                    span#itemcategory 포인트 : 
-                    span#iteminfo= obj.reserveMethod
-                    
-                div#list
-                    span#itemcategory 상품 내용 : 
-                    span#iteminfo= obj.name
-                div#list
-                    span#itemcategory 상품 옵션 : 
-                    span#iteminfo= obj.name
-                div#list
-                    span#itemcategory 수량 : 
-                    span#iteminfo= obj.image[0]
-                div#list
-                    span#itemcategory 배송비 : 
-                    span#iteminfo= obj.name
-                div#list
-                    span#itemcategory 총 금액 : 
-                    span#iteminfo= obj.name    
-                button#buybtn 구매하기
-        footer 푸터
+                div.contentSection
+                    div#list
+                        span#itemname 
+                            strong= obj.name  
+                    div#list
+                        div#itemprice 가격  
+                        span#iteminfo
+                            span#price= obj.price
+                            span#priceunit 원
+                    span#priceinfo 로그인 후, 회원할인가와 적립혜택이 제공됩니다.
+                hr
+                div.contentSection   
+                    div#list
+                        span#tit 배송구분
+                        span#desc= obj.reserveMethod
+                    div#list
+                        span#tit 판매자
+                        span#desc= obj.seller.Name
+                    each val in obj.information
+                        div#list
+                            span#tit= val.info
+                            span#desc= val.description
+                hr
+                
+                div.contentSection        
+                    each i in option
+                        div#optionName= i[0].name
+                        select
+                            each variable in i
+                                option= '상세 옵션 : ' + variable.detail + '                   추가가격: ' + variable.price + '원     (재고 : ' + variable.stock + '개)'
+                                //- option(value= variable.detail + ' ' + variable.price + '원 (재고 : ' + variable.stock + '개)' ) 
+                        
+
+                    div#list           
+                        span#tit 구매수량  
+                        span#desc
+                            button(id = "minus") -
+                            input(id="quantitiyInput", type="text" value = 1) 
+                            button(id = "plus") +
+                    div#list   
+                        div#btncontent
+                            span
+                                button#buybtn 구매하기
+                                button#basketbtn 장바구니
+                                
+        main 상세내용
+        script
+            include temp.js

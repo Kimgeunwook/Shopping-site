@@ -35,7 +35,10 @@ db.once('open', function(){
     console.log("Connected to mongod server");
 });
 
-mongoose.connect('mongodb://localhost/mongodb_tutorial');
+mongoose.connect('mongodb://localhost/mongodb_tutorial',{
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 //CONECT views tempalte folder
 app.set('views', './servers/views'); // set the directory where your template files exist
