@@ -11,7 +11,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
-import { ListItemText } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,10 +66,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight :theme.spacing(2),
     marginBottom : theme.spacing(3),
   },
-  infoOptionbtn:{
-    marginRight :theme.spacing(2),
-    marginBottom : theme.spacing(3),
-  },
   img : {
   width: "120px",
   height: "160px",
@@ -97,17 +92,11 @@ export default function ProductAdd(props) {
   const [productObject, setproductObject] = useState()
   const [content, setContent] = useState();
   const [uploadedImg, setUploadedImg] = useState([]);
-  const [userId, setuserId] = useState('')
   const [imgList, setimgList] = useState([])
   const [imgDeleteFlag, setimgDeleteFlag] = useState(false)
   useEffect( () => {
 
-    axios.get("/api/user/who")
-      .then(res => {
-        setuserId(res.data.username)
-      })
-
-    if(props.object == undefined)
+    if(props.object === undefined)
      {
       sethiddenFlag(false); 
     }
@@ -122,7 +111,7 @@ export default function ProductAdd(props) {
     let isHost;
     await axios.get(`/api/product/getAuth?productId=${props.object[0]._id}`)
         .then(response => {
-          if(response.data == true) isHost = true;
+          if(response.data === true) isHost = true;
           else isHost = false;
         })    
     {isHost ? sethiddenFlag(false) : alert('상품의 주인이 아닙니다.') }
@@ -137,7 +126,7 @@ export default function ProductAdd(props) {
         productObject
       }
     }).then(function (response) {
-      if(imgDeleteFlag == false)
+      if(imgDeleteFlag === false)
       {
         window.location = "/App/ProductCheck"
       }
@@ -238,10 +227,10 @@ export default function ProductAdd(props) {
   }
 
   const deleteOption = (index, flag) => {
-    if(flag == 1)
+    if(flag === 1)
     {
       const list = [...inputListOption];
-      if(list.length != 1) 
+      if(list.length !== 1) 
       {
         list.splice(index, 1);
       }
@@ -250,11 +239,11 @@ export default function ProductAdd(props) {
     else
     {
       const list = [...productObject.option];
-      if(list.length != 1)
+      if(list.length !== 1)
       {
         const initname = list[index].name
         let cnt = 0;
-        for(let i = 0 ; i < list.length; i++) if(initname == list[i].name) cnt++;
+        for(let i = 0 ; i < list.length; i++) if(initname === list[i].name) cnt++;
         list.splice(index, cnt);
         setproductObject({
           ...productObject,
@@ -267,19 +256,19 @@ export default function ProductAdd(props) {
 
   const handleInputChangeOption = (e, index, j) => {
     const { name, value } = e.target;
-    if(name == 'optionName')
+    if(name === 'optionName')
     {
       const list = [...inputListOption];
       list[index][name] = value;
       setInputListOption(list);
     }
-    else if( name == 'detailName')
+    else if( name === 'detailName')
     {
       const list = [...inputListOption];
       list[index]['optionDetail'][j]['detail'] = value;
       setInputListOption(list);
     }
-    else if( name == 'lastNameone')
+    else if( name === 'lastNameone')
     {
       const list = [...inputListOption];
       list[index]['optionDetail'][j]['stock'] = value;
@@ -303,7 +292,7 @@ export default function ProductAdd(props) {
   };
   // handle click event of the Remove button
   const handleAddClickOption = (i, j, flag) => {
-    if(flag == 1)
+    if(flag === 1)
     {
       const list = [...inputListOption];
       list[i]['optionDetail'].push({detail: "", stock : "", price :""})
@@ -324,7 +313,7 @@ export default function ProductAdd(props) {
   };
   ///////////////////
   const removeOptionItem = (i, j, flag) => {
-    if(flag == 1)
+    if(flag === 1)
     {
       const list = [...inputListOption];
       list[i]['optionDetail'].splice(j, 1);
@@ -408,7 +397,7 @@ export default function ProductAdd(props) {
   };
 
   useEffect( () => {
-    if(imgDeleteFlag == true)
+    if(imgDeleteFlag === true)
     {
       putModify();
       setimgDeleteFlag(false);
@@ -434,7 +423,7 @@ export default function ProductAdd(props) {
 
         <Grid item xs>
           <Paper className={classes.paper}>
-          <TextField onChange ={handdleTextChange} className={classes.categoryText} disabled = {hiddenFlag? true : false} value = {hiddenFlag ? productObject.name : undefined} name = "name" size = "small"id="outline-search" label="상품명" variant="outlined"/>
+            <TextField onChange ={handdleTextChange} className={classes.categoryText} disabled = {hiddenFlag? true : false} value = {hiddenFlag ? productObject.name : undefined} name = "name" size = "small"id="outline-search" label="상품명" variant="outlined"/>
           </Paper>
         </Grid>
       </Grid>
@@ -497,7 +486,7 @@ export default function ProductAdd(props) {
           {
           (!hiddenFlag && !modifyMode) &&
                   <div className={classes.imglist}> 
-                    { uploadedImg != undefined &&
+                    { uploadedImg !== undefined &&
                         uploadedImg.map((x, i) => {
                           return (
                                   <span >
@@ -515,7 +504,7 @@ export default function ProductAdd(props) {
                     }
                 </div>
             }
-            {(uploadedImg.length == 0  && !hiddenFlag && !modifyMode)&&
+            {(uploadedImg.length === 0  && !hiddenFlag && !modifyMode)&&
             <>
             <input type="file"disabled = {hiddenFlag ? true : false}  onChange={onChangeimg} multiple encType="multipart/form-data"/>
             <button type="submit"disabled = {hiddenFlag ? true : false} onClick ={onSubmit} >Upload</button>
@@ -598,9 +587,9 @@ export default function ProductAdd(props) {
         <Grid item xs>
           <Paper className={classes.paper}>
           <FormGroup aria-label="position" row >
-                <FormControlLabel name = "newProduct"  value = "newProduct"  onChange={handleCheckbox} checked = {hiddenFlag && props.object[0].feature.indexOf("newProduct") != -1 ? true : checkFeature[0]["newProduct"]} disabled = {hiddenFlag ? true : false} control={<Checkbox color="primary" />} label="New" />
-                <FormControlLabel name = "bestProduct" value = "bestProduct" onChange={handleCheckbox} checked = {hiddenFlag && props.object[0].feature.indexOf("bestProduct") != -1 ? true : checkFeature[0]["bestProduct"]} disabled = {hiddenFlag ? true : false} control={<Checkbox color="primary" />} label="Best" />
-                <FormControlLabel name = "saleProduct" value = "saleProduct" onChange={handleCheckbox} checked = {hiddenFlag && props.object[0].feature.indexOf("saleProduct") != -1 ? true : checkFeature[0]["saleProduct"]} disabled = {hiddenFlag ? true : false}  control={<Checkbox color="primary" />} label="할인" />
+                <FormControlLabel name = "newProduct"  value = "newProduct"  onChange={handleCheckbox} checked = {hiddenFlag && props.object[0].feature.indexOf("newProduct") !== -1 ? true : checkFeature[0]["newProduct"]} disabled = {hiddenFlag ? true : false} control={<Checkbox color="primary" />} label="New" />
+                <FormControlLabel name = "bestProduct" value = "bestProduct" onChange={handleCheckbox} checked = {hiddenFlag && props.object[0].feature.indexOf("bestProduct") !== -1 ? true : checkFeature[0]["bestProduct"]} disabled = {hiddenFlag ? true : false} control={<Checkbox color="primary" />} label="Best" />
+                <FormControlLabel name = "saleProduct" value = "saleProduct" onChange={handleCheckbox} checked = {hiddenFlag && props.object[0].feature.indexOf("saleProduct") !== -1 ? true : checkFeature[0]["saleProduct"]} disabled = {hiddenFlag ? true : false}  control={<Checkbox color="primary" />} label="할인" />
           </FormGroup>
           </Paper>
         </Grid>
@@ -680,7 +669,7 @@ export default function ProductAdd(props) {
               
               
             </div>
-            <Button type="submit" variant="outlined" className={classes.infoOptionbtn}  color="primary" type = 'button'onClick = {addOption}>
+            <Button  variant="outlined" className={classes.infoOptionbtn}  color="primary" type = 'button'onClick = {addOption}>
                       추가 
               </Button>
           {
@@ -692,7 +681,7 @@ export default function ProductAdd(props) {
                         return (
                           <>
                           <div>
-                          {j == 0 &&
+                          {j === 0 &&
                                   <> 
                                   <Button variant="contained"  color="primary" className={classes.infoOptionbtn}  onClick={() => deleteOption(i, 1)}>
                                       옵션 삭제
@@ -700,7 +689,7 @@ export default function ProductAdd(props) {
                                   <TextField name="optionName" size = "small" className={classes.infoOption} value = {x.optionName} onChange={e => handleInputChangeOption(e, i)} label="옵션명" variant="outlined"/>
                                   </>}
 
-                          {j != 0 &&
+                          {j !== 0 &&
                                   <> 
                                   <Button variant="contained" style = {{visibility : 'hidden'}}  color="primary" className={classes.infoOptionbtn}  onClick={() => deleteOption(i)}>
                                       옵션 삭제
@@ -736,7 +725,7 @@ export default function ProductAdd(props) {
           productObject.option.map((x, i) => {
             return (
                       <div>
-                      {(i == 0 || x.name != productObject.option[i - 1].name ) &&
+                      {(i === 0 || x.name !== productObject.option[i - 1].name ) &&
                               <> 
                               <Button variant="contained" disabled = {!modifyMode ? true : false}  color="primary" className={classes.infoOptionbtn}  onClick={() => deleteOption(i, 2)}>
                                   옵션 삭제
@@ -744,7 +733,7 @@ export default function ProductAdd(props) {
                               <TextField name="name" size = "small" disabled = {!modifyMode ? true : false} className={classes.infoOption} value = {x.name} onChange={e => handleInputChangeOption2(e, i)} label="옵션명" variant="outlined"/>
                               </>}
 
-                      {(i != 0 && x.name == productObject.option[i - 1].name ) &&
+                      {(i !== 0 && x.name === productObject.option[i - 1].name ) &&
                               <> 
                               <Button variant="contained" style = {{visibility : 'hidden'}}  color="primary" className={classes.infoOptionbtn}  onClick={() => deleteOption(i,2)}>
                                   옵션 삭제
@@ -756,7 +745,7 @@ export default function ProductAdd(props) {
                       <TextField name="price"  size = "small" disabled = {!modifyMode ? true : false} className={classes.infoOption} value = {x.price} onChange={e => handleInputChangeOption2(e, i)} label="추가가격" variant="outlined"/>
                       <TextField name="stock"  size = "small" disabled = {!modifyMode ? true : false} className={classes.infoOption} value = {x.stock} onChange={e => handleInputChangeOption2(e, i)} label="재고" variant="outlined"/>
                       <span >
-                      {(productObject.option.length - 1 === i || x.name != productObject.option[i + 1].name )&& 
+                      {(productObject.option.length - 1 === i || x.name !== productObject.option[i + 1].name )&& 
                           <Button variant="contained" disabled = {!modifyMode ? true : false} color="primary" className={classes.infoOptionbtn}   onClick={() => handleAddClickOption(i, 1, 2)}>
                               Add
                           </Button>}

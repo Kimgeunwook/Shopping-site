@@ -1,7 +1,4 @@
-import React, {useState, useEffect } from 'react';
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
-import Title from './Title';
+import React, {useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -69,7 +66,7 @@ export default function NoticeAdd() {
   const handdleTextChange = (e) => {
     const name = e.target.name
     const value = e.target.value
-    if(name == 'type')
+    if(name === 'type')
     {
       setcategory(e.target.value)
     }

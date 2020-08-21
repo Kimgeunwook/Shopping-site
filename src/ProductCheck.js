@@ -13,11 +13,6 @@ import axios from 'axios';
 import ProductAdd from './ProductAdd';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -72,7 +67,7 @@ export default function ProdcutCheck() {
           setselectedProduct(response.data)
         })    
 
-        if(productId != 'init')
+        if(productId !== 'init')
         {
           setOpen(true);
         }
@@ -92,7 +87,7 @@ export default function ProdcutCheck() {
   
   
   useEffect(() => { //page값 조정
-    if(keyword == '') axios.get(`/api/product/check?page=${page}`)
+    if(keyword === '') axios.get(`/api/product/check?page=${page}`)
     .then(response => {
       setProducts(response.data)
     })

@@ -1,16 +1,12 @@
 import React, {useState , useEffect} from 'react';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import Title from './Title';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import RowList from './RowList.js';
-import Search from './Search';
 import PageControl from './PageControl';
 import {useHistory} from 'react-router-dom';
 import axios from 'axios';
@@ -49,9 +45,6 @@ export default function NoticeBoard() {
   const history = useHistory();
   const [NoticeBoard, setNoticeBoard] = useState([])
   const [page, setPage] = useState(1)
-  const [keyword, setkeyword] = useState('')
-  const [keyText, setkeyText] = useState('')
-  const keywordArr = [['type','분류'],['title', '제목'],['writer', '글쓴이']]
   useEffect(() => {
     axios.get(`/api/noticeBoard/table?page=${page}`)
     .then(response => {

@@ -55,7 +55,7 @@ export default function Orders() {
     })
   },[filt])
   useEffect(() => { //page값 조정
-    if(keyword == '') axios.get(`/api/order/table?filt=${filt}&page=${page}`)
+    if(keyword === '') axios.get(`/api/order/table?filt=${filt}&page=${page}`)
     .then(response => {
       setProducts(response.data)
     })

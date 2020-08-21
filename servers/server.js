@@ -27,7 +27,6 @@ app.use(passport.session()); // 세션 연결
 passportConfig(); // passport.js호출
   /////////////pass
 app.use(express.static(path.join(__dirname,'/../public')));
-
 // CONNECT TO MONGODB SERVER
 var db = mongoose.connection;
 db.on('error', console.error);
@@ -69,9 +68,6 @@ app.use('/api/order',OrderstateRouter);
 app.use('/api/user',userstateRouter);
 app.use('/api/product',ProductRouter);
 app.use('/api/noticeBoard',NoticeRouter);
-// app.get('/api/template', function(req, res){ // routing the request
-//      res.render('temp', {time: Date(), _title: 'PUG'});
-// });
 // [RUN SERVER]
 app.listen(port, function(){
  console.log("Express server has started on port " + port)
