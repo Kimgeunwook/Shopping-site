@@ -160,9 +160,7 @@ strong {
 }
 
 
-/* @media ( max-width: '30%' ) {
-    #RepresentPhoto {
-      width: 29%;
-    }
-    
-  } */
+@media screen and (max-width: 700px) {
+    /* 모바일에 사용될 스트일 시트를 여기에 작성. */
+    body { background-color: lightgreen; }
+}

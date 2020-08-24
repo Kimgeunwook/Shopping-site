@@ -28,6 +28,7 @@ import SignInSide from './SignInSide';
 import Customers from './Customers';
 import ProductCheck from './ProductCheck';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import NoticeDetail from './NoticeDetail';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -208,6 +209,7 @@ export default function App({match}) {
                 {categoryname === "NoticeBoard"  && <NoticeBoard />}
                 {categoryname === "ProductCheck"  && <ProductCheck />}
                 {categoryname === "NoticeAdd" && <NoticeAdd />}
+                {categoryname === "NoticeDetail" && <NoticeDetail />}
               </Paper>
             </Grid>
           </Grid>

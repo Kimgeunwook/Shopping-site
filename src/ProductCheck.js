@@ -44,6 +44,13 @@ const useStyles = makeStyles((theme) => ({
   productdetail:{
     padding : theme.spacing(5),
     marginTop: theme.spacing(2),
+  },
+  tablecell : {
+    width : '150px',
+    overflow : 'hidden', 
+    whiteSpace : 'nowrap', 
+    textOverflow : 'ellipsis' ,
+    tableLayout : 'fixed',
   }
 }));
 
@@ -127,12 +134,12 @@ export default function ProdcutCheck() {
         <TableBody>
         {Products.map((product) => (
             <TableRow key={product._id}>
-              <TableCell>{product.name}</TableCell>
-              <TableCell>{product.seller.Name}</TableCell>
-              <TableCell>{product.price}</TableCell>
-              <TableCell>{product.site}</TableCell>
-              <TableCell>{product.category}</TableCell>    
-              <TableCell><Button variant="contained" value ={product._id} color="primary" onClick={() => setproductID(product._id)}>상세보기</Button></TableCell>
+              <TableCell ><div className={classes.tablecell}>{product.name}</div></TableCell>
+              <TableCell ><div className={classes.tablecell}>{product.seller.Name}</div></TableCell>
+              <TableCell ><div className={classes.tablecell}>{product.price}</div></TableCell>
+              <TableCell ><div className={classes.tablecell}>{product.site}</div></TableCell>
+              <TableCell ><div className={classes.tablecell}>{product.category}</div></TableCell>
+              <TableCell className={classes.tablecell}><Button variant="contained" value ={product._id} color="primary" onClick={() => setproductID(product._id)}>상세보기</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -52,7 +52,6 @@ export default function NoticeBoard() {
     })
   },[])
 
- 
   return (
     <React.Fragment >      
     <Title >게시판</Title>
@@ -69,7 +68,7 @@ export default function NoticeBoard() {
         {NoticeBoard.map((notice) => (
             <TableRow key={notice._id}>
               <TableCell>{notice.type}</TableCell>
-              <TableCell><a>{notice.title}</a></TableCell>
+              <TableCell><a href = {`/App/NoticeDetail?id=${notice._id}`} >{notice.title}</a></TableCell>
               <TableCell>{notice.writer.Name}</TableCell>
               <TableCell>{notice.writeDate.substr(0,10)}</TableCell>    
             </TableRow>

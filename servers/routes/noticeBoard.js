@@ -23,7 +23,14 @@ module.exports = function(app, NoticeBoard){//함수로 만들어 객체 app을 
         .then(ord =>{
             res.send(ord)
         })
-
+    })
+    
+    router.get('/detail', function (req, res) {
+        const id = req.query.id
+        NoticeBoard.find({_id : id}).populate('writer')
+        .then(ord =>{
+            res.send(ord)
+        })
 	})
     return router;	//라우터를 리턴
 };
