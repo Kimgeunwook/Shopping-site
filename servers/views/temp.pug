@@ -8,7 +8,7 @@ html
         container 
 
             article
-                img#RepresentPhoto(src= "https://thumbnail9.coupangcdn.com/thumbnails/remote/q89/image/vendor_inventory/1573/02f8ec3142615dcf621eb603cc74f6f696523e91b9872a26601536a3c917.JPG")
+                img#RepresentPhoto(src= `http://localhost:3000/api/product/imgs/${obj.image[0]}`)
 
             content
                 div.contentSection
@@ -56,6 +56,12 @@ html
                                 button#buybtn 구매하기
                                 button#basketbtn 장바구니
                                 
-        main 상세내용
+        main#main 
+            div#mainContent
+                each i in obj.image
+                    div
+                        img#detailPhoto(src= `http://localhost:3000/api/product/imgs/${i}`)
+                        div 상품사진
+                
         script
             include temp.js

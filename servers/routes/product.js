@@ -167,6 +167,7 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
     });
 
     router.get('/imgs/:imgId',function(req, res){
+        console.log('이미지 요청 들어옴~!')
         fs.readFile(path.join(__dirname,`/../../img/`+ req.params.imgId),function(error, data){
             res.writeHead(200, { "Context-Type": "image/jpg" });//보낼 헤더를 만듬
             res.write(data);   //본문을 만들고
@@ -215,7 +216,6 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
                     }        
                     list.push(templist)
                 }
-                console.log(list)
                 res.render('temp', {time: Date(), _title: 'PUG', obj : ord[0], option : list});
             })
         
