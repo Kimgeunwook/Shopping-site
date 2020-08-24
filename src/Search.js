@@ -35,20 +35,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-// function btnClick(){
-//     // const fetchUsers = async () => {
-//     //   try{
-//     //      const response = await Axios.get('/api/books');
-//     //      console.log(response.data)
-//     //   }catch (e){
-//     //       console.log(e)
-//     //   }
-//     // }
-//     // fetchUsers();
-  
-// }
-
 export default function CenteredGrid(props) {
   const classes = useStyles();
   const [searchKeyword, setsearchKeyword] = useState('')
@@ -62,7 +48,6 @@ export default function CenteredGrid(props) {
     props.btnfunc()
   }
   return (
-    // justify="flex-end"
     <div className={classes.root}>
       <Grid container spacing={0} justify = 'center' >
         <Grid item xs={5}  className={classes.leftcomp}>

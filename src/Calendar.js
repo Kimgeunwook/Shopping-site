@@ -71,7 +71,7 @@ function DatePickers(props) {
     <div className={classes.calendarentity}>
       <TextField
         id="dateFrom"
-        label="주문일(부터)"
+        label="일(부터)"
         type="date"
         className={classes.textField}
         onChange={onChangeDate}
@@ -82,7 +82,7 @@ function DatePickers(props) {
 
       <TextField
               id="dateTo"
-              label="주문일(까지)"
+              label="일(까지)"
               type="date"
               className={classes.textField}
               onChange={onChangeDate2}

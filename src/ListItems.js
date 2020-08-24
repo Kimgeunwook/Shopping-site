@@ -55,7 +55,7 @@ export default function ListItems() {
               </ListItem>
 
               <ListItem button
-              onClick = {() => history.push('/App/Orders')}>
+              onClick = {() => history.push('/App/HOME')}>
                 <ListItemIcon>
                   <ShoppingCartIcon />
                 </ListItemIcon>
@@ -79,13 +79,6 @@ export default function ListItems() {
             </AccordionSummary>
             <AccordionDetails>
               <div className={classes.AccordionDetail}>
-              <ListItem button 
-              onClick = {() => history.push('/App/HOME')}>
-                <ListItemIcon>
-                  <DashboardIcon />
-                </ListItemIcon>
-                회원관리1
-              </ListItem>
 
               <ListItem button
               onClick = {() => history.push('/App/Customers')}>
@@ -112,13 +105,6 @@ export default function ListItems() {
             </AccordionSummary>
             <AccordionDetails>
               <div className={classes.AccordionDetail}>
-              <ListItem button 
-              onClick = {() => history.push('/App/HOME')}>
-                <ListItemIcon>
-                  <DashboardIcon />
-                </ListItemIcon>
-                주문관리1
-              </ListItem>
 
               <ListItem button
               onClick = {() => history.push('/App/Orders')}>
