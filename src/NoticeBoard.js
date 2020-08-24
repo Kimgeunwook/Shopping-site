@@ -10,9 +10,6 @@ import TableRow from '@material-ui/core/TableRow';
 import PageControl from './PageControl';
 import {useHistory} from 'react-router-dom';
 import axios from 'axios';
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {

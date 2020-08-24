@@ -42,8 +42,6 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
 						res.redirect('/')
 					})
 				})
-				// await User.register(user, password);
-                // res.redirect('/')
             } catch (error) {
                 console.log(error);
                 res.redirect('/SignUp');

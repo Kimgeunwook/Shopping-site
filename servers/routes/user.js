@@ -10,10 +10,6 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
     })
 
     router.get('/table', function (req, res) {
-        // User.find().skip((req.query.page - 1) * 10).skip((req.query.page - 1) * 10).limit(10)
-        //         .then(ord =>{
-        //             res.send(ord)
-        //         })
         const keyword = req.query.keyword 
         const keyText = req.query.keyText 
         
@@ -75,7 +71,7 @@ module.exports = function(app, User){//함수로 만들어 객체 app을 전달�
         User.updateOne({_id : req.user._id},req.body.userObject, function(err,output){
             if(err) res.status(500).json({ error: 'database failure' });
             console.log(output);
-            if(!output) return res.status(404).json({ error: 'book not found' });
+            if(!output) return res.status(404).json({ error: 'user not found' });
             res.end();
         })
 

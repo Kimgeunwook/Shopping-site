@@ -159,8 +159,20 @@ strong {
     margin-top : 64px;
 }
 
-
-@media screen and (max-width: 700px) {
+/* 원래는 맥스 480 */
+@media(max-width: 600px)  { 
     /* 모바일에 사용될 스트일 시트를 여기에 작성. */
-    body { background-color: lightgreen; }
+    body {
+        width : 400px;
+        background-color: lightgreen;
+     }
+     container {
+        width: 360px;
+     }
+    article {
+        width: 360px;
+    }
+    content {
+        width : 360px;
+    }
 }

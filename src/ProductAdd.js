@@ -217,7 +217,7 @@ export default function ProductAdd(props) {
      {
         setInputListOption([...inputListOption, { optionName: "",  optionDetail: [{detail:"", stock : "", price :""}]}]);
      }
-     if(hiddenFlag || !hiddenFlag && modifyMode)
+     if(hiddenFlag || (!hiddenFlag && modifyMode) )
      {
       setproductObject({
         ...productObject,
@@ -629,7 +629,7 @@ export default function ProductAdd(props) {
           })}
           
           {
-           (hiddenFlag || !hiddenFlag && modifyMode)  &&
+           (hiddenFlag || (!hiddenFlag && modifyMode))  &&
           productObject.information.map((x, i) => {
             return (
                 <div >
@@ -721,7 +721,7 @@ export default function ProductAdd(props) {
             })}
 
             {
-           (hiddenFlag || !hiddenFlag && modifyMode)  &&
+           (hiddenFlag || (!hiddenFlag && modifyMode))  &&
           productObject.option.map((x, i) => {
             return (
                       <div>

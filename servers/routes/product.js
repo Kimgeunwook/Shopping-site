@@ -159,15 +159,12 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
       });
 
     router.post("/uploadimg", upload.array("img"), function(req, res, next) {
-        // console.log(req.files)
         res.send({
-            // fileName: req.file.filename
             imgfiles: req.files
         });
     });
 
     router.get('/imgs/:imgId',function(req, res){
-        console.log('이미지 요청 들어옴~!')
         fs.readFile(path.join(__dirname,`/../../img/`+ req.params.imgId),function(error, data){
             res.writeHead(200, { "Context-Type": "image/jpg" });//보낼 헤더를 만듬
             res.write(data);   //본문을 만들고
@@ -200,7 +197,6 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
                         if(curname === tempname)
                         {
                             templist.push(ord[0].option[i]);
-                            // console.log('cur === temp일때 templist', templist)
                         }
                         else
                         {
@@ -208,10 +204,6 @@ module.exports = function(app, Product){//함수로 만들어 객체 app을 전�
                             templist = [];
                             templist.push(ord[0].option[i]);
                             curname = tempname;
-                            // console.log('cur !== temp일때 list', list)
-                            // console.log('cur !== temp일때 templist', templist)
-                            // console.log('curname ', curname)
-
                         }
                     }        
                     list.push(templist)
