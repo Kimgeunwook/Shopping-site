@@ -5,7 +5,8 @@ import Main from './Main';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from 'react-router-dom';
 ReactDOM.render(
-  <BrowserRouter>
+  //react router 사용하기 위해 취상단을 BrowserRouter로 감싸기
+  <BrowserRouter> 
     <Main />
   </BrowserRouter>,
   document.getElementById('root')

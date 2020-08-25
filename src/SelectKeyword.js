@@ -52,11 +52,6 @@ export default function SelectKeyword(props) {
             {Arr.map((list) => (
                 <MenuItem key = {list[0]} value={list[0]}>{list[1]}</MenuItem>       
                   ))}  
-         
-          {/* <MenuItem value={"orderNum"}>주문 번호</MenuItem>
-          <MenuItem value={"name"}>주문 상품</MenuItem>
-          <MenuItem value={"seller"}>판매자</MenuItem>
-          <MenuItem value={"buyer"}>주문자</MenuItem> */}
         </Select>
       </FormControl>
     </div>

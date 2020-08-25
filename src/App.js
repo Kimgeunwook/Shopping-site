@@ -29,6 +29,8 @@ import Customers from './Customers';
 import ProductCheck from './ProductCheck';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import NoticeDetail from './NoticeDetail';
+
+//화면 밑에 copyright하면서 나오는 문구 컴포넌트
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -44,6 +46,8 @@ function Copyright() {
 
 const drawerWidth = 240;
 
+
+//material ui 사용하는부분 (=css같은 역할)
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -129,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
 export default function App({match}) {
   // URL에서 APP다음 오는애가 누군지 알아내는 부분
   const history = useHistory();
-  const {categoryname} = match.params
+  const {categoryname} = match.params //브라우저에서 www.사이트이름/App/abc 이렇게 입력하면 match.params에 abc가 들어온다
   
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
@@ -166,7 +170,8 @@ export default function App({match}) {
             {categoryname}
           </Typography>
           
-          <IconButton color="inherit" onClick = {() => history.push('/App/ModifyUserInfo')}>
+          {/* history.push() 인자 안에 있는 상대경로로 이동 */}
+          <IconButton color="inherit" onClick = {() => history.push('/App/ModifyUserInfo')}> 
               <AccountCircleIcon/>
           </IconButton>
         </Toolbar>
@@ -176,6 +181,7 @@ export default function App({match}) {
       <Drawer
         variant="permanent"
         classes={{
+          //clsx = 조건에 따라 클래스명을 줄수 있는 npm 모듈
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
         open={open}
@@ -201,7 +207,7 @@ export default function App({match}) {
           <Grid container spacing={3} >
             <Grid item xs={12}  >
               <Paper className={classes.paper} >
-                {/* {categoryname === "HOME"  && <Home /> } */}
+                {/* url 에서 App/{컴포넌트이름} 에 따라 어떤 컴포넌트를 띄워주는지 결정하는 부분 */}
                 {categoryname === "ModifyUserInfo"  && <ModifyUserInfo />}
                 {categoryname === "Orders"  && <Orders />}
                 {categoryname === "Customers"  && <Customers />}
