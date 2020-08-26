@@ -9,11 +9,20 @@
 
 # running
 ```
-1. mongodb setup(env)
+로컬버전
+
+1. mongodb setup(env)   
 2. create folder in C:\data\db 
 3. cmd -> mongod
 4. npm install 
 5. npm start
+
+
+클라이언트 - 서버 분리버전
+1. servers/server.js 38 line에 몽고서버 url로 변경
+2. cmd에 cd servers 명령어 실행후 node server.js명령어로 서버구동
+3. 클라이언트 실행시키기 위해서는 package.json의 scripts의 1~3줄을 [ "start": "react-scripts start", ] 로 대체
+4. 그후 프로젝트 폴더 최상위에서 npm start로 클라이언트 실행
 ```
 
 # solution
