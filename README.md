@@ -1,13 +1,7 @@
 # Shopping website  
 # 시스템 구성도  
 <img src="https://user-images.githubusercontent.com/48399897/136685496-e0c7864c-0d65-40b6-80f8-b5eedcb5ddd6.PNG" width="96%" height="64%"  >  
-# Stack
-- React
-- Material Ui
-- Node js
-- Express
-- Mongo DB
-- Mongoose
+
 
 # running
 ```
