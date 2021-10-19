@@ -25,20 +25,23 @@
 
 # 3. 기술적 문제 해결  
 <details markdown="1">   
-<summary>3-1. Refactoring</summary>  
+<summary> 3-1. Refactoring (자세히 보기)</summary>  
 
+##  코드 유지 보수성과 효율적 렌더링을 위해 MVC2, CSR적용.    
+
+<p align="center"><img src="https://user-images.githubusercontent.com/48399897/137914949-ccc50122-54a2-44c4-8724-9d27a640d87c.PNG" width="100%" height="100%"  ></p>
 </details> 
-
+<br/>  
 
 <details markdown="1">   
-<summary>3-2. CORS</summary>  
+<summary> 3-2. CORS (자세히 보기)</summary>  
 
+##  Proxy를 사용하여 port가 다른 출처간의 CORS 문제 해결.    
+
+<p align="center"><img src="https://user-images.githubusercontent.com/48399897/137914939-b8343860-3128-4a45-b9f4-a57f6cb7d707.png" width="100%" height="100%"  ></p>
 </details> 
+<br/>
 
-<details markdown="1">   
-<summary>3-3. Denormalization</summary>  
-
-</details> 
 
 <br/>
 <br/>
@@ -53,6 +56,7 @@
 > - mongdb --- express 연동 : https://velopert.com/594
 > - react --- nodejs 연동 : https://hello-bryan.tistory.com/122
 > - 클라 - 서버 통신 안됐던 이유 : cross domain문제로 setuproxy에서 지정한 루트로 접근해야함
+> - cors관련 : https://velog.io/@maliethy/nextjs-reverse-proxy%EB%A1%9C-cors%EC%97%90%EB%9F%AC-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0
 </details> 
 
 <details markdown="1">   
